@@ -107,7 +107,6 @@ xhttp.onreadystatechange = function() {
 };
 
 function xhttpRequest(){
-    document.getElementById("TABLE").innerHTML = "Loading... this make take a minute...";
     dateForm = document.getElementById("date").value;
     let valid = false;
     let  API_Call = "";
@@ -130,6 +129,12 @@ function xhttpRequest(){
     }
     
     if (valid){
+        if(document.querySelector("#download").checked === true){
+            document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
+        } else if (document.querySelector("#make-table").checked === true){
+            document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
+        }
+
         xhttp.open("GET", API_Call, true);
         xhttp.send();
         document.getElementById("myInput").value = "";
@@ -227,8 +232,10 @@ if(document.querySelector("#imports").checked){
     type = "exports";            
 }
 
+file_name = type+"-porths-"+document.getElementById("date").value+".csv"
+
 // Download csv file 
-temp_link.download = type+"-porths-"+document.getElementById("date").value+".csv";
+temp_link.download = file_name;
 var url = window.URL.createObjectURL(CSVFile);
 temp_link.href = url;
 
@@ -240,4 +247,5 @@ document.body.appendChild(temp_link);
 // trigger download
 temp_link.click();
 document.body.removeChild(temp_link);
+document.getElementById("FLAG").innerHTML = '<h2>'+file_name+' has been saved to your downloads folder.</h2>';
 }
