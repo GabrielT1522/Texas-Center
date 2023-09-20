@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Dataset Information</title>
+  </head>
+  <body>
+    <h1>Dataset Information</h1>
+    <table>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Title</td>
+        <td id="title"></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td id="description"></td>
+      </tr>
+    </table>
+    <div>
+      <input type="radio" id="imports" name="port-type" />
+      <label for="imports">Imports</label>
+      <input type="radio" id="exports" name="port-type" />
+      <label for="exports">Exports</label>
+      <h1 id="title-date"></h1>
+    </div>
+    <form id="date-form" action="#" onsubmit="xhttpRequest();return false">
+      <div>
+        <label for="date">Please enter month and year: </label>
+        <input id="date" type="month" name="date" min="2000-01" max="2023-07" required />
+        <span class="validity"></span>
+        <label for="district">Choose a District:</label>
+        <select name="district" id="DISTRICT">
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <input type="checkbox" id="make-table" name="make-table"/>
+          <label for="make-table">Make Web Table</label>
+          <input type="checkbox" id="download" name="download" checked />
+          <label for="download">Download Data</label>
+        </select>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+    <h2>Search</h2>
+    <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Search by 4 Digit District-Port Code" title="Type in a name">
+    <p id="TABLE"></p>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
