@@ -63,18 +63,18 @@ function makeTableHTML(myArray) {
     return result;
 }
 
-var myObj;
+var API_DATA;
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        myObj = JSON.parse(xhttp.responseText);
+        API_DATA = JSON.parse(xhttp.responseText);
 
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
-    myObj[0].splice(1, 0, "District", "Port", "trade_type");
+    API_DATA[0].splice(1, 0, "District", "Port", "trade_type");
 
 
     // Iterate through the array and populate "import" or "export" based on your if statement
-    for (var i = 1; i < myObj.length; i++) {
+    for (var i = 1; i < API_DATA.length; i++) {
         var trade_type;
         
         // Replace this with your if statement to determine trade_type
@@ -85,22 +85,22 @@ xhttp.onreadystatechange = function() {
         }
 
         // Split the 4-digit "port" field into "District" and "Port"
-        var port = myObj[i][8].toString(); // Assuming "port" is in the second column
+        var port = API_DATA[i][8].toString(); // Assuming "port" is in the second column
         var district = port.slice(0, 2);
         var portNumber = port.slice(2, 4);
 
         // Add the "District" and "Port" values to the sub-array at the appropriate positions
-        myObj[i].splice(1, 0, district, portNumber, trade_type);
+        API_DATA[i].splice(1, 0, district, portNumber, trade_type);
 
         
     }
 
     if(document.querySelector("#make-table").checked === true){
-        document.getElementById("TABLE").innerHTML = makeTableHTML(myObj);
+        document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
     }
 
     if(document.querySelector("#download").checked === true){
-        arrayToCSV(myObj);
+        arrayToCSV(API_DATA);
     }
     
     }
