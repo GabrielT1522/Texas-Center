@@ -22,24 +22,38 @@
         <td id="description"></td>
       </tr>
     </table>
-    <div>
-      <input type="radio" id="imports" name="port-type" />
-      <label for="imports">Imports</label>
-      <input type="radio" id="exports" name="port-type" />
-      <label for="exports">Exports</label>
-      <h1 id="title-date"></h1>
-    </div>
+    
+    <h2 id="title-date">Internatinal Trade Data API Request Form</h2>
     <form id="date-form" action="#" onsubmit="xhttpRequest();return false">
       <div>
-        <label for="date">Please enter month and year: </label>
-        <input id="date" type="month" name="date" min="2000-01" max="2023-07" required />
-        <span class="validity"></span>
-        <label for="district">Choose a District:</label>
-        <select name="district" id="DISTRICT">
-          <option value="23">23</option>
-          <option value="24">24</option>
-          <option value="25">25</option>
-          <option value="26">26</option>
+        <div>
+          <input type="radio" id="imports" name="port-type" />
+          <label for="imports">Imports</label>
+          <input type="radio" id="exports" name="port-type" />
+          <label for="exports">Exports</label>
+        </div>
+        
+        <div>
+          <label for="date">Please enter month and year: </label>
+          <input id="date" type="month" name="date" min="2000-01" max="2023-07" required />
+          <span class="validity"></span>
+        </div>
+
+        <div>
+          <label for="CommodityInput">Enter 6 Digit Commodity Code:</label>
+          <input type="text" id="CommodityInput" maxlength="6" oninput="validateCommodity()">
+          <p id="resultMessage"></p>
+        </div>
+       
+        <div>
+          <label for="district">Choose a District:</label>
+          <select name="district" id="DISTRICT">
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+        </div>
+        
           <input type="checkbox" id="make-table" name="make-table"/>
           <label for="make-table">Make Web Table</label>
           <input type="checkbox" id="download" name="download" checked />

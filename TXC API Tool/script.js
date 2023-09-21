@@ -15,33 +15,6 @@ async function populateTable(url) {
         const JSONdata = await fetchJSONData(url);
         document.getElementById("title").textContent = JSONdata.dataset[0].title;
         document.getElementById("description").textContent = JSONdata.dataset[0].description;
-        /*
-        const properties = [
-            { label: "Access Level", key: "accessLevel" },
-            { label: "Modified", key: "modified" },
-            { label: "Bureau Code", key: "bureauCode" },
-            { label: "Identifier", key: "identifier" },
-            { label: "Spatial", key: "spatial" },
-            { label: "License", key: "license" },
-            { label: "Program Code", key: "programCode" },
-            { label: "Variables link", key: "c_variablesLink" }, // <a href='c_variablesLink'></a>
-        ];
-        
-        
-        const tableBody = document.querySelector("table");
-
-        properties.forEach(property => {
-            const row = document.createElement("tr");
-            const labelCell = document.createElement("td");
-            const valueCell = document.createElement("td");
-
-            labelCell.textContent = property.label;
-            valueCell.textContent = JSONdata.dataset[0][property.key];
-
-            row.appendChild(labelCell);
-            row.appendChild(valueCell);
-            tableBody.appendChild(row);
-        });*/
     } catch (error) {
         console.error("Error populating table:", error);
     }
@@ -91,8 +64,6 @@ xhttp.onreadystatechange = function() {
 
         // Add the "District" and "Port" values to the sub-array at the appropriate positions
         myObj[i].splice(1, 0, district, portNumber, trade_type);
-
-        
     }
 
     if(document.querySelector("#make-table").checked === true){
@@ -130,8 +101,10 @@ function xhttpRequest(){
     
     if (valid){
         if(document.querySelector("#download").checked === true){
+            document.getElementById("FLAG").innerHTML = '';
             document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
         } else if (document.querySelector("#make-table").checked === true){
+            document.getElementById("TABLE").innerHTML = '';
             document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
         }
 
@@ -139,37 +112,6 @@ function xhttpRequest(){
         xhttp.send();
         document.getElementById("myInput").value = "";
     }   
-}
-
-function monthName(month){
-    switch(month){
-        case "01": return "January";
-        break;
-        case "02": return "February";
-        break;
-        case "03": return "March";
-        break;
-        case "04": return "April";
-        break;
-        case "05": return "May";
-        break;
-        case "06": return "June";
-        break;
-        case "07": return "July";
-        break;
-        case "08": return "August";
-        break;
-        case "09": return "September";
-        break;
-        case "10": return "October";
-        break;
-        case "11": return "November";
-        break;
-        case "12": return "December";
-        break;
-        default:
-        break;
-    }
 }
 
 function filterSearch() {
@@ -192,6 +134,22 @@ for (i = 0; i < tr.length; i++) {
     }    
 }
 }
+
+function validateCommodity() {
+    // Get the input field value
+    var inputField = document.getElementById("CommodityInput");
+    var inputValue = inputField.value;
+
+    // Check if the input is a valid even number
+    if (/^\d{1,6}$/.test(inputValue) && inputValue % 2 === 0) {
+        // Valid even number
+        document.getElementById("resultMessage").textContent = "Valid Commodity Code";
+    } else {
+        // Invalid input
+        document.getElementById("resultMessage").textContent = "Invalid Commodity Code";
+    }
+}
+
 
 // Convert to csv file seperated by '^'
 
@@ -247,5 +205,5 @@ document.body.appendChild(temp_link);
 // trigger download
 temp_link.click();
 document.body.removeChild(temp_link);
-document.getElementById("FLAG").innerHTML = '<h2>'+file_name+' has been saved to your downloads folder.</h2>';
+document.getElementById("FLAG").innerHTML = '<p class="flag">'+file_name+' has been saved to your downloads folder.</p>';
 }

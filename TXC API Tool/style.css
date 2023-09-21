@@ -46,6 +46,11 @@ border-bottom: 1px solid #ddd;
 background-color: #f1f1f1;
 }
 
+.flag{
+  font-style: italic;
+  color: gray;
+}
+
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
