@@ -27,18 +27,23 @@
         </table>
       </div>
       <div class="body">
-        <form id="date-form" action="#" onsubmit="xhttpRequest();return false">
-          <div>
+        <form id="date-form" action="#" onsubmit="validateForm();return false">
+          <div required >
             <input type="radio" id="imports" name="port-type" />
             <label for="imports">Imports</label>
             <input type="radio" id="exports" name="port-type" />
             <label for="exports">Exports</label>
-            <h1 id="title-date"></h1>
+            <h1 id="title-date">District ## Type in Date</h1>
           </div>
           <div>
             <label for="date">Please enter month and year: </label>
             <input id="date" type="month" name="date" min="2000-01" max="2023-07" required />
-            <span class="validity"></span>
+            
+            <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
+            <input type="text" id="commodityInput" maxlength="6"disabled/>
+            <input type="checkbox" id="all-commodity" name="All Commodity" checked/>
+            <p id="validationMessage"></p>
+
             <label for="district">Choose a District:</label>
             <select name="district" id="DISTRICT">
               <option value="23">23</option>
@@ -50,6 +55,7 @@
               <input type="checkbox" id="download" name="download" checked />
               <label for="download">Download Data</label>
             </select>
+            <span class="validity"></span>
           </div>
           <input type="submit" value="Submit">
         </form>

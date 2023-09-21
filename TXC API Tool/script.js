@@ -84,16 +84,27 @@ function xhttpRequest(){
     let valid = false;
     let  API_Call = "";
     district = document.getElementById("DISTRICT").value;
+    commodity = document.getElementById("commodityInput").value;
 
-    if (document.querySelector("#imports").checked && document.querySelector("#exports").checked) {
+    if(commodity === ""){
+        commodity = "COMM_LVL=HS6";
+    }else{
+        if(document.querySelector("#imports").checked){
+            commodity = "I_COMMODITY="+commodity;
+        } else if(document.querySelector("#exports").checked){
+            commodity = "E_COMMODITY="+commodity;
+        }
+    }
+
+    if (document.querySelector("#imports").checked && document.querySelector("#exports").checked) {	
         alert("Please select only one trade type.")
     } else if(document.querySelector("#imports").checked){
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,CTY_CODE,I_COMMODITY,GEN_VAL_MO,PORT_NAME,CTY_NAME,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT="+district+"*&time="+dateForm;
+        API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,CTY_CODE,I_COMMODITY,GEN_VAL_MO,PORT_NAME,CTY_NAME,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/imports/porths");
         document.getElementById("title-date").innerHTML = "District "+district+" Imports in "+dateForm;
     } else if(document.querySelector("#exports").checked){
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,CTY_CODE,E_COMMODITY,ALL_VAL_MO,PORT_NAME,CTY_NAME,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT="+district+"*&time="+dateForm;
+        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,CTY_CODE,E_COMMODITY,ALL_VAL_MO,PORT_NAME,CTY_NAME,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/exports/porths");
         document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+dateForm;
@@ -137,20 +148,52 @@ for (i = 0; i < tr.length; i++) {
 }
 }
 
-function validateCommodity() {
-    // Get the input field value
-    var inputField = document.getElementById("CommodityInput");
-    var inputValue = inputField.value;
-
-    // Check if the input is a valid even number
-    if (/^\d{1,6}$/.test(inputValue) && inputValue % 2 === 0) {
-        // Valid even number
-        document.getElementById("resultMessage").textContent = "Valid Commodity Code";
-    } else {
-        // Invalid input
-        document.getElementById("resultMessage").textContent = "Invalid Commodity Code";
+document.getElementById('all-commodity').onchange = function() {
+    if(this.checked==true){
+     document.getElementById("commodityInput").disabled=true;
+     document.getElementById("commodityInput").focus();
+     document.getElementById("commodityInput").value = "";
     }
+    else{
+     document.getElementById("commodityInput").disabled=false;
+    }
+   };
+
+   function validateForm() {
+    var dateField = document.getElementById("date");
+    var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
+
+    // Check if the calendar field has a value
+    if (dateField.value === "") {
+        document.getElementById("validationMessage").textContent = "Please select a date.";
+        return false; // Prevent form submission
+    }
+
+    // Check if the "validateCommodity" field is required
+    var numericField = document.getElementById("commodityInput");
+    var inputValue = numericField.value;
+    var isCommodityRequired = !isCheckedAllCommodity;
+
+    // Set the "required" attribute based on the checkbox
+    numericField.required = isCommodityRequired;
+
+    if (isCommodityRequired) {
+        // If the checkbox is not checked, validate the input
+        if (/^\d+$/.test(inputValue) && inputValue.length <= 6 && inputValue.length % 2 === 0) {
+            document.getElementById("validationMessage").textContent = "Valid input!";
+            xhttpRequest();
+            return true; // Allow form submission
+        } else {
+            document.getElementById("validationMessage").textContent = "Invalid input. Please enter a numeric value with an even number of characters (up to 6 digits).";
+            return false; // Prevent form submission
+        }
+    }
+
+    document.getElementById("validationMessage").textContent = "";
+    xhttpRequest();
+    return true;
 }
+
 
 
 // Convert to csv file seperated by '^'
