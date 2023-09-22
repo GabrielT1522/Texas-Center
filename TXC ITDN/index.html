@@ -3,10 +3,30 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <title>TXC ITDN</title>
+    
+    <title>TCBEED International Trade Data Navigator</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootsrap-min.css">
+    <link rel="stylesheet" href="style-rk.min.css">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="http://texascenter.tamiu.edu/images/home/txcfav.ico">
+
   </head>
   <body>
+    <main>
+      <!-- Texcen Main Navigation --> 
+		<nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
+              <img src="logoPrimary.svg" alt="" height="52"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+    </nav> 
+    <!-- end Navigation -->
+  
     <section class="layout">
       <div class="header">
         <h1><center>Texas Center International Trade Data Navigator</center></h1>
@@ -26,6 +46,7 @@
           </tr>
         </table>
       </div>
+      <h2 id="title-date">District ## Type in Date</h2>
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
           <div required >
@@ -33,16 +54,16 @@
             <label for="imports">Imports</label>
             <input type="radio" id="exports" name="port-type" />
             <label for="exports">Exports</label>
-            <h1 id="title-date">District ## Type in Date</h1>
+            
           </div>
           <div>
             <label for="date">Please enter month and year: </label>
             <input id="date" type="month" name="date" min="2000-01" max="2023-07" required />
             
             <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
-            <input type="text" id="commodityInput" maxlength="6"disabled/>
             <input type="checkbox" id="all-commodity" name="All Commodity" checked/>
-            <p id="validationMessage"></p>
+            <input type="text" id="commodityInput" maxlength="6"disabled/>
+            
 
             <label for="district">Choose a District:</label>
             <select name="district" id="DISTRICT">
@@ -50,7 +71,7 @@
               <option value="24">24</option>
               <option value="25">25</option>
               <option value="26">26</option>
-              <input type="checkbox" id="make-table" name="make-table"/>
+              <input type="checkbox" id="make-table" name="make-table" disabled/>
               <label for="make-table">Make Web Table</label>
               <input type="checkbox" id="download" name="download" checked />
               <label for="download">Download Data</label>
@@ -65,6 +86,7 @@
         <div id="TABLE"></div>
       </div>
     </section>
+  </main>
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>

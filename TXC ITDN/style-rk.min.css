@@ -1,0 +1,2002 @@
+.footer-button-menu {
+  text-align: center;
+}
+#main-navbar-collapse {
+  background-color: #fff;
+}
+@media screen and (min-width: 1025px) {
+  .navbar-header,
+  #main-navbar-collapse {
+    display: none;
+  }
+}
+.alert-main {
+  margin: auto;
+  max-width: 50%;
+  border: 3px solid #61162d;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+}
+input.gsc-search-button,
+input.gsc-input {
+  -webkit-box-sizing: initial;
+  -moz-box-sizing: initial;
+  box-sizing: initial;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #b5a36a;
+  transition: all 0.5s;
+}
+#standard-page p > a,
+#standard-page span > a,
+#standard-page li > a,
+#standard-page strong > a,
+#standard-page em > a,
+#standard-page div > a,
+#standard-page td > a {
+  color: #61162d;
+  text-decoration: underline;
+  text-decoration-color: #aaa;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+#standard-page a:hover {
+  text-decoration: underline;
+  color: #b5a36a;
+  transition: all 0.5s;
+}
+#standard-page h3 {
+  color: #61162d;
+}
+body,
+html {
+  font-family: "Raleway", sans-serif;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: #000;
+  font-size: 0.95em;
+}
+p {
+  font-size: 1.1em;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+em {
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+h3 em {
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+strong {
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+h1 {
+  text-transform: uppercase;
+  color: #61162d;
+  font-weight: 800;
+  font-size: 2.5em;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+h1.secondary-header {
+  color: #fff;
+}
+h2 {
+  text-transform: uppercase;
+  line-height: 1.4em;
+  margin: 0;
+  font-weight: 600;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+h4 {
+  text-transform: uppercase;
+  font-weight: 600;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+h5 {
+  text-transform: uppercase;
+  font-weight: 600;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+ul,
+ol {
+  webkit-padding: 0;
+  moz-padding: 0;
+  -webkit-font-feature-settings: "lnum" !important;
+  -moz-font-feature-settings: "lnum" !important;
+  -ms-font-feature-settings: "lnum" !important;
+  -o-font-feature-settings: "lnum" !important;
+  font-feature-settings: "lnum" !important;
+}
+.collapse ul {
+  padding: 0;
+}
+#footer-section {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  text-transform: uppercase;
+}
+.footer-social {
+  padding: 0;
+}
+.footer-address {
+  font-size: small;
+  line-height: 1.5;
+}
+.black {
+  color: #000;
+}
+.grey {
+  color: #ccc;
+}
+.gold {
+  color: #b5a36a;
+}
+.white {
+  color: #fff;
+}
+.maroon {
+  color: #61162d;
+}
+.section-header {
+  padding: 30px 0;
+}
+.section-header h2,
+.section-header.center h2 {
+  font-size: 2.5em;
+}
+#emergency-message {
+  display: none;
+}
+.messager {
+  position: absolute;
+  top: 140px;
+  left: 20%;
+  z-index: 8;
+  width: 60%;
+  color: #000;
+  font: 500 1.6em/1.211em Arial, Helvetica, sans-serif;
+}
+.openclose-holder {
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_gold.png);
+  margin: 0 auto;
+  max-width: 1024px;
+  position: relative;
+}
+.messager .box {
+  margin: 0 17px 0 14px;
+}
+.messager .opener {
+  position: absolute;
+  top: -15px;
+  right: 8px;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 28px;
+  height: 28px;
+  display: none;
+  background: url(/_files/images/sprite.png) no-repeat -124px 0;
+}
+.messager.active .opener {
+  display: block;
+}
+.messager .box .center {
+  height: 1%;
+  padding: 0 19px 11px;
+}
+.messager .box p {
+  margin: 0;
+}
+.messager .box h2 {
+  margin: 0;
+  color: #000;
+  font: 700 1.053em/1.15em Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+.dropdown-menu {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#dropdownMenu1 .active {
+  background-color: #61162d;
+}
+.navbar {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#main h1,
+#main .motto {
+  color: #fff;
+  text-shadow: 1px 1px 2px #494949;
+}
+.motto span {
+  font-weight: 700;
+}
+.motto span span {
+  vertical-align: 7%;
+}
+.backdrop {
+  background-color: #61162d;
+}
+@media screen and (max-width: 767px) {
+  #toggle {
+    display: none;
+  }
+  #main h1 {
+    color: #61162d;
+  }
+  #main .motto {
+    color: #ccc;
+    text-shadow: 1px 1px 1px #000;
+  }
+  #main {
+    background: url(https://www.tamiu.edu/_files/images/www_rev_frame_1_mobile.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #cfcfcf;
+    border-bottom: 1px solid #000;
+  }
+  .secondary-main-af {
+    background: url(https://www.tamiu.edu/_files/images/secondary/alumnigiving.png);
+    background-position: bottom;
+  }
+}
+#main {
+  border-bottom: 1px solid #000;
+}
+#main p.lead {
+  color: #e3e3e3;
+}
+.content {
+  position: relative;
+  padding: 15% 0 0;
+}
+#main h1 {
+  position: relative;
+  padding: 5% 0 0;
+  margin-top: 0;
+  font-size: 3.5em;
+  text-transform: none;
+}
+#main p {
+  font-size: 2em;
+  color: #fff;
+}
+.collapse {
+  background-color: transparent;
+  background-image: url(https://www.tamiu.edu/_files/images/secondary/opaqueback01.png);
+}
+.container .upper-left-name {
+  width: 45%;
+  float: left;
+  text-align: center;
+  height: 30px;
+}
+.container .upperrightmenu {
+  width: 45%;
+  float: right;
+  text-align: center;
+  height: 30px;
+}
+.container .leftmenu {
+  width: 45%;
+  height: 100%;
+  float: left;
+  text-align: center;
+}
+.container .rightmenu {
+  width: 45%;
+  float: right;
+  text-align: center;
+}
+.upper-left-name {
+  padding-top: 4px;
+}
+.upper-left-name li {
+  float: left;
+  width: 33.3%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+}
+.upper-left-name a:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  outline-width: 0;
+  outline-style: none;
+  transition: all 0.5s;
+}
+.upper-left-name a {
+  vertical-align: middle;
+  color: #000;
+  font-size: 1em;
+}
+.upper-right-buttons a {
+  vertical-align: middle;
+  transition: all 0.5s;
+  color: #000;
+  font-size: 1em;
+}
+.upper-right-buttons li {
+  float: left;
+  width: 33.3%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 4px;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  color: #61162d;
+}
+.upper-right-buttons a:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  outline-width: 0;
+  outline-style: none;
+}
+.upper-right-buttons .drop-employee ul {
+  left: 34%;
+  margin-top: 31px;
+}
+.upper-right-buttons .drop-search ul {
+  left: 68%;
+  margin-top: 31px;
+  width: 175px;
+}
+.dropdown-menu li.main-search {
+  padding-left: 10px;
+  padding-bottom: 3px;
+}
+.upper-right-buttons .dropdown li > a {
+  vertical-align: middle;
+}
+.upper-right-buttons .dropdown-menu li {
+  float: none;
+  width: 100%;
+}
+.upper-right-buttons .dropdown a {
+  color: #61162d;
+  float: none;
+  vertical-align: middle;
+  color: #000;
+  font-size: 1em;
+}
+.upper-right-buttons .dropdown a:hover {
+  color: #fff;
+  background-color: #b5a36a;
+}
+.upper-right-buttons .dropdown .employeedropdown a:hover {
+  color: #b5a36a;
+  background-color: transparent;
+}
+.lower-left-buttons li {
+  font-size: 1.4em;
+  width: 33.3%;
+  float: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-top: -px;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  color: #fff;
+}
+.lower-left-buttons li a {
+  transition: all 0.5s;
+  color: #fff;
+  width: 100%;
+  line-height: inherit;
+  display: block;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  height: 100%;
+  vertical-align: middle;
+}
+.lower-left-buttons a:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  outline-width: 0;
+  outline-style: none;
+}
+.lower-right-buttons li {
+  font-size: 1.4em;
+  width: 33.3%;
+  float: left;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  color: #fff;
+}
+.lower-right-buttons li a {
+  transition: all 0.5s;
+  color: #fff;
+  width: 100%;
+  line-height: inherit;
+  display: block;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  height: 100%;
+}
+.lower-right-buttons a:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  outline-width: 0;
+  outline-style: none;
+}
+.menu-bar {
+  background-color: #61162d;
+  width: 100%;
+  border-top: solid 2px #ccc;
+}
+.panel-title {
+  color: #61162d;
+}
+.panel-title a:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  outline-width: 0;
+  outline-style: none;
+  color: #b5a36a;
+}
+.center-logo {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -73.5px;
+  list-style: none;
+  z-index: 1;
+}
+.center-logo a {
+  outline-width: 0;
+  outline-style: none;
+}
+.main-logo {
+  background-image: url(/assets/images/logoPrimary.svg) ;
+  display: inline-block;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center 0;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-size: auto auto;
+  text-indent: -9999em;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border-top: solid 0 #b5a36a;
+  border-bottom: solid 2px #b5a36a;
+  border-right: solid 2px #b5a36a;
+  border-left: solid 2px #b5a36a;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+#main-logo {
+  background-position: top;
+  width: 143px;
+  height: 133px;
+}
+.main-bottom-button {
+  min-width: 200px;
+  transition: all 0.5s;
+  display: inline-block;
+  background: rgba(97, 22, 45, 0.9);
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 0;
+  font-size: 24px;
+  margin-top: 200px;
+  margin-bottom: 10px;
+  border: solid 1px #000;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+.main-bottom-button:hover,
+.main-bottom-button:focus {
+  transition: all 0.5s;
+  background: rgba(97, 22, 45, 0.7);
+  border: 1px solid #ccc;
+  text-decoration-style: solid;
+  text-decoration-line: none;
+}
+#news-section {
+  border-top: solid 1px #000;
+  border-bottom: solid 1px #000;
+  background: url(https://www.tamiu.edu/_files/images/deer_fog_181219.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  color: #fff;
+  background-color: #000;
+}
+.news_paragraph {
+  min-height: 80px;
+}
+@media screen and (max-width: 700px) {
+  .news_paragraph {
+    min-height: 160px;
+  }
+  .alert-main {
+    max-width: 50%;
+  }
+}
+#news-section .opaqueback {
+  background-color: transparent;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+#news-section a {
+  text-decoration-style: solid;
+  text-decoration-line: none;
+  color: #fff;
+}
+#news-section a:hover {
+  text-decoration-style: solid;
+  text-decoration-line: none;
+  color: #61162d;
+}
+#news-section img {
+  border: solid 1px #000;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+#news-section img:hover {
+  border: solid 1px #61162d;
+}
+#news-section p {
+  font-size: 1.1em;
+  text-shadow: 1px 1px 2px #494949;
+}
+.news-image {
+  margin-bottom: 10px;
+}
+#news-section hr {
+  border-top: solid 4px #ccc;
+  width: 100%;
+}
+
+#about h3.maroon {
+  font-size: 2em;
+}
+#about p.black {
+  font-size: 1.5em;
+}
+#about p.black > span.maroon {
+  font-size: 1.2em;
+}
+
+#about .opaqueback {
+  background: rgba(255, 255, 255, 0.6);
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+#about p a:hover {
+  color: #61162d;
+  transition-property: all;
+  transition-duration: 0.1s;
+  transition-delay: 0.1s;
+  font-weight: 600;
+}
+#events .opaqueback {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+#events {
+  background-color: #fff;
+}
+#calendar {
+  padding: 0 0;
+  text-align: center;
+}
+#calendar .opaqueback {
+  padding: 60px 0;
+}
+.space {
+  margin-top: 40px;
+}
+#calendar img {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.bottom-button {
+  padding: 10px 0;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 90%;
+}
+.bottom-button {
+  min-width: 200px;
+  transition: all 0.5s;
+  display: inline-block;
+  background-color: #61162d;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 0;
+  font-size: 24px;
+  border: solid 1px #000;
+}
+.bottom-button:hover,
+.bottom-button:focus {
+  transition: all 0.5s;
+  background-color: #61162d;
+  color: #fff;
+  border: 1px solid #ccc;
+  text-decoration-style: solid;
+  text-decoration-line: none;
+}
+#spotlight {
+  padding: 60px 0;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+#spotlight .opaqueback {
+  padding: 60px 0;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_white.png);
+  background-color: transparent;
+}
+.space {
+  margin-top: 40px;
+}
+#spotlight img {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border: 1px #000 solid;
+}
+#spotlight a {
+  color: #61162d;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+}
+#spotlight a:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  outline-width: 0;
+  outline-style: none;
+  transition: all 0.5s;
+}
+.crt-post-content-text a {
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-color: #61162d;
+}
+#graphics {
+  border-top: solid 1px #000;
+  border-bottom: solid 1px #000;
+  background: url(https://www.tamiu.edu/_files/images/commencement_2017.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-transform: uppercase;
+}
+#graphics .opaqueback {
+  background: rgba(97, 22, 45, 0.9);
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+#graphics img {
+  width: 100%;
+}
+.secondarymaroonicons-academics .opaqueback {
+  padding-top: 60px;
+  padding-bottom: 60px !important;
+  background: rgba(97, 22, 45, 0.9);
+}
+#rankings {
+  padding: 60px 0;
+  text-align: center;
+  background: url(https://www.tamiu.edu/_files/images/embellishmentsl-02_offwhite.png);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+#rankings .opaqueback {
+  padding: 60px 0;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_white.png);
+  background-color: transparent;
+}
+#rankings img {
+  width: 100%;
+}
+#rankings .rank {
+  color: #000;
+  font-size: 20px;
+}
+#rankings .rank em {
+  color: #61162d;
+  font-size: 16px;
+}
+#rankings .rank:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+}
+#rankings span.fas {
+  height: 130px;
+  width: 130px;
+  border: 1px solid #61162d;
+  padding-top: 30px;
+  border-radius: 50%;
+  color: #61162d;
+  transition: all 0.5s;
+  background-color: transparent;
+}
+#rankings span.fas:hover {
+  background: #fff;
+  border-color: #b5a36a;
+  color: #b5a36a;
+}
+#international {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  text-transform: uppercase;
+}
+#international .opaqueback {
+  padding: 60px 0;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_white_opacity_50.png);
+  background-color: transparent;
+}
+#international img {
+  width: 60%;
+}
+#footer {
+  color: #fff;
+  padding: 20px 0 10px 0;
+  background-color: #ccc;
+}
+#footer .fnav {
+  vertical-align: middle;
+}
+ul.footer-social li {
+  display: inline-block;
+  margin-right: 10px;
+}
+#footer span.fab,
+#footer span.fas {
+  height: 45px;
+  width: 45px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  color: #61162d;
+  transition: all 0.5s;
+  padding-top: 6px;
+  background-color: #fff;
+  box-shadow: 1px 1px 2px #494949;
+}
+#footer span.fas:hover,
+#footer span.fab:hover {
+  background: #b5a36a;
+  border-color: #ccc;
+  color: #fff;
+}
+.main-footer {
+  padding: 10px 10px 10px 10px;
+  background-color: #fff;
+}
+.main-footer .opaqueback {
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_white_opacity_50.png);
+  background-color: transparent;
+}
+.main-footer button {
+  background-color: #61162d;
+  color: #fff;
+  margin-right: 0;
+}
+.main-footer .dropdown-menu > li > a {
+  color: #61162d;
+}
+.main-footer .dropdown-menu > li > a:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  color: #fff;
+  background-color: #b5a36a;
+  outline-width: 0;
+  outline-style: none;
+}
+.btn-default {
+  background-color: #61162d;
+  color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-bottom: 4px;
+}
+#secondarydivider .btn-default,
+.secondarydividermaroon .btn-default {
+  background-color: #61162d;
+  color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  min-width: 95%;
+  margin-bottom: 10px;
+}
+.secondarydivider .btn-default {
+  background-color: #61162d;
+  color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  min-width: 95%;
+  margin-bottom: 10px;
+}
+.main-footer a.btn-default {
+  background-color: #61162d !important;
+  color: #fff !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.generic-page-button {
+  min-width: 100%;
+  transition: all 0.5s;
+  display: inline-block;
+  background: rgba(97, 22, 45, 0.9);
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 0;
+  font-size: 24px;
+  margin-top: 10px;
+  border: solid 1px #000;
+}
+.generic-page-button:hover,
+.generic-page-button:focus {
+  transition: all 0.5s;
+  background: rgba(198, 175, 94, 0.7);
+  color: #fff;
+  border: 1px solid #ccc;
+  text-decoration-style: solid;
+  text-decoration-line: none;
+}
+.btn-default:active:hover,
+.btn-default.active:hover,
+.open > .dropdown-toggle.btn-default:hover,
+.btn-default.dropdown-toggle:focus {
+  color: #61162d;
+  background-color: #b5a36a;
+  text-decoration-style: solid;
+  text-decoration-line: none;
+}
+.btn-default:hover,
+.btn-default:focus {
+  transition: all 0.5s;
+  text-decoration-style: solid;
+  text-decoration-line: none;
+}
+.main-footer .btn:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  color: #fff;
+  background-color: #b5a36a;
+  outline-width: 0;
+  outline-style: none;
+}
+.main-footer .btn a {
+  color: #fff;
+}
+#secondarydivider .btn:hover,
+.secondarydividermaroon .btn:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  color: #fff;
+  background-color: #b5a36a;
+  outline-width: 0;
+  outline-style: none;
+}
+.secondarydivider .btn:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  color: #fff;
+  background-color: #b5a36a;
+  outline-width: 0;
+  outline-style: none;
+}
+#tamus-logo {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 20px;
+  padding-left: 105px;
+  background-color: transparent;
+  background-image: url(https://www.tamiu.edu/_files/images/tamiu-footer-logo.svg);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-size: auto auto;
+  display: block;
+  min-height: 75px;
+  text-indent: -9999px;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  background-position: center center;
+}
+#secondary-main {
+  background-size: cover;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  color: #cfcfcf;
+  border-bottom: 4px solid #b5a36a;
+  background-color: #61162d;
+}
+
+.secondary-main-af {
+  background-position: bottom;
+}
+.secondary-main-give {
+  background: url(https://www.tamiu.edu/_files/images/secondary/olivetree.png);
+  background-position: bottom;
+}
+.secondary-main-cs {
+  background: url(https://www.tamiu.edu/_files/images/Flushots_1600_1000.jpg);
+  background-position: top;
+}
+.secondary-main-fs {
+  background: url(https://www.tamiu.edu/_files/images/secondary/deer_51116.png);
+  background-position: center;
+}
+.secondary-main-academics {
+  background: url(https://www.tamiu.edu/_files/images/secondary/academics.jpg);
+  background-position: center;
+}
+.secondary-main-admissions {
+  background: url(https://www.tamiu.edu/_files/images/secondary/Holi_3.png);
+  background-position: center;
+}
+.secondary-main-studentlife {
+  background: url(https://www.tamiu.edu/_files/images/secondary/students_hands_51116.png);
+  background-position: top;
+}
+.secondary-main-financialaid {
+  background: url(https://www.tamiu.edu/_files/images/secondary/tamiu.png);
+  background-position: bottom;
+}
+.secondary-main-about {
+  background: url(https://www.tamiu.edu/_files/images/secondary/students_51116.png);
+  background-position: bottom;
+}
+#secondary-main p.lead {
+  color: #ccc;
+}
+#secondary-main h1 {
+  position: relative;
+  padding: 5% 0 0;
+  margin-top: 0;
+  font-size: 48px;
+  text-transform: none;
+  text-shadow: 1px 1px 2px #494949;
+}
+#secondary-main p {
+  font-size: 24px;
+  color: #b5a36a;
+}
+.secondary-content {
+  position: relative;
+  padding: 15% 0 0;
+}
+.secondary-bottom-button {
+  min-width: 220px;
+  transition: all 0.5s;
+  display: inline-block;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_maroon_2.png);
+  background-color: transparent;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 0;
+  font-size: 24px;
+  margin-top: 10px;
+  border: solid 1px #000;
+}
+.secondary-bottom-button:hover {
+  transition: all 0.5s;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_gold_2.png);
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #ccc;
+  text-decoration-style: solid;
+  text-decoration-line: none;
+}
+.secondarydivider {
+  padding: 60px 0;
+  text-align: center;
+  background: url(https://www.tamiu.edu/newsinfo/intern/edelmiro/background-textures/light-popout-dusty.png);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.secondarydivider .opaqueback {
+  padding: 60px 0;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_white.png);
+  background-color: transparent;
+}
+.secondarydivider li > a:active,
+#secondarydivider li > a:hover,
+.secondarydividermaroon li > a:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  color: #b5a36a;
+  outline-width: 0;
+  outline-style: none;
+}
+.secondarydivider img {
+  border: #61162d solid 1px;
+}
+.secondarydivider a > img:hover {
+  border-color: #b5a36a;
+  transition: all 0.5s;
+}
+.secondarydivider a {
+  text-decoration-style: solid;
+  text-decoration: underline;
+  text-decoration-color: #aaa;
+}
+.secondarydivider li > a {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+.secondarydivider li > a:hover {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+.secondarydivider a.btn {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+.secondarydivider a:hover {
+  text-decoration-style: solid;
+  color: #b5a36a;
+  text-decoration: underline;
+  text-decoration-color: #b5a36a;
+}
+#secondarydivider,
+.secondarydividermaroon {
+  padding: 60px 0;
+  text-align: center;
+  background: url(https://www.tamiu.edu/_files/images/embellishmentsl-02_offwhite.png);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+#secondarydivider .opaqueback,
+.secondarydivider .opaqueback {
+  padding: 60px 0;
+  background-image: url(https://www.tamiu.edu/_files/images/opaqueback_white.png);
+  background-color: transparent;
+}
+#secondarydivider li > a:active,
+#secondarydivider li > a:hover,
+.secondarydividermaroon li > a:active,
+.secondarydividermaroon li > a:hover {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  color: #b5a36a;
+  outline-width: 0;
+  outline-style: none;
+}
+#secondarydivider img,
+.secondarydividermaroon img {
+  border: #61162d solid 1px;
+}
+#secondarydivider a > img:hover,
+.secondarydividermaroon a > img:hover {
+  border-color: #b5a36a;
+  transition: all 0.5s;
+}
+#secondarydivider a,
+.secondarydividermaroon a {
+  text-decoration-style: solid;
+  text-decoration: underline;
+  text-decoration-color: #aaa;
+}
+#secondarydivider li > a,
+.secondarydividermaroon li > a {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+#secondarydivider li > a:hover,
+.secondarydividermaroon li > a:hover {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+#secondarydivider a.btn,
+.secondarydividermaroon a.btn {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+#secondarydivider a:hover,
+.secondarydividermaroon a:hover {
+  text-decoration-style: solid;
+  color: #b5a36a;
+  text-decoration: underline;
+  text-decoration-color: #b5a36a;
+}
+.secondarymaroonicons h2 {
+  color: #fff;
+}
+.secondarymaroonicons {
+  color: #fff;
+  border-top: solid 2px #ccc;
+  border-bottom: solid 2px #ccc;
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.secondarymaroonicons img {
+  border: #fff solid 1px;
+}
+.secondarymaroonicons a {
+  color: #ccc;
+  text-decoration-style: solid;
+  text-decoration: underline;
+  text-decoration-color: #cecece;
+}
+.secondarymaroonicons a:hover {
+  text-decoration-style: solid;
+  color: #b5a36a;
+  text-decoration: underline;
+  text-decoration-color: #b5a36a;
+}
+.secondarymaroonicons li > a {
+  color: #ccc;
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+.secondarymaroonicons li > a:hover {
+  text-decoration-style: solid;
+  color: #b5a36a;
+  text-decoration: none;
+}
+.secondarymaroonicons a.btn {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+.secondarymaroonicons a.bottom-button:hover {
+  text-decoration-style: solid;
+  text-decoration-line: none;
+  color: #fff;
+}
+.secondarymaroonicons .opaqueback {
+  background: rgba(97, 22, 45, 0.9);
+  padding-bottom: 20px;
+}
+.secondarymaroonicons .btn-default {
+  background-color: #fff;
+  color: #61162d;
+  min-width: 95%;
+}
+.secondarymaroonicons .btn-default:hover {
+  background-color: #b5a36a;
+  border-color: #000;
+  color: #61162d;
+}
+.secondarymaroonicons .rank {
+  color: #fff;
+  font-size: 20px;
+}
+.secondarymaroonicons .rank em {
+  color: #b5a36a;
+  font-size: 16px;
+}
+.secondarymaroonicons .rank:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+}
+.secondarymaroonicons i.fas {
+  height: 130px;
+  width: 130px;
+  border: 2px solid #ccc;
+  padding-top: 30px;
+  border-radius: 50%;
+  color: #fff;
+  transition: all 0.5s;
+}
+.secondarymaroonicons i.fas:hover {
+  background: #b5a36a;
+  border-color: #ccc;
+  color: #fff;
+}
+.secondarymaroonicons img {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.secondarymaroonicons a > img:hover {
+  border-color: #ccc;
+  transition: all 0.5s;
+}
+#secondarymaroonicons h2 {
+  color: #fff;
+}
+#secondarymaroonicons {
+  color: #fff;
+  border-top: solid 2px #ccc;
+  border-bottom: solid 2px #ccc;
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+#secondarymaroonicons img {
+  border: #fff solid 1px;
+}
+#secondarymaroonicons a {
+  color: #ccc;
+  text-decoration-style: solid;
+  text-decoration: underline;
+  text-decoration-color: #cecece;
+}
+#secondarymaroonicons a:hover {
+  text-decoration-style: solid;
+  color: #b5a36a;
+  text-decoration: underline;
+  text-decoration-color: #b5a36a;
+}
+#secondarymaroonicons li > a {
+  color: #ccc;
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+#secondarymaroonicons li > a:hover {
+  text-decoration-style: solid;
+  color: #b5a36a;
+  text-decoration: none;
+}
+#secondarymaroonicons a.btn {
+  text-decoration-style: solid;
+  text-decoration: none;
+}
+#secondarymaroonicons a.bottom-button:hover {
+  text-decoration-style: solid;
+  text-decoration-line: none;
+  color: #fff;
+}
+#secondarymaroonicons .opaqueback {
+  background: rgba(97, 22, 45, 0.9);
+  padding-bottom: 20px;
+}
+#secondarymaroonicons .btn-default {
+  background-color: #fff;
+  color: #61162d;
+  min-width: 95%;
+}
+#secondarymaroonicons .btn-default:hover {
+  background-color: #b5a36a;
+  border-color: #000;
+  color: #61162d;
+}
+#secondarymaroonicons .rank {
+  color: #fff;
+  font-size: 20px;
+}
+#secondarymaroonicons .rank em {
+  color: #b5a36a;
+  font-size: 16px;
+}
+#secondarymaroonicons .rank:hover {
+  color: #b5a36a;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+}
+#secondarymaroonicons i.fas {
+  height: 130px;
+  width: 130px;
+  border: 2px solid #ccc;
+  padding-top: 30px;
+  border-radius: 50%;
+  color: #fff;
+  transition: all 0.5s;
+}
+#secondarymaroonicons i.fas:hover {
+  background: #b5a36a;
+  border-color: #ccc;
+  color: #fff;
+}
+#secondarymaroonicons img {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+#secondarymaroonicons a > img:hover {
+  border-color: #ccc;
+  transition: all 0.5s;
+}
+.secondarymaroonicons-af {
+  background: url(https://www.tamiu.edu/_files/images/secondary/olivetree.png);
+}
+.secondarymaroonicons-cs {
+  background: url(https://www.tamiu.edu/_files/images/secondary/diner.png);
+}
+.secondarymaroonicons-fs {
+  background: url(https://www.tamiu.edu/_files/images/secondary/landscape.png);
+}
+.secondarymaroonicons-academics {
+  background: url(https://www.tamiu.edu/_files/images/secondary/lbv.jpg);
+}
+.secondarymaroonicons-admissions {
+  background: url(https://www.tamiu.edu/_files/images/secondary/Holi_1.png);
+}
+.secondarymaroonicons-financialaid {
+  background: url(https://www.tamiu.edu/_files/images/secondary/tamiu.png);
+}
+.secondarymaroonicons-studentlife {
+  background: url(https://www.tamiu.edu/_files/images/secondary/students_paint_51116.png);
+}
+.secondarymaroonicons-about {
+  background: url(https://www.tamiu.edu/_files/images/secondary/tree_walkway.png);
+}
+@media screen and (max-width: 1200px) {
+  .alert-main {
+    max-width: 80%;
+  }
+  .upper-left-name a {
+    font-size: 0.9pt;
+  }
+  .upper-right-buttons .dropdown a {
+    font-size: 0.9em;
+  }
+  .upper-right-buttons a {
+    font-size: 1.2em;
+  }
+  .lower-left-buttons li {
+    font-size: 1.2em;
+  }
+  .lower-right-buttons li {
+    font-size: 1.2em;
+  }
+  .upper-right-buttons .dropdown ul {
+    left: 30%;
+    margin-top: 31px;
+  }
+  .upper-left-name a {
+    font-size: 0.8em;
+  }
+  .upper-right-buttons a {
+    font-size: 0.8em;
+  }
+  .upper-right-buttons .dropdown a {
+    font-size: 0.8em;
+  }
+  .lower-left-buttons li {
+    height: 100%;
+  }
+  .lower-right-buttons li {
+    height: 100%;
+  }
+  .center-logo {
+    left: 50%;
+    top: 29px;
+    margin-left: -38px;
+  }
+  .main-logo {
+    background-image: url(https://www.tamiu.edu/_files/images/square_logo.svg);
+    border-top: solid 1px #b5a36a;
+    border-bottom: solid 1px #b5a36a;
+    border-right: solid 1px #b5a36a;
+    border-left: solid 1px #b5a36a;
+    background-color: #fff;
+  }
+  #main-logo {
+    background-position: top;
+    width: 75px;
+    height: 70px;
+  }
+  a.single-line {
+    margin-top: 13px;
+  }
+}
+@media only screen and (max-width: 1025px) {
+
+  .main-bottom-button {
+    min-width: 150px;
+    font-size: 18px;
+  }
+
+  .navbar-default .navbar-toggle {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  .navbar-header {
+    min-height: 200px;
+    border-bottom: 2px solid #ccc;
+  }
+  .navbar {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  .navbar-default {
+    background-color: #61162d;
+    border-bottom-width: 0;
+    border-bottom-style: solid;
+    border-bottom-color: #ccc;
+  }
+  .navbar-brand {
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    font-size: 1px;
+    line-height: 20px;
+    height: 101px;
+    width: 240px;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: -20px;
+    margin-left: -34px;
+    margin-top: 17px;
+    border-left: 0 #ccc solid;
+    border-right: 0 #ccc solid;
+    background-repeat: no-repeat;
+  }
+  .searchbtn {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+    color: #fff;
+    font-size: 1.3em;
+  }
+
+  }
+  #rankings {
+    background-size: 0 0;
+  }
+  #spotlight {
+    background-size: 0 0;
+  }
+
+@media screen and (max-width: 1250px) {
+  .main-bottom-button {
+    margin-top: 100px;
+  }
+  #main h1 {
+    font-size: 30px;
+  }
+  #main p {
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .main-bottom-button {
+    margin-top: 50px;
+  }
+}
+@media screen and (max-width: 767px) {
+  #international {
+    background-attachment: local;
+  }
+  #about {
+    background-attachment: local;
+  }
+  #news-section {
+    background-attachment: local;
+  }
+  #graphics {
+    background-attachment: local;
+  }
+  #secondarymaroonicons {
+    background-attachment: local;
+  }
+  .secondarymaroonicons {
+    background-attachment: local;
+  }
+  #secondary-main {
+    background-size: 180%;
+    background-position: center top;
+  }
+  .collapse {
+    background-color: #fff;
+  }
+  .navbar-header {
+    display: inherit;
+  }
+  #main h1 {
+    font-size: 24px;
+  }
+  #main p {
+    font-size: 16px;
+  }
+  #rankings .rank {
+    font-size: 12px;
+  }
+  .navbar-header {
+    background-color: #61162d;
+    border-bottom: #b5a36a solid 2px;
+  }
+  .mobile-search {
+    background-color: #ccc;
+    border-left: 5px #ccc solid;
+    border-right: 2px #ccc solid;
+    border-bottom: 2px #b5a36a solid;
+  }
+  .main-bottom-button {
+    padding: 10px 0;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 90%;
+  }
+
+  #about .opaqueback {
+    padding-bottom: 20px;
+  }
+  .backdrop {
+    background-color: #fff;
+  }
+}
+#standard-page p > a.btn.btn-primary,
+#standard-page span > a.btn.btn-primary,
+#standard-page div > a.btn.btn-primary,
+#standard-page li > a.btn.btn-primary,
+#standard-page strong > a.btn.btn-primary,
+#standard-page em > a.btn.btn-primary,
+#standard-page td > a.btn.btn-primary {
+  color: #fff;
+  text-decoration: none;
+}
+#standard-page p > a.btn.btn-primary:active,
+#standard-page p > a.btn.btn-primary:focus,
+#standard-page div > a.btn.btn-primary:active,
+#standard-page div > a.btn.btn-primary:focus,
+#standard-page span > a.btn.btn-primary:active,
+#standard-page span > a.btn.btn-primary:focus,
+#standard-page li > a.btn.btn-primary:active,
+#standard-page li > a.btn.btn-primary:focus,
+#standard-page strong > a.btn.btn-primary:active,
+#standard-page strong > a.btn.btn-primary:focus,
+#standard-page em > a.btn.btn-primary:active,
+#standard-page em > a.btn.btn-primary:focus,
+#standard-page td > a.btn.btn-primary:active,
+#standard-page td > a.btn.btn-primary:focus {
+  background-color: #61162d;
+}
+#standard-page p > a.btn.btn-primary:hover,
+#standard-page div > a.btn.btn-primary:hover,
+#standard-page span > a.btn.btn-primary:hover,
+#standard-page li > a.btn.btn-primary:hover,
+#standard-page strong > a.btn.btn-primary:hover,
+#standard-page em > a.btn.btn-primary:hover,
+#standard-page td > a.btn.btn-primary:hover {
+  background-color: #b5a36a;
+  border-color: #b5a36a;
+}
+.degreeprograms-underline {
+  text-decoration: underline;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.img-rounded {
+  border-radius: 6px;
+}
+.img-thumbnail {
+  padding: 4px;
+  line-height: 1.5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+.img-circle {
+  border-radius: 50%;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  padding: 8px;
+  line-height: 1.5em;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+.table > caption + thead > tr:first-child > td,
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > td,
+.table > thead:first-child > tr:first-child > th {
+  border-top: 0;
+}
+.table > tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+.table .table {
+  background-color: #fff;
+}
+.table-condensed > tbody > tr > td,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > td,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > thead > tr > th {
+  padding: 5px;
+}
+.table-bordered,
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+  border: 1px solid #ddd;
+}
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+  border-bottom-width: 2px;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.table-hover > tbody > tr:hover,
+.table > tbody > tr.active > td,
+.table > tbody > tr.active > th,
+.table > tbody > tr > td.active,
+.table > tbody > tr > th.active,
+.table > tfoot > tr.active > td,
+.table > tfoot > tr.active > th,
+.table > tfoot > tr > td.active,
+.table > tfoot > tr > th.active,
+.table > thead > tr.active > td,
+.table > thead > tr.active > th,
+.table > thead > tr > td.active,
+.table > thead > tr > th.active {
+  background-color: #f5f5f5;
+}
+table col[class*="col-"] {
+  position: static;
+  float: none;
+  display: table-column;
+}
+table td[class*="col-"],
+table th[class*="col-"] {
+  position: static;
+  float: none;
+  display: table-cell;
+}
+.table-hover > tbody > tr.active:hover > td,
+.table-hover > tbody > tr.active:hover > th,
+.table-hover > tbody > tr:hover > .active,
+.table-hover > tbody > tr > td.active:hover,
+.table-hover > tbody > tr > th.active:hover {
+  background-color: #e8e8e8;
+}
+.table > tbody > tr.success > td,
+.table > tbody > tr.success > th,
+.table > tbody > tr > td.success,
+.table > tbody > tr > th.success,
+.table > tfoot > tr.success > td,
+.table > tfoot > tr.success > th,
+.table > tfoot > tr > td.success,
+.table > tfoot > tr > th.success,
+.table > thead > tr.success > td,
+.table > thead > tr.success > th,
+.table > thead > tr > td.success,
+.table > thead > tr > th.success {
+  background-color: #dff0d8;
+}
+.table-hover > tbody > tr.success:hover > td,
+.table-hover > tbody > tr.success:hover > th,
+.table-hover > tbody > tr:hover > .success,
+.table-hover > tbody > tr > td.success:hover,
+.table-hover > tbody > tr > th.success:hover {
+  background-color: #d0e9c6;
+}
+.table > tbody > tr.info > td,
+.table > tbody > tr.info > th,
+.table > tbody > tr > td.info,
+.table > tbody > tr > th.info,
+.table > tfoot > tr.info > td,
+.table > tfoot > tr.info > th,
+.table > tfoot > tr > td.info,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > td,
+.table > thead > tr.info > th,
+.table > thead > tr > td.info,
+.table > thead > tr > th.info {
+  background-color: #d9edf7;
+}
+.table-hover > tbody > tr.info:hover > td,
+.table-hover > tbody > tr.info:hover > th,
+.table-hover > tbody > tr:hover > .info,
+.table-hover > tbody > tr > td.info:hover,
+.table-hover > tbody > tr > th.info:hover {
+  background-color: #c4e3f3;
+}
+.table > tbody > tr.warning > td,
+.table > tbody > tr.warning > th,
+.table > tbody > tr > td.warning,
+.table > tbody > tr > th.warning,
+.table > tfoot > tr.warning > td,
+.table > tfoot > tr.warning > th,
+.table > tfoot > tr > td.warning,
+.table > tfoot > tr > th.warning,
+.table > thead > tr.warning > td,
+.table > thead > tr.warning > th,
+.table > thead > tr > td.warning,
+.table > thead > tr > th.warning {
+  background-color: #fcf8e3;
+}
+.table-hover > tbody > tr.warning:hover > td,
+.table-hover > tbody > tr.warning:hover > th,
+.table-hover > tbody > tr:hover > .warning,
+.table-hover > tbody > tr > td.warning:hover,
+.table-hover > tbody > tr > th.warning:hover {
+  background-color: #faf2cc;
+}
+.table > tbody > tr.danger > td,
+.table > tbody > tr.danger > th,
+.table > tbody > tr > td.danger,
+.table > tbody > tr > th.danger,
+.table > tfoot > tr.danger > td,
+.table > tfoot > tr.danger > th,
+.table > tfoot > tr > td.danger,
+.table > tfoot > tr > th.danger,
+.table > thead > tr.danger > td,
+.table > thead > tr.danger > th,
+.table > thead > tr > td.danger,
+.table > thead > tr > th.danger {
+  background-color: #f2dede;
+}
+.table-hover > tbody > tr.danger:hover > td,
+.table-hover > tbody > tr.danger:hover > th,
+.table-hover > tbody > tr:hover > .danger,
+.table-hover > tbody > tr > td.danger:hover,
+.table-hover > tbody > tr > th.danger:hover {
+  background-color: #ebcccc;
+}
+.table-responsive {
+  overflow-x: auto;
+  min-height: 0.01%;
+}
+@media screen and (max-width: 767px) {
+  .table-responsive {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+  }
+  .table-responsive > .table {
+    margin-bottom: 0;
+  }
+  .table-responsive > .table > tbody > tr > td,
+  .table-responsive > .table > tbody > tr > th,
+  .table-responsive > .table > tfoot > tr > td,
+  .table-responsive > .table > tfoot > tr > th,
+  .table-responsive > .table > thead > tr > td,
+  .table-responsive > .table > thead > tr > th {
+    white-space: nowrap;
+  }
+  .table-responsive > .table-bordered {
+    border: 0;
+  }
+  .table-responsive > .table-bordered > tbody > tr > td:first-child,
+  .table-responsive > .table-bordered > tbody > tr > th:first-child,
+  .table-responsive > .table-bordered > tfoot > tr > td:first-child,
+  .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+  .table-responsive > .table-bordered > thead > tr > td:first-child,
+  .table-responsive > .table-bordered > thead > tr > th:first-child {
+    border-left: 0;
+  }
+  .table-responsive > .table-bordered > tbody > tr > td:last-child,
+  .table-responsive > .table-bordered > tbody > tr > th:last-child,
+  .table-responsive > .table-bordered > tfoot > tr > td:last-child,
+  .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+  .table-responsive > .table-bordered > thead > tr > td:last-child,
+  .table-responsive > .table-bordered > thead > tr > th:last-child {
+    border-right: 0;
+  }
+  .table-responsive > .table-bordered > tbody > tr:last-child > td,
+  .table-responsive > .table-bordered > tbody > tr:last-child > th,
+  .table-responsive > .table-bordered > tfoot > tr:last-child > td,
+  .table-responsive > .table-bordered > tfoot > tr:last-child > th {
+    border-bottom: 0;
+  }
+}
+tr td p {
+  line-height: 1.5;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.full-width-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+.img--floatleft {
+  float: left;
+  margin-right: 6px;
+}
+.clearfix--floatimages {
+  overflow: auto;
+  padding: 3px;
+}

@@ -150,12 +150,15 @@ for (i = 0; i < tr.length; i++) {
 
 document.getElementById('all-commodity').onchange = function() {
     if(this.checked==true){
-     document.getElementById("commodityInput").disabled=true;
-     document.getElementById("commodityInput").focus();
-     document.getElementById("commodityInput").value = "";
+        document.getElementById("make-table").disabled=true;
+        document.getElementById("make-table").checked=false;
+        document.getElementById("commodityInput").disabled=true;
+        document.getElementById("commodityInput").focus();
+        document.getElementById("commodityInput").value = "";
     }
     else{
-     document.getElementById("commodityInput").disabled=false;
+        document.getElementById("make-table").disabled=false;
+        document.getElementById("commodityInput").disabled=false;
     }
    };
 
@@ -180,11 +183,10 @@ document.getElementById('all-commodity').onchange = function() {
     if (isCommodityRequired) {
         // If the checkbox is not checked, validate the input
         if (/^\d+$/.test(inputValue) && inputValue.length <= 6 && inputValue.length % 2 === 0) {
-            document.getElementById("validationMessage").textContent = "Valid input!";
             xhttpRequest();
             return true; // Allow form submission
         } else {
-            document.getElementById("validationMessage").textContent = "Invalid input. Please enter a numeric value with an even number of characters (up to 6 digits).";
+            alert("Invalid commodity input. Please enter a numeric value with an even number of characters (up to 6 digits).");
             return false; // Prevent form submission
         }
     }
