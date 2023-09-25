@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>TCBEED International Trade Data Navigator</title>
-
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="bootsrap-min.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-rk.min.css">
 
 	<!-- Favicon -->
@@ -29,6 +29,7 @@
   
     <section class="layout">
       <div class="header">
+        <br/>
         <h1><center>Texas Center International Trade Data Navigator</center></h1>
         <h2>Dataset Information</h2>
         <table>
@@ -45,8 +46,10 @@
             <td id="description"></td>
           </tr>
         </table>
+        <br/>
       </div>
       <h2 id="title-date">District ## Type in Date</h2>
+      <br/>
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
           <div required >
@@ -58,7 +61,7 @@
           </div>
           <div>
             <label for="date">Please enter month and year: </label>
-            <input id="date" type="month" name="date" min="2000-01" max="2023-07" required />
+            <input id="date" type="month" name="date" min="2005-01" max="2023-07" required />
             
             <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
             <input type="checkbox" id="all-commodity" name="All Commodity" checked/>
@@ -78,6 +81,7 @@
             </select>
             <span class="validity"></span>
           </div>
+          <br/>
           <input type="submit" value="Submit">
         </form>
         <h2>Search</h2>

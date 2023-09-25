@@ -43,7 +43,8 @@ xhttp.onreadystatechange = function() {
         API_DATA = JSON.parse(xhttp.responseText);
 
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
-    API_DATA[0].splice(1, 0, "District", "Port", "trade_type");
+    API_DATA[0].splice(1, 0, "dist_code", "port_code");
+    API_DATA[0].splice(6, 0, "trade_type");
 
 
     // Iterate through the array and populate "import" or "export" based on your if statement
@@ -59,12 +60,12 @@ xhttp.onreadystatechange = function() {
 
         // Split the 4-digit "port" field into "District" and "Port"
         var port = API_DATA[i][8].toString(); // Assuming "port" is in the second column
-        var district = port.slice(0, 2);
-        var portNumber = port.slice(2, 4);
+        var dist_code = port.slice(0, 2);
+        var port_code = port.slice(2, 4);
 
         // Add the "District" and "Port" values to the sub-array at the appropriate positions
-        API_DATA[i].splice(1, 0, district, portNumber, trade_type);
-
+        API_DATA[i].splice(1, 0, dist_code, port_code);
+        API_DATA[i].splice(6, 0, trade_type);
         
     }
 
@@ -99,12 +100,12 @@ function xhttpRequest(){
     if (document.querySelector("#imports").checked && document.querySelector("#exports").checked) {	
         alert("Please select only one trade type.")
     } else if(document.querySelector("#imports").checked){
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,CTY_CODE,I_COMMODITY,GEN_VAL_MO,PORT_NAME,CTY_NAME,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
+        API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/imports/porths");
         document.getElementById("title-date").innerHTML = "District "+district+" Imports in "+dateForm;
     } else if(document.querySelector("#exports").checked){
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,CTY_CODE,E_COMMODITY,ALL_VAL_MO,PORT_NAME,CTY_NAME,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
+        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/exports/porths");
         document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+dateForm;
@@ -113,11 +114,11 @@ function xhttpRequest(){
     }
     
     if (valid){
+        document.getElementById("TABLE").innerHTML = '';
+        document.getElementById("FLAG").innerHTML = '';
         if(document.querySelector("#download").checked === true){
-            document.getElementById("FLAG").innerHTML = '';
             document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
         } else if (document.querySelector("#make-table").checked === true){
-            document.getElementById("TABLE").innerHTML = '';
             document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
         }
 
@@ -190,8 +191,6 @@ document.getElementById('all-commodity').onchange = function() {
             return false; // Prevent form submission
         }
     }
-
-    document.getElementById("validationMessage").textContent = "";
     xhttpRequest();
     return true;
 }
