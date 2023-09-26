@@ -128,6 +128,11 @@ function xhttpRequest(){
     }   
 }
 
+function searchBy(value){
+    localStorage.setItem("searchBy", value)
+    document.getElementById("myInput").value = "";
+}
+
 function filterSearch() {
 var input, filter, table, tr, td, i, txtValue;
 input = document.getElementById("myInput");
@@ -135,7 +140,7 @@ filter = input.value.toUpperCase();
 table = document.getElementById("myTable");
 tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[11];
+    td = tr[i].getElementsByTagName("td")[localStorage.getItem("searchBy")];
     if (td) {
     txtValue = td.textContent || td.innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {

@@ -84,8 +84,20 @@
           <br/>
           <input type="submit" value="Submit">
         </form>
+
         <h2>Search</h2>
-        <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Search by 4 Digit District-Port Code" title="Type in a name">
+        <div name="search-by" >
+          <input type="radio" id="port-search" name="search-by" onclick="searchBy(11)"/>
+          <label for="port-search">Search by Port Code</label>
+          <input type="radio" id="portname-search" name="search-by" onclick="searchBy(7)"/>
+          <label for="portname-search">Search by Port Name</label>
+          <input type="radio" id="name-search" name="search-by" onclick="searchBy(4)"/>
+          <label for="name-search">Search by Country Name</label>
+          <input type="radio" id="name-hs" name="search-by" onclick="searchBy(3)"/>
+          <label for="comm-search">Search by Commodity Code</label>
+          
+        </div>
+        <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Search...">
         <div id="FLAG"></div>
         <div id="TABLE"></div>
       </div>
