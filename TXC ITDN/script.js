@@ -9,6 +9,21 @@ function fetchJSONData(url) {
     
 }
 
+let timeout;
+
+function startTimeout() {
+  timeout = setTimeout(timeoutMessage, 60000);
+}
+
+function timeoutMessage(){
+    timeoutMessage = '<h2><center>You request has timed out. Please verify fields.</center></h2>';
+    if(document.querySelector("#download").checked === true){
+        document.getElementById("FLAG").innerHTML = timeoutMessage;
+    } else if (document.querySelector("#make-table").checked === true){
+        document.getElementById("TABLE").innerHTML = timeoutMessage;
+    }
+}
+
 async function populateTable(url) {
     try {
         
@@ -69,6 +84,7 @@ xhttp.onreadystatechange = function() {
         
     }
 
+    clearTimeout(timeout);
     if(document.querySelector("#make-table").checked === true){
         document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
     }
@@ -81,6 +97,7 @@ xhttp.onreadystatechange = function() {
 };
 
 function xhttpRequest(){
+    startTimeout();
     dateForm = document.getElementById("date").value;
     let valid = false;
     let  API_Call = "";
