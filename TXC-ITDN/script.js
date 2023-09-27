@@ -96,6 +96,7 @@ xhttp.onreadystatechange = function() {
     }
 };
 
+let district;
 function xhttpRequest(){
     startTimeout();
     dateForm = document.getElementById("date").value;
@@ -117,6 +118,8 @@ function xhttpRequest(){
     if (document.querySelector("#imports").checked && document.querySelector("#exports").checked) {	
         alert("Please select only one trade type.")
     } else if(document.querySelector("#imports").checked){
+        //API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&YEAR=2022";
+
         API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/imports/porths");
@@ -251,14 +254,21 @@ CSVFile = new Blob([csv_data], {
 // download process
 var temp_link = document.createElement('a');
 
-var type = "";
+let trade_type;
 if(document.querySelector("#imports").checked){
-    type = "imports";
+    trade_type = "imports";
 } else if(document.querySelector("#exports").checked){
-    type = "exports";            
+    trade_type = "exports";            
 }
 
-file_name = type+"-porths-"+document.getElementById("date").value+".csv"
+let date;
+if(document.querySelector("#year-checkbox").checked){
+    date = document.getElementById("year-input").value;   
+} else{
+    date = document.getElementById("date").value;   
+}
+
+file_name = trade_type+"-district"+district+"-"+date+".csv"
 
 // Download csv file 
 temp_link.download = file_name;

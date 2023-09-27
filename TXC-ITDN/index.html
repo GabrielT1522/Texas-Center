@@ -20,10 +20,8 @@
 		<nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
       <div class="container-fluid">
           <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
-              <img src="logoPrimary.svg" alt="" height="52"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+              <img src="logoPrimary.svg" alt="Texas Center Logo" height="52"></a>       
+      </div>
     </nav> 
     <!-- end Navigation -->
   
@@ -52,6 +50,12 @@
       <br/>
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
+          <div>
+            <label for="year-checkbox">Check to make a yearly request.</label>
+            <input type="checkbox" id="year-checkbox" name="year-input"/>
+            <input type="number" id="year-input" min="2005" max="2022" step="1"/>
+          </div>
+
           <div required >
             <input type="radio" id="imports" name="port-type" />
             <label for="imports">Imports</label>
