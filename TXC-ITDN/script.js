@@ -99,7 +99,8 @@ xhttp.onreadystatechange = function() {
 let district;
 function xhttpRequest(){
     startTimeout();
-    dateForm = document.getElementById("date").value;
+    calendarField = document.getElementById("date").value;
+    yearField = document.getElementById("year-input").value;
     let valid = false;
     let  API_Call = "";
     district = document.getElementById("DISTRICT").value;
@@ -115,20 +116,26 @@ function xhttpRequest(){
         }
     }
 
+    
+
     if (document.querySelector("#imports").checked && document.querySelector("#exports").checked) {	
         alert("Please select only one trade type.")
     } else if(document.querySelector("#imports").checked){
-        //API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&YEAR=2022";
-
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
+        if (document.getElementById("year-checkbox").checked){
+            API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&YEAR="+yearField;
+            document.getElementById("title-date").innerHTML = "District "+district+" Imports in "+yearField;
+        }else{
+            API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+calendarField;
+            document.getElementById("title-date").innerHTML = "District "+district+" Imports in "+calendarField;
+        }
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/imports/porths");
-        document.getElementById("title-date").innerHTML = "District "+district+" Imports in "+dateForm;
+        
     } else if(document.querySelector("#exports").checked){
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+dateForm;
+        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+calendarField;
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/exports/porths");
-        document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+dateForm;
+        document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+calendarField;
     } else{
         alert("Please select a trade type.")
     }
@@ -188,21 +195,40 @@ document.getElementById('all-commodity').onchange = function() {
     }
    };
 
+   function yearCheckbox(){
+    var isCheckedYearInput = document.getElementById("year-checkbox").checked;
+    var calenderField = document.getElementById("date");
+    var yearField = document.getElementById("year-input");
+    var isCalendarRequired = !isCheckedYearInput;
+    var isYearInputRequired = isCheckedYearInput;
+
+
+    // Set the "required" attribute based on the checkbox
+    calenderField.required = isCalendarRequired;
+    calenderField.disabled = !isCalendarRequired;
+
+    if (!isCalendarRequired){
+        calenderField.value = "";
+    }
+
+    yearField.required = isYearInputRequired;
+    yearField.disabled = !isYearInputRequired;
+
+    if (!isYearInputRequired){
+        yearField.value = "";
+    }
+   }
+
    function validateForm() {
     var dateField = document.getElementById("date");
     var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
-
-    // Check if the calendar field has a value
-    if (dateField.value === "") {
-        document.getElementById("validationMessage").textContent = "Please select a date.";
-        return false; // Prevent form submission
-    }
+    
 
     // Check if the "validateCommodity" field is required
     var numericField = document.getElementById("commodityInput");
     var inputValue = numericField.value;
     var isCommodityRequired = !isCheckedAllCommodity;
-
+    
     // Set the "required" attribute based on the checkbox
     numericField.required = isCommodityRequired;
 

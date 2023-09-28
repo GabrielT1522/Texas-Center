@@ -52,8 +52,8 @@
         <form id="date-form" action="#" onsubmit="validateForm();return false">
           <div>
             <label for="year-checkbox">Check to make a yearly request.</label>
-            <input type="checkbox" id="year-checkbox" name="year-input"/>
-            <input type="number" id="year-input" min="2005" max="2022" step="1"/>
+            <input type="checkbox" id="year-checkbox" name="year-input" onclick="yearCheckbox()"/>
+            <input type="number" id="year-input" min="2005" max="2022" step="1" disabled/>
           </div>
 
           <div required >
