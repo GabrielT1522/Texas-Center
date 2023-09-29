@@ -220,7 +220,6 @@ document.getElementById('all-commodity').onchange = function() {
    }
 
    function validateForm() {
-    var dateField = document.getElementById("date");
     var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
     
 

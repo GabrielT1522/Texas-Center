@@ -41,49 +41,28 @@
           </tr>
           <tr>
             <td>Title</td>
-            <td id="title"></td>
+            <td>Time Series International Trade: Monthly U.S. Imports by State and Harmonized System (HS) Code</td>
           </tr>
           <tr>
             <td>Description</td>
-            <td id="description"></td>
+            <td>The Census data API provides access to the most comprehensive set of data on current month and cumulative year-to-date imports by state and Harmonized System (HS) code. The State HS endpoint in the Census data API also provides value, shipping weight, and method of transportation totals at the state level for all U.S. trading partners. The Census data API will help users research new markets for their products, establish pricing structures for potential export markets, and conduct economic planning. If you have any questions regarding U.S. international trade data, please call us at 1(800)549-0595 option #4 or email us at eid.international.trade.data@census.gov.
+            </td>
           </tr>
         </table>
         <br/>
       </div>
-      <h2 id="title-date">District ## Type in Date</h2>
+      <h2 id="title-date">State Hormonized System Imports and Exports in Year: </h2>
       <br/>
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
           <div>
-            <label for="year-checkbox">Check to make a yearly request.</label>
-            <input type="checkbox" id="year-checkbox" name="year-input" onclick="yearCheckbox()"/>
-            <input type="number" id="year-input" min="2005" max="2022" step="1" disabled/>
+            <label for="year-input">Please enter the year:</label>
+            <input type="number" id="year-input" min="2005" max="2022" step="1"/>
           </div>
 
-          <div required >
-            <input type="radio" id="imports" name="port-type" />
-            <label for="imports">Imports</label>
-            <input type="radio" id="exports" name="port-type" />
-            <label for="exports">Exports</label>
-            
-          </div>
           <div>
-            <label for="date">Please enter month and year: </label>
-            <input id="date" type="month" name="date" min="2010-01" max="2023-07" required />
-            
-            <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
-            <input type="checkbox" id="all-commodity" name="All Commodity" checked/>
-            <input type="text" id="commodityInput" maxlength="6"disabled/>
-            
-
-            <label for="district">Choose a District:</label>
-            <select name="district" id="DISTRICT">
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <input type="checkbox" id="make-table" name="make-table" disabled/>
-              <label for="make-table">Make Web Table</label>
+              <input type="checkbox" id="make-table" name="make-table" />
+              <label for="make-table">Make Web Table (1st 100 entries)</label>
               <input type="checkbox" id="download" name="download" checked />
               <label for="download">Download Data</label>
             </select>
