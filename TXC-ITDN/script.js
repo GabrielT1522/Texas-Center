@@ -55,11 +55,38 @@ function makeTableHTML(myArray) {
     return result;
 }
 
+function yearRequest(){
+    API_Call1 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=23*&YEAR=2021";
+    API_Call2 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=24*&YEAR=2021";
+    API_Call3 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=25*&YEAR=2021";
+    API_Call4 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=26*&YEAR=2021";
+
+    Promise.all([
+        fetch(API_Call1),
+        fetch(API_Call2),
+        fetch(API_Call3),
+        fetch(API_Call4)
+    ]).then(function (responses) {
+        // Get a JSON object from each of the responses
+        return Promise.all(responses.map(function (response) {
+            return response.json();
+        }));
+    }).then(function (data) {
+        // Log the data to the console
+        // You would do something with both sets of data here
+        console.log(data);
+    }).catch(function (error) {
+        // if there's an error, log it
+        console.log(error);
+    });
+}
+
 var API_DATA;
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        API_DATA = JSON.parse(xhttp.responseText);
+        //API_DATA = JSON.parse(xhttp.responseText);
+        API_DATA = JSON.parse(yearRequest);
 
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
     API_DATA[0].splice(1, 0, "dist_code", "port_code");
