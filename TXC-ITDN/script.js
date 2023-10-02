@@ -12,7 +12,11 @@ function fetchJSONData(url) {
 let timeout;
 
 function startTimeout() {
-  timeout = setTimeout(timeoutMessage, 60000);
+    if(document.getElementById("year-checkbox").checked){
+        timeout = setTimeout(timeoutMessage, 180000);
+    }else{
+        timeout = setTimeout(timeoutMessage, 60000);
+    }
 }
 
 function timeoutMessage(){
@@ -132,10 +136,15 @@ function xhttpRequest(){
         populateTable("https://api.census.gov/data/timeseries/intltrade/imports/porths");
         
     } else if(document.querySelector("#exports").checked){
-        API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+calendarField;
+        if (document.getElementById("year-checkbox").checked){
+            API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=YEAR,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&YEAR="+yearField;
+            document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+yearField;
+        }else{
+            API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&"+commodity+"&PORT="+district+"*&time="+calendarField;
+            document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+calendarField;
+        }
         valid = true;
         populateTable("https://api.census.gov/data/timeseries/intltrade/exports/porths");
-        document.getElementById("title-date").innerHTML = "District "+district+" Exports in "+calendarField;
     } else{
         alert("Please select a trade type.")
     }
@@ -221,8 +230,6 @@ document.getElementById('all-commodity').onchange = function() {
 
    function validateForm() {
     var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
-    
-
     // Check if the "validateCommodity" field is required
     var numericField = document.getElementById("commodityInput");
     var inputValue = numericField.value;
