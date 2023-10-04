@@ -1,3 +1,5 @@
+const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
+
 function fetchJSONData(url) {
             
     const jsonURL = url; 
@@ -55,48 +57,62 @@ function makeTableHTML(myArray) {
     return result;
 }
 
-function yearRequest(){
-	API_Call1 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=23*&YEAR=2021";
-	API_Call2 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=24*&YEAR=2021";
-	API_Call3 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=25*&YEAR=2021";
-	API_Call4 = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&COMM_LVL=HS6&PORT=26*&YEAR=2021";
-
-	var combinedArray = [];
-	Promise.all([
+async function yearRequest() {
+    trade_type = getTradeTypeInput();
+    date = getDateInput();
+    commodity = getCommodityInput();
+	const API_Call1 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=23*&YEAR="+date;
+	const API_Call2 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=24*&YEAR="+date;
+	const API_Call3 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=25*&YEAR="+date;
+	const API_Call4 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=26*&YEAR="+date;	
+  
+	try {
+	  const responses = await Promise.all([
 		fetch(API_Call1),
 		fetch(API_Call2),
 		fetch(API_Call3),
 		fetch(API_Call4)
-	]).then(function (responses) {
-		// Get a JSON object from each of the responses
-		return Promise.all(responses.map(function (response) {
-			return response.json();
-		}));
-	}).then(function (data) {
-		// Combine the JSON data into a 2x2 array
-		
+	  ]);
+  
+	  const data = await Promise.all(responses.map(response => response.json()));
+  
+	  const combinedArray = [];
+  
+	  // Assuming each data element is an array, you can concatenate them
+	  // For simplicity, this example assumes each data element has the same structure
+	  if (data.length >= 4) {
+		combinedArray.push(...data[0], ...data[1]);
+		combinedArray.push(...data[2], ...data[3]);
+	  }
+	  return combinedArray;
+	} catch (error) {
+	  // If there's an error, you can handle it or throw it further
+	  console.error(error);
+	  throw error;
+	}
+  }
 
-		// Assuming each data element is an array, you can concatenate them
-		// For simplicity, this example assumes each data element has the same structure
-		if (data.length >= 4) {
-			combinedArray.push(data[0], data[1]);
-			combinedArray.push(data[2], data[3]);
-		}
-
-	}).catch(function (error) {
-		// If there's an error, log it
-		console.log(error);
-	});
-    console.log("TEST");
-	return combinedArray;
-}
-
-var API_DATA;
+//var API_DATA;
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        //API_DATA = JSON.parse(xhttp.responseText);
-        API_DATA = JSON.parse(yearRequest);
+        if (document.getElementById("year-checkbox").checked){
+            yearRequest()
+            .then(combinedArray => {
+              buildArrayData(combinedArray)
+            })
+            .catch(error => {
+              // Handle any errors here
+              console.error(error);
+            });        
+        }else{
+            buildArrayData(JSON.parse(xhttp.responseText));
+        }
+    }
+};
+
+function buildArrayData(API_DATA){
+    let headerCounter = 1; // Initialize a counter for the headers
 
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
     API_DATA[0].splice(1, 0, "dist_code", "port_code");
@@ -104,7 +120,20 @@ xhttp.onreadystatechange = function() {
 
 
     // Iterate through the array and populate "import" or "export" based on your if statement
-    for (var i = 1; i < API_DATA.length; i++) {
+    for (let i = 1; i < API_DATA.length; i++) {
+        const firstIndexValue = API_DATA[i][0]; // Assuming the first index contains the year
+
+        // Check if the first index value is "YEAR"
+        if (firstIndexValue === "YEAR") {
+            headerCounter++;
+            
+            // If it's the second or subsequent occurrence, delete this row
+            if (headerCounter > 1) {
+                API_DATA.splice(i, 1); // Remove the current row
+                //i--; // Adjust the loop counter since the array length has changed
+            }
+        }
+
         var trade_type;
         
         // Replace this with your if statement to determine trade_type
@@ -133,9 +162,32 @@ xhttp.onreadystatechange = function() {
     if(document.querySelector("#download").checked === true){
         arrayToCSV(API_DATA);
     }
-    
+}
+
+function getDateInput(){
+    if (document.getElementById("year-checkbox").checked){
+        return document.getElementById("year-input").value;
+    }else{
+        return document.getElementById("date").value;
     }
-};
+}
+
+function getCommodityInput(){
+    commodity = document.getElementById("commodityInput").value;
+    if(commodity === ""){
+        return "COMM_LVL=HS6";
+    }else{
+        if(document.querySelector("#imports").checked){
+            return "I_COMMODITY="+commodity;
+        } else if(document.querySelector("#exports").checked){
+            return "E_COMMODITY="+commodity;
+        }
+    }
+}
+
+function getTradeTypeInput(){
+    return document.querySelector('input[name="port-type"]:checked').value;
+}
 
 let district;
 function xhttpRequest(){
@@ -323,19 +375,8 @@ CSVFile = new Blob([csv_data], {
 // download process
 var temp_link = document.createElement('a');
 
-let trade_type;
-if(document.querySelector("#imports").checked){
-    trade_type = "imports";
-} else if(document.querySelector("#exports").checked){
-    trade_type = "exports";            
-}
-
-let date;
-if(document.querySelector("#year-checkbox").checked){
-    date = document.getElementById("year-input").value;   
-} else{
-    date = document.getElementById("date").value;   
-}
+let trade_type = getTradeTypeInput();
+let date = getDateInput();
 
 file_name = trade_type+"-district"+district+"-"+date+".csv"
 
