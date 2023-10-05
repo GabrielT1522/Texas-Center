@@ -15,14 +15,14 @@ let timeout;
 
 function startTimeout() {
     if(document.getElementById("year-checkbox").checked){
-        timeout = setTimeout(timeoutMessage, 180000);
+        timeout = setTimeout(timeoutMessage, 300000);
     }else{
         timeout = setTimeout(timeoutMessage, 60000);
     }
 }
 
 function timeoutMessage(){
-    timeoutMessage = '<h2><center>You request has timed out. Please verify fields.</center></h2>';
+    timeoutMessage = '<center><h2>You request has timed out.</h2><p>Your request may still process, however, please verify the fields.</p></center>';
     if(document.querySelector("#download").checked === true){
         document.getElementById("FLAG").innerHTML = timeoutMessage;
     } else if (document.querySelector("#make-table").checked === true){
@@ -57,6 +57,7 @@ function makeTableHTML(myArray) {
     return result;
 }
 
+/*
 async function yearRequest() {
     trade_type = getTradeTypeInput();
     date = getDateInput();
@@ -90,6 +91,52 @@ async function yearRequest() {
 	  console.error(error);
 	  throw error;
 	}
+  }*/
+
+  async function fetchAndCombineData(API_Call) {
+    try {
+      const response = await fetch(API_Call);
+  
+      if (!response.ok) {
+        timeoutMessage();
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+    timeoutMessage();
+      console.error(error);
+      throw error;
+    }
+  }
+  
+  async function yearRequest() {
+    const trade_type = getTradeTypeInput();
+    const date = getDateInput();
+    const commodity = getCommodityInput();
+    const commodityType = getCommodityTypeInput();
+    const valueType = getValueTypeInput();
+
+    try {
+      const API_Call1 = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=YEAR,${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=23*&YEAR=${date}`;
+      const API_Call2 = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=YEAR,${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=24*&YEAR=${date}`;
+      const API_Call3 = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=YEAR,${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=25*&YEAR=${date}`;
+      const API_Call4 = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=YEAR,${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=26*&YEAR=${date}`;
+  
+      const data1 = await fetchAndCombineData(API_Call1);
+      const data2 = await fetchAndCombineData(API_Call2);
+      const data3 = await fetchAndCombineData(API_Call3);
+      const data4 = await fetchAndCombineData(API_Call4);
+  
+      const combinedArray = [...data1, ...data2, ...data3, ...data4];
+  
+      return combinedArray;
+    } catch (error) {
+        timeoutMessage();
+        console.error(error);
+        throw error;
+    }
   }
 
 //var API_DATA;
@@ -182,6 +229,22 @@ function getCommodityInput(){
         } else if(document.querySelector("#exports").checked){
             return "E_COMMODITY="+commodity;
         }
+    }
+}
+
+function getCommodityTypeInput(){
+    if(document.querySelector("#imports").checked){
+        return "I";
+    } else if(document.querySelector("#exports").checked){
+        return "E";
+    }
+}
+
+function getValueTypeInput(){
+    if(document.querySelector("#imports").checked){
+        return "GEN_VAL_MO";
+    } else if(document.querySelector("#exports").checked){
+        return "ALL_VAL_MO";
     }
 }
 
