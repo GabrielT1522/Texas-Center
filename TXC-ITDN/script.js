@@ -15,14 +15,17 @@ let timeout;
 
 function startTimeout() {
     if(document.getElementById("year-checkbox").checked){
-        timeout = setTimeout(timeoutMessage, 300000);
+        //alert("Please be aware that yearly requests may take up to 10 minutes to process.")
+        timeout = setTimeout(timeoutMessage, 600000);
+    }else if(document.getElementById("all-commodity").checked){
+        timeout = setTimeout(timeoutMessage, 180000);
     }else{
         timeout = setTimeout(timeoutMessage, 60000);
     }
 }
 
 function timeoutMessage(){
-    timeoutMessage = '<center><h2>You request has timed out.</h2><p>Your request may still process, however, please verify the fields.</p></center>';
+    timeoutMessage = '<center><h2>You request has timed out.</h2><p>Please verify the fields.</p></center>';
     if(document.querySelector("#download").checked === true){
         document.getElementById("FLAG").innerHTML = timeoutMessage;
     } else if (document.querySelector("#make-table").checked === true){
@@ -54,6 +57,7 @@ function makeTableHTML(myArray) {
     }
     result += "</table>";
 
+    stopTimer();
     return result;
 }
 
@@ -302,6 +306,7 @@ function xhttpRequest(){
     }
     
     if (valid){
+        resetTimer();
         document.getElementById("TABLE").innerHTML = '';
         document.getElementById("FLAG").innerHTML = '';
         if(document.querySelector("#download").checked === true){
@@ -310,6 +315,8 @@ function xhttpRequest(){
             document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
         }
 
+        
+        startTimer();
         xhttp.open("GET", API_Call, true);
         xhttp.send();
         document.getElementById("myInput").value = "";
@@ -400,6 +407,7 @@ document.getElementById('all-commodity').onchange = function() {
             return false; // Prevent form submission
         }
     }
+    
     xhttpRequest();
     return true;
 }
@@ -409,52 +417,136 @@ document.getElementById('all-commodity').onchange = function() {
 // Convert to csv file seperated by '^'
 
 function arrayToCSV(array) {
-var buf = array.map(function(row) {
-    row = row.map(function(str) {
-    if (str == null) {
-        str = "";
-    } else {
-        str += "";
-    }
-    if (str.search(/[,"\t\n\r]/) > -1) {
-        str = '"' + str.replace(/"/g, '""') + '"';
-    }
-    return str;
+    var buf = array.map(function(row) {
+        row = row.map(function(str) {
+        if (str == null) {
+            str = "";
+        } else {
+            str += "";
+        }
+        if (str.search(/[,"\t\n\r]/) > -1) {
+            str = '"' + str.replace(/"/g, '""') + '"';
+        }
+        return str;
+        });
+        return row.join("^") + "\x0D\x0A";
     });
-    return row.join("^") + "\x0D\x0A";
-});
-downloadCSVFile(buf.join(""));
+    downloadCSVFile(buf.join(""));
+    }
+
+    function downloadCSVFile(csv_data) {
+
+    // Create CSV file object and feed
+    // our csv_data into it
+    CSVFile = new Blob([csv_data], {
+        type: "text/csv"
+    });
+
+    // Create to temporary link to initiate
+    // download process
+    var temp_link = document.createElement('a');
+
+    let trade_type = getTradeTypeInput();
+    let date = getDateInput();
+
+    if (document.getElementById("year-checkbox").checked){
+        file_name = trade_type+"-year-"+date+".csv"
+    }else{
+        file_name = trade_type+"-district"+district+"-"+date+".csv"
+    }
+
+
+    // Download csv file 
+    temp_link.download = file_name;
+    var url = window.URL.createObjectURL(CSVFile);
+    temp_link.href = url;
+
+    // This link should not be displayed
+    temp_link.style.display = "none";
+    document.body.appendChild(temp_link);
+
+    // Automatically click the link to
+    // trigger download
+    stopTimer();
+    temp_link.click();
+    document.body.removeChild(temp_link);
+    document.getElementById("FLAG").innerHTML = '<p class="flag">'+file_name+' has been saved to your downloads folder.</p>';
+    }
+
+
+// Timer
+
+let timer = false;
+let hour = 0;
+let minute = 0;
+let second = 0;
+let count = 0;
+ 
+function startTimer(){
+    timer = true;
+    stopWatch();
 }
 
-function downloadCSVFile(csv_data) {
+function stopTimer(){
+    timer = false;
+}
 
-// Create CSV file object and feed
-// our csv_data into it
-CSVFile = new Blob([csv_data], {
-    type: "text/csv"
-});
-
-// Create to temporary link to initiate
-// download process
-var temp_link = document.createElement('a');
-
-let trade_type = getTradeTypeInput();
-let date = getDateInput();
-
-file_name = trade_type+"-district"+district+"-"+date+".csv"
-
-// Download csv file 
-temp_link.download = file_name;
-var url = window.URL.createObjectURL(CSVFile);
-temp_link.href = url;
-
-// This link should not be displayed
-temp_link.style.display = "none";
-document.body.appendChild(temp_link);
-
-// Automatically click the link to
-// trigger download
-temp_link.click();
-document.body.removeChild(temp_link);
-document.getElementById("FLAG").innerHTML = '<p class="flag">'+file_name+' has been saved to your downloads folder.</p>';
+function resetTimer(){
+    timer = false;
+    hour = 0;
+    minute = 0;
+    second = 0;
+    count = 0;
+    document.getElementById('min').innerHTML = "00";
+    document.getElementById('sec').innerHTML = "00";
+    document.getElementById('count').innerHTML = "00";
+}
+ 
+function stopWatch() {
+    if (timer) {
+        count++;
+ 
+        if (count == 100) {
+            second++;
+            count = 0;
+        }
+ 
+        if (second == 60) {
+            minute++;
+            second = 0;
+        }
+ 
+        if (minute == 60) {
+            hour++;
+            minute = 0;
+            second = 0;
+        }
+ 
+        let hrString = hour;
+        let minString = minute;
+        let secString = second;
+        let countString = count;
+ 
+        if (hour < 10) {
+            hrString = "0" + hrString;
+        }
+ 
+        if (minute < 10) {
+            minString = "0" + minString;
+        }
+ 
+        if (second < 10) {
+            secString = "0" + secString;
+        }
+ 
+        if (count < 10) {
+            countString = "0" + countString;
+        }
+ 
+        //document.getElementById('hr').innerHTML = hrString;
+        document.getElementById('min').innerHTML = minString;
+        document.getElementById('sec').innerHTML = secString;
+        document.getElementById('count').innerHTML = countString;
+        setTimeout(stopWatch, 10);
+    }
 }
