@@ -95,6 +95,7 @@
 
         <h2>Search</h2>
         <div name="search-by" >
+          <div id="left">
           <input type="radio" id="port-search" name="search-by" onclick="searchBy(11)"/>
           <label for="port-search">Search by Port Code</label>
           <input type="radio" id="portname-search" name="search-by" onclick="searchBy(7)"/>
@@ -103,20 +104,21 @@
           <label for="name-search">Search by Country Name</label>
           <input type="radio" id="name-hs" name="search-by" onclick="searchBy(3)"/>
           <label for="comm-search">Search by Commodity Code</label>
+          </div>
+          <div class="timer" id="right">
+            <h3>Time Elapsed:</h3>
+            <div id="timer">
+                <span class="digit" id="min"> 00</span>
+                <span class="txt">Min</span>
+                <span class="digit" id="sec"> 00</span>
+                <span class="txt">Sec</span>
+                <span class="digit" id="count"> 00</span>
+            </div>
+        </div>
           
         </div>
         <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Search...">
         <div id="FLAG"></div>
-        <div class="timer">
-          <h3>Time Elapsed:</h3>
-          <div id="timer">
-              <span class="digit" id="min"> 00</span>
-              <span class="txt">Min</span>
-              <span class="digit" id="sec"> 00</span>
-              <span class="txt">Sec</span>
-              <span class="digit" id="count"> 00</span>
-          </div>
-      </div>
         <div id="TABLE"></div>
       </div>
     </section>

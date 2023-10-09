@@ -15,7 +15,7 @@ let timeout;
 
 function startTimeout() {
     if(document.getElementById("year-checkbox").checked){
-        //alert("Please be aware that yearly requests may take up to 10 minutes to process.")
+        alert("Please be aware that yearly requests may take up to 10 minutes to process.")
         timeout = setTimeout(timeoutMessage, 600000);
     }else if(document.getElementById("all-commodity").checked){
         timeout = setTimeout(timeoutMessage, 180000);
@@ -450,9 +450,9 @@ function arrayToCSV(array) {
     let date = getDateInput();
 
     if (document.getElementById("year-checkbox").checked){
-        file_name = trade_type+"-year-"+date+".csv"
+        file_name = trade_type+"_"+date+".csv"
     }else{
-        file_name = trade_type+"-district"+district+"-"+date+".csv"
+        file_name = trade_type+"_"+date+"_district_"+district+".csv";
     }
 
 
