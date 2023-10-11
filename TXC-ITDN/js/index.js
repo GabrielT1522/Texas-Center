@@ -61,42 +61,6 @@ function makeTableHTML(myArray) {
     return result;
 }
 
-/*
-async function yearRequest() {
-    trade_type = getTradeTypeInput();
-    date = getDateInput();
-    commodity = getCommodityInput();
-	const API_Call1 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=23*&YEAR="+date;
-	const API_Call2 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=24*&YEAR="+date;
-	const API_Call3 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=25*&YEAR="+date;
-	const API_Call4 = "https://api.census.gov/data/timeseries/intltrade/"+trade_type+"/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key="+API_KEY+"&"+commodity+"&PORT=26*&YEAR="+date;	
-  
-	try {
-	  const responses = await Promise.all([
-		fetch(API_Call1),
-		fetch(API_Call2),
-		fetch(API_Call3),
-		fetch(API_Call4)
-	  ]);
-  
-	  const data = await Promise.all(responses.map(response => response.json()));
-  
-	  const combinedArray = [];
-  
-	  // Assuming each data element is an array, you can concatenate them
-	  // For simplicity, this example assumes each data element has the same structure
-	  if (data.length >= 4) {
-		combinedArray.push(...data[0], ...data[1]);
-		combinedArray.push(...data[2], ...data[3]);
-	  }
-	  return combinedArray;
-	} catch (error) {
-	  // If there's an error, you can handle it or throw it further
-	  console.error(error);
-	  throw error;
-	}
-  }*/
-
   async function fetchAndCombineData(API_Call) {
     try {
       const response = await fetch(API_Call);

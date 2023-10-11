@@ -16,7 +16,7 @@
   </head>
   <body>
     <main>
-      <!-- Texcen Main Navigation --> 
+      <!-- TXC Main Navigation --> 
 		<nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
       <div class="container-fluid">
           <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
@@ -51,15 +51,16 @@
         </table>
         <br/>
       </div>
-      <h2 id="title-date">State Hormonized System Imports and Exports in Year: </h2>
+      <h2>State Hormonized System Imports and Exports in Year</h2>
+      <h3 id="title-date">From #### to ####</h3>
       <br/>
       <div class="body">
-        <form id="date-form" action="#" onsubmit="validateForm();return false">
+        <form id="date-form" action="#" onsubmit="submitStateHS();return false">
           <div>
             <label for="start-year-input">Please enter the start year:</label>
-            <input type="number" id="year-input" min="2005" max="2022" step="1"/>
+            <input type="number" id="year-input" min="2005" max="2022" step="1" required/>
             <label for="end-year-input">Please enter the end year:</label>
-            <input type="number" id="year-input" min="2005" max="2022" step="1"/>
+            <input type="number" id="year-input" min="2005" max="2022" step="1" required/>
           </div>
 
           <div>
@@ -76,14 +77,6 @@
 
         <h2>Search</h2>
         <div name="search-by" >
-          <input type="radio" id="port-search" name="search-by" onclick="searchBy(11)"/>
-          <label for="port-search">Search by Port Code</label>
-          <input type="radio" id="portname-search" name="search-by" onclick="searchBy(7)"/>
-          <label for="portname-search">Search by Port Name</label>
-          <input type="radio" id="name-search" name="search-by" onclick="searchBy(4)"/>
-          <label for="name-search">Search by Country Name</label>
-          <input type="radio" id="name-hs" name="search-by" onclick="searchBy(3)"/>
-          <label for="comm-search">Search by Commodity Code</label>
           <div class="timer" id="right">
             <h3>Time Elapsed:</h3>
             <div id="timer">
@@ -101,6 +94,6 @@
       </div>
     </section>
   </main>
-    <script type="text/javascript" src="../js/state.js"></script>
+    <script type="text/javascript" src="../js/statehs.js"></script>
   </body>
 </html>
