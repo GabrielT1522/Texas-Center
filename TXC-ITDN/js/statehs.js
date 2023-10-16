@@ -1,5 +1,6 @@
 const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
 
+let timeout;
 function startTimeout() {
   alert("Please be aware that yearly requests may take up to 3 minutes to process.")
   timeout = setTimeout(timeoutMessage, 180000);
@@ -14,6 +15,32 @@ function timeoutMessage(){
   }
 }
 
+function displayError(error){
+  stopTimer();
+  document.getElementById("FLAG").innerHTML = '<p class="flag">ERROR: '+error+'.</p>';
+  console.error(error);
+}
+
+
+let startYear;
+let endYear;
+function submitStateHS(){
+  startYear = document.getElementById("start-year-input").value;
+  endYear = document.getElementById("end-year-input").value;
+  document.getElementById("title-date").innerHTML = "From "+startYear+" to "+endYear;
+  startTimeout();
+  resetTimer();
+  document.getElementById("TABLE").innerHTML = '';
+  document.getElementById("FLAG").innerHTML = '';
+  if(document.querySelector("#download").checked === true){
+      document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
+  } else if (document.querySelector("#make-table").checked === true){
+      document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
+  }
+  startTimer();
+  yearRequest(startYear, endYear);
+}
+
 async function fetchAndCombineData(API_Call) {
   try {
     const response = await fetch(API_Call);
@@ -25,64 +52,40 @@ async function fetchAndCombineData(API_Call) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
+    displayError(error);
     throw error;
   }
 }
 
-let startYear;
-let endYear;
-
-function submitStateHS(){
-  startTimeout();
-  resetTimer();
-        document.getElementById("TABLE").innerHTML = '';
-        document.getElementById("FLAG").innerHTML = '';
-        if(document.querySelector("#download").checked === true){
-            document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
-        } else if (document.querySelector("#make-table").checked === true){
-            document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
-        }
-        startTimer();
-        yearRequest();
-}
- async function yearRequest() {
+async function yearRequest(startYear, endYear) {
   try {
-    startYear = document.getElementById("start-year-input").value;
-    endYear = document.getElementById("end-year-input").value;
-    document.getElementById("title-date").innerHTML = "From "+startYear+" to "+endYear;
     const tradeTypes = ['imports', 'exports']; // Define trade types
 
     const allData = []; // Store all data here
-
     for (let year = startYear; year <= endYear; year++) {
       for (const tradeType of tradeTypes) {
         const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
         const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=YEAR,STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}`;
-
+        console.log(API_Call);
         // Make the API call sequentially
         const data = await fetchAndCombineData(API_Call);
         allData.push(data);
       }
     }
-
+    
     return allData;
   } catch (error) {
-    console.error(error);
+    displayError(error);
     throw error;
   }
 }
 
-yearRequest()
-  .then(allData => {
-    buildArrayData(allData);
-  });
 
-  function buildArrayData(API_DATA){
+  function buildArrayData(){
+    yearRequest().then(allData => {
     let headerCounter = 1; // Initialize a counter for the headers
-    // Iterate through the array and populate "import" or "export" based on your if statement
-    for (let i = 1; i < API_DATA.length; i++) {
-        const firstIndexValue = API_DATA[i][0]; // Assuming the first index contains the year
+    for (let i = 1; i < allData.length; i++) {
+        const firstIndexValue = allData[i][0]; // Assuming the first index contains the year
 
         // Check if the first index value is "YEAR"
         if (firstIndexValue === "YEAR") {
@@ -90,20 +93,21 @@ yearRequest()
             
             // If it's the second or subsequent occurrence, delete this row
             if (headerCounter > 1) {
-                API_DATA.splice(i, 1); // Remove the current row
+              allData.splice(i, 1); // Remove the current row
                 //i--; // Adjust the loop counter since the array length has changed
             }
         }
     }
-
     clearTimeout(timeout);
     if(document.querySelector("#make-table").checked === true){
-        document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
+        document.getElementById("TABLE").innerHTML = makeTableHTML(allData);
     }
 
     if(document.querySelector("#download").checked === true){
-        arrayToCSV(API_DATA);
+        arrayToCSV(allData);
     }
+  });
+    
 }
 
 // Convert to csv file seperated by '^'

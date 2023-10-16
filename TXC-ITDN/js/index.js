@@ -98,7 +98,6 @@ function makeTableHTML(myArray) {
       const data4 = await fetchAndCombineData(API_Call4);
   
       const combinedArray = [...data1, ...data2, ...data3, ...data4];
-  
       return combinedArray;
     } catch (error) {
         timeoutMessage();

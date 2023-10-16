@@ -153,6 +153,7 @@ async function yearRequest(startYear, endYear) {
 
     return allData;
   } catch (error) {
+    document.getElementById("FLAG").innerHTML = error;
     console.error(error);
     throw error;
   }
@@ -160,7 +161,7 @@ async function yearRequest(startYear, endYear) {
 
 yearRequest(2020, 2022) // Replace with your desired start and end years
   .then(allData => {
-    buildArrayData(allData);
+    arrayToCSV(allData);
   });
 
 function buildArrayData(allData) {
@@ -201,15 +202,7 @@ function arrayToCSV(array) {
   // download process
   var temp_link = document.createElement('a');
 
-  let trade_type = getTradeTypeInput();
-  let date = getDateInput();
-
-  if (document.getElementById("year-checkbox").checked){
-      file_name = trade_type+"_"+date+".csv"
-  }else{
-      file_name = trade_type+"_"+date+"_district_"+district+".csv";
-  }
-
+  file_name = "statehs_2020-2022.csv"
 
   // Download csv file 
   temp_link.download = file_name;
@@ -225,9 +218,9 @@ function arrayToCSV(array) {
   stopTimer();
   temp_link.click();
   document.body.removeChild(temp_link);
-  document.getElementById("FLAG").innerHTML = '<p class="flag">'+file_name+' has been saved to your downloads folder.</p>';
+  console.log("download complete");
+  //document.getElementById("FLAG").innerHTML = '<p class="flag">'+file_name+' has been saved to your downloads folder.</p>';
   }
-
 
 // Timer
 
