@@ -59,68 +59,57 @@ async function fetchAndCombineData(API_Call) {
 
 async function yearRequest(startYear, endYear) {
   try {
+    let API_counter = 0;
     const tradeTypes = ['imports', 'exports']; // Define trade types
-    const allData = []; // Store all data here
+    const API_DATA = []; // Store all data here
 
     for (let year = startYear; year <= endYear; year++) {
       for (const tradeType of tradeTypes) {
         const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
         const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=YEAR,STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}`;
         console.log(API_Call);
+        API_counter++;
+        console.log(API_counter);
         // Make the API call sequentially
         const data = await fetchAndCombineData(API_Call);
-        allData.push(data);
+        API_DATA.push(...buildArrayData(data, tradeType, API_counter));
       }
     }
     
-    // Process the combined data
-    //const combinedData = processCombinedData(allData);
-    buildArrayData(allData);
-    //return allData;
+
+    clearTimeout(timeout);
+    if(document.querySelector("#make-table").checked === true){
+        document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
+    }
+
+    if(document.querySelector("#download").checked === true){
+        arrayToCSV(API_DATA);
+    }
   } catch (error) {
     displayError(error);
     throw error;
   }
 }
 
-/*yearRequest().then(allData => {
-              buildArrayData(allData)
-            })
-            .catch(error => {
-              // Handle any errors here
-              console.error(error);
-            });    */   
+function buildArrayData(API_DATA, tradeType, headerCounter) {
+  API_DATA[0].splice(6, 0, "trade_type");
 
-  function buildArrayData(array){
-    console.log("buildArrayData started")
-    /*let headerCounter = 1; // Initialize a counter for the headers
-    for (let i = 1; i < allData.length; i++) {
-        const firstIndexValue = allData[i][0]; // Assuming the first index contains the year
+  for (let i = 1; i < API_DATA.length; i++) {
+      API_DATA[i].splice(6, 0, tradeType);
+  }
 
-        // Check if the first index value is "YEAR"
-        if (firstIndexValue === "YEAR") {
-            headerCounter++;
-            
-            // If it's the second or subsequent occurrence, delete this row
-            if (headerCounter > 1) {
-              allData.splice(i, 1); // Remove the current row
-                //i--; // Adjust the loop counter since the array length has changed
-            }
-        }
-    }*/
-    clearTimeout(timeout);
-    if(document.querySelector("#make-table").checked === true){
-        document.getElementById("TABLE").innerHTML = makeTableHTML(array);
-    }
+  if (headerCounter > 1) {
+      // Delete the first row (header) if headerCounter is greater than 1
+      API_DATA.splice(0, 1);
+  }
 
-    if(document.querySelector("#download").checked === true){
-        arrayToCSV(array);
-    }
-    
+  return API_DATA;
 }
 
-// Convert to csv file seperated by '^'
 
+
+
+// Convert to csv file seperated by '^'
 function arrayToCSV(array) {
   // Ensure data is an array of objects
   if (!Array.isArray(array) || array.length === 0) {
@@ -133,14 +122,14 @@ function arrayToCSV(array) {
       if (str == null) {
         str = "";
       } else {
-        str = str.toString().replace(/,/g, "^"); // Replace commas with '^'
-      }
-      if (str.search(/[,"\t\n\r]/) > -1) {
-        str = '"' + str.replace(/"/g, '""') + '"';
+        // Check if the string contains a comma
+        if (str.indexOf(',') !== -1 || str.search(/[,"\t\n\r]/) > -1) {
+          str = '"' + str.replace(/"/g, '""') + '"';
+        }
       }
       return str;
     });
-    return row.join("^") + "\x0D\x0A";
+    return row.join("^") + "\x0D\x0A"; // Use a comma as the delimiter
   });
 
   downloadCSVFile(buf.join(""));
