@@ -60,8 +60,8 @@ async function fetchAndCombineData(API_Call) {
 async function yearRequest(startYear, endYear) {
   try {
     const tradeTypes = ['imports', 'exports']; // Define trade types
-
     const allData = []; // Store all data here
+
     for (let year = startYear; year <= endYear; year++) {
       for (const tradeType of tradeTypes) {
         const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
@@ -73,17 +73,27 @@ async function yearRequest(startYear, endYear) {
       }
     }
     
-    return allData;
+    // Process the combined data
+    //const combinedData = processCombinedData(allData);
+    buildArrayData(allData);
+    //return allData;
   } catch (error) {
     displayError(error);
     throw error;
   }
 }
 
+/*yearRequest().then(allData => {
+              buildArrayData(allData)
+            })
+            .catch(error => {
+              // Handle any errors here
+              console.error(error);
+            });    */   
 
-  function buildArrayData(){
-    yearRequest().then(allData => {
-    let headerCounter = 1; // Initialize a counter for the headers
+  function buildArrayData(array){
+    console.log("buildArrayData started")
+    /*let headerCounter = 1; // Initialize a counter for the headers
     for (let i = 1; i < allData.length; i++) {
         const firstIndexValue = allData[i][0]; // Assuming the first index contains the year
 
@@ -97,38 +107,46 @@ async function yearRequest(startYear, endYear) {
                 //i--; // Adjust the loop counter since the array length has changed
             }
         }
-    }
+    }*/
     clearTimeout(timeout);
     if(document.querySelector("#make-table").checked === true){
-        document.getElementById("TABLE").innerHTML = makeTableHTML(allData);
+        document.getElementById("TABLE").innerHTML = makeTableHTML(array);
     }
 
     if(document.querySelector("#download").checked === true){
-        arrayToCSV(allData);
+        arrayToCSV(array);
     }
-  });
     
 }
 
 // Convert to csv file seperated by '^'
 
 function arrayToCSV(array) {
-    var buf = array.map(function(row) {
-        row = row.map(function(str) {
-        if (str == null) {
-            str = "";
-        } else {
-            str += "";
-        }
-        if (str.search(/[,"\t\n\r]/) > -1) {
-            str = '"' + str.replace(/"/g, '""') + '"';
-        }
-        return str;
-        });
-        return row.join("^") + "\x0D\x0A";
+  // Ensure data is an array of objects
+  if (!Array.isArray(array) || array.length === 0) {
+    console.error("Invalid data format for CSV conversion.");
+    return;
+  }
+
+  var buf = array.map(function(row) {
+    row = row.map(function(str) {
+      if (str == null) {
+        str = "";
+      } else {
+        str = str.toString().replace(/,/g, "^"); // Replace commas with '^'
+      }
+      if (str.search(/[,"\t\n\r]/) > -1) {
+        str = '"' + str.replace(/"/g, '""') + '"';
+      }
+      return str;
     });
-    downloadCSVFile(buf.join(""));
-    }
+    return row.join("^") + "\x0D\x0A";
+  });
+
+  downloadCSVFile(buf.join(""));
+}
+
+
 
     function downloadCSVFile(csv_data) {
 
