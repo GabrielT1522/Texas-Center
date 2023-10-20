@@ -2,7 +2,7 @@ const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
 
 let timeout;
 function startTimeout() {
-  alert("Please be aware that yearly requests may take up to 3 minutes to process.")
+  //alert("Please be aware that yearly requests may take up to 3 minutes to process.")
   timeout = setTimeout(timeoutMessage, 180000);
 }
 
@@ -106,21 +106,94 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
   return API_DATA;
 }
 
-function makeTableHTML(myArray) {
-  var result = '<table id="myTable" border=1>';
-  for(var i=0; i<myArray.length; i++) {
-      
-          result += '<tr class="header">';
-          for(var j=0; j<myArray[i].length; j++){
-              result += "<td>"+myArray[i][j]+"</td>";
-          }
-          result += "</tr>";
-      
-  }
-  result += "</table>";
+var currentPage = 0;
+var totalPages = 1; // Initialize totalPages as 1
 
+var currentPage = 0;
+var totalPages = 1;
+
+var currentPage = 0;
+var totalPages = 1;
+
+function makeTableHTML(myArray, rowsPerPage = 100) {
+  totalPages = Math.ceil(myArray.length / rowsPerPage);
+
+  function generateTable(page) {
+    var tableContainer = document.getElementById("TABLE");
+    tableContainer.innerHTML = ''; // Clear the table content
+
+    var startIndex = page * rowsPerPage;
+    var endIndex = Math.min(startIndex + rowsPerPage, myArray.length);
+
+    var table = document.createElement('table');
+    table.setAttribute("id", "myTable");
+    table.setAttribute("border", "1");
+
+    // Create the header row
+    var headerRow = document.createElement('tr');
+    for (var j = 0; j < myArray[startIndex].length; j++) {
+      var headerCell = document.createElement('th');
+      headerCell.textContent = myArray[startIndex][j];
+      headerRow.appendChild(headerCell);
+    }
+    table.appendChild(headerRow);
+
+    // Create the data rows
+    for (var i = startIndex; i < endIndex; i++) {
+      var row = document.createElement('tr');
+      for (var j = 0; j < myArray[i].length; j++) {
+        var cell = document.createElement('td');
+        cell.textContent = myArray[i][j];
+        row.appendChild(cell);
+      }
+      table.appendChild(row);
+    }
+
+    tableContainer.appendChild(table);
+  }
+
+  function displayTable(page) {
+    generateTable(page);
+    updatePagination(page);
+  }
+
+  function updatePagination(page) {
+    document.getElementById("currentPage").textContent =
+      'Page ' + (page + 1) + ' of ' + totalPages;
+
+    var previousButton = document.getElementById("previousButton");
+    var nextButton = document.getElementById("nextButton");
+
+    if (page === 0) {
+      previousButton.disabled = true;
+    } else {
+      previousButton.disabled = false;
+    }
+
+    if (page === totalPages - 1) {
+      nextButton.disabled = true;
+    } else {
+      nextButton.disabled = false;
+    }
+  }
+
+  // Generate the initial table for page 0 (first page)
   stopTimer();
-  return result;
+  displayTable(currentPage);
+
+  document.getElementById("previousButton").addEventListener("click", function () {
+    if (currentPage > 0) {
+      currentPage--;
+      displayTable(currentPage);
+    }
+  });
+
+  document.getElementById("nextButton").addEventListener("click", function () {
+    if (currentPage < totalPages - 1) {
+      currentPage++;
+      displayTable(currentPage);
+    }
+  });
 }
 
 

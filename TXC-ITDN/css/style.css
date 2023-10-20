@@ -1,6 +1,7 @@
 body {
   padding-left: 15px;
   padding-right: 15px;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 table {
@@ -90,3 +91,35 @@ background-color: #f1f1f1;
     width: auto;
     float: right;
   }
+
+  #tableContainer {
+    margin-bottom: 50px; /* Space for pagination */
+  }
+  
+  #pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #previousButton,
+  #nextButton {
+    padding: 5px 10px;
+    background-color: maroon;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #previousButton:disabled,
+  #nextButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
