@@ -32,10 +32,10 @@ function submitStateHS(){
   document.getElementById("TABLE").innerHTML = '';
   document.getElementById("FLAG").innerHTML = '';
   if(document.querySelector("#download").checked === true){
-      document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
+      document.getElementById("FLAG").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
       showSnackbar();
   } else if (document.querySelector("#make-table").checked === true){
-      document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
+      document.getElementById("TABLE").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
   }
   startTimer();
   yearRequest(startYear, endYear);
@@ -59,17 +59,18 @@ async function fetchAndCombineData(API_Call) {
 
 async function yearRequest(startYear, endYear) {
   try {
-    let API_counter = 0;
+    API_counter = 0;
+    totalYears = 0;
+    totalYears = 2 * (endYear-startYear+1);
+    console.log(totalYears);
     const tradeTypes = ['imports', 'exports']; // Define trade types
     const API_DATA = []; // Store all data here
-
     for (let year = startYear; year <= endYear; year++) {
       for (const tradeType of tradeTypes) {
         const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
         const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=YEAR,STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}`;
-        console.log(API_Call);
         API_counter++;
-        console.log(API_counter);
+        document.getElementById("progress-bar").value = API_counter / totalYears;
         // Make the API call sequentially
         const data = await fetchAndCombineData(API_Call);
         API_DATA.push(...buildArrayData(data, tradeType, API_counter));
