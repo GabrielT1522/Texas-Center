@@ -2,7 +2,6 @@ const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
 
 let timeout;
 function startTimeout() {
-  //alert("Please be aware that yearly requests may take up to 3 minutes to process.")
   timeout = setTimeout(timeoutMessage, 180000);
 }
 
@@ -34,6 +33,7 @@ function submitStateHS(){
   document.getElementById("FLAG").innerHTML = '';
   if(document.querySelector("#download").checked === true){
       document.getElementById("FLAG").innerHTML = '<div class="loader"></div>';
+      showSnackbar();
   } else if (document.querySelector("#make-table").checked === true){
       document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
   }

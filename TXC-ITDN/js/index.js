@@ -15,7 +15,6 @@ let timeout;
 
 function startTimeout() {
     if(document.getElementById("year-checkbox").checked){
-        alert("Please be aware that yearly requests may take up to 10 minutes to process.")
         timeout = setTimeout(timeoutMessage, 600000);
     }else if(document.getElementById("all-commodity").checked){
         timeout = setTimeout(timeoutMessage, 180000);
@@ -278,7 +277,7 @@ function xhttpRequest(){
             document.getElementById("TABLE").innerHTML = '<div class="loader"></div>';
         }
 
-        
+        showSnackbar();
         startTimer();
         xhttp.open("GET", API_Call, true);
         xhttp.send();
