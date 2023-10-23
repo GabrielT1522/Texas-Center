@@ -33,10 +33,10 @@ function submitStateHS(){
   document.getElementById("FLAG").innerHTML = '';
   if(document.querySelector("#download").checked === true){
       document.getElementById("FLAG").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
-      showSnackbar();
   } else if (document.querySelector("#make-table").checked === true){
       document.getElementById("TABLE").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
   }
+  showSnackbar();
   startTimer();
   yearRequest(startYear, endYear);
 }
@@ -109,13 +109,6 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
 
 var currentPage = 0;
 var totalPages = 1; // Initialize totalPages as 1
-
-var currentPage = 0;
-var totalPages = 1;
-
-var currentPage = 0;
-var totalPages = 1;
-
 function makeTableHTML(myArray, rowsPerPage = 100) {
   totalPages = Math.ceil(myArray.length / rowsPerPage);
 
