@@ -118,7 +118,12 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
 
 var currentPage = 0;
 var totalPages = 1; // Initialize totalPages as 1
+
+var currentPage = 0;
+var totalPages = 1; // Initialize totalPages as 1
+
 function makeTableHTML(myArray, rowsPerPage = 100) {
+  stopTimer();
   totalPages = Math.ceil(myArray.length / rowsPerPage);
 
   function generateTable(page) {
@@ -132,17 +137,19 @@ function makeTableHTML(myArray, rowsPerPage = 100) {
     table.setAttribute("id", "myTable");
     table.setAttribute("border", "1");
 
-    // Create the header row
-    var headerRow = document.createElement('tr');
-    for (var j = 0; j < myArray[startIndex].length; j++) {
-      var headerCell = document.createElement('th');
-      headerCell.textContent = myArray[startIndex][j];
-      headerRow.appendChild(headerCell);
+    // Create the header row (only once, for the first page)
+    if (page === 0) {
+      var headerRow = document.createElement('tr');
+      for (var j = 0; j < myArray[0].length; j++) {
+        var headerCell = document.createElement('th');
+        headerCell.textContent = myArray[0][j];
+        headerRow.appendChild(headerCell);
+      }
+      table.appendChild(headerRow);
     }
-    table.appendChild(headerRow);
 
-    // Create the data rows
-    for (var i = startIndex; i < endIndex; i++) {
+    // Create the data rows, skip the first row for subsequent pages
+    for (var i = (page === 0 ? 1 : startIndex); i < endIndex; i++) {
       var row = document.createElement('tr');
       for (var j = 0; j < myArray[i].length; j++) {
         var cell = document.createElement('td');
@@ -180,9 +187,8 @@ function makeTableHTML(myArray, rowsPerPage = 100) {
     }
   }
 
-  // Generate the initial table for page 0 (first page)
-  stopTimer();
-  displayTable(currentPage);
+  // Generate the initial table for page 0 (first page) immediately after initializing totalPages
+  generateTable(currentPage);
 
   document.getElementById("previousButton").addEventListener("click", function () {
     if (currentPage > 0) {
