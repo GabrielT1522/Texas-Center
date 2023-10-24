@@ -56,35 +56,44 @@ async function fetchAndCombineData(API_Call) {
     throw error;
   }
 }
-
 async function yearRequest(startYear, endYear) {
   try {
     API_counter = 0;
-    totalYears = 0;
-    totalYears = 2 * (endYear-startYear+1);
-    console.log(totalYears);
-    const tradeTypes = ['imports', 'exports']; // Define trade types
-    const API_DATA = []; // Store all data here
+    totalCalls = 0;
+    totalCalls = 2 * (12 * (endYear - startYear + 1)); // 12 months per year
+    console.log(totalCalls);
+    const tradeTypes = ['imports', 'exports'];
+    const API_DATA = [];
+
     for (let year = startYear; year <= endYear; year++) {
-      for (const tradeType of tradeTypes) {
-        const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
-        const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=YEAR,STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}`;
-        API_counter++;
-        document.getElementById("progress-bar").value = API_counter / totalYears;
-        // Make the API call sequentially
-        const data = await fetchAndCombineData(API_Call);
-        API_DATA.push(...buildArrayData(data, tradeType, API_counter));
+      for (let month = 1; month <= 12; month++) {
+        const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
+        for (const tradeType of tradeTypes) {
+          const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
+          const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=YEAR,MONTH,STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}&MONTH=${formattedMonth}`;
+          console.log(API_Call);
+          try {
+            const data = await fetchAndCombineData(API_Call);
+            API_DATA.push(...buildArrayData(data, tradeType, API_counter));
+          } catch (error) {
+            // Handle and log errors for individual API calls, but continue with the next iteration.
+            console.error(`Error for year ${year}, month ${month}, and tradeType ${tradeType}: ${error.message}`);
+          }
+          
+          API_counter++;
+          document.getElementById("progress-bar").value = API_counter / totalCalls;
+        }
       }
     }
-    
 
     clearTimeout(timeout);
-    if(document.querySelector("#make-table").checked === true){
-        document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
+
+    if (document.querySelector("#make-table").checked === true) {
+      document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
     }
 
-    if(document.querySelector("#download").checked === true){
-        arrayToCSV(API_DATA);
+    if (document.querySelector("#download").checked === true) {
+      arrayToCSV(API_DATA);
     }
   } catch (error) {
     displayError(error);
