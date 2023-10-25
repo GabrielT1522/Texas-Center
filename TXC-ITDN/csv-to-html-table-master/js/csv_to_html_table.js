@@ -22,6 +22,9 @@ CsvToHtmlTable = {
 
         $.when($.get(csv_path)).then(
             function (data) {
+                if (allow_download) {
+                    $containerElement.append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
+                }
                 var csvData = $.csv.toArrays(data, csv_options);
                 var $tableHead = $("<thead></thead>");
                 var csvHeaderRow = csvData[0];
@@ -52,9 +55,7 @@ CsvToHtmlTable = {
 
                 $table.DataTable(datatables_options);
 
-                if (allow_download) {
-                    $containerElement.append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
-                }
+                
             });
     }
 };
