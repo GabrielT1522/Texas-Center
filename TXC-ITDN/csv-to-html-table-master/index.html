@@ -56,12 +56,12 @@
         }
 
         CsvToHtmlTable.init({
-            csv_path: "data/test.csv",
+            csv_path: "data/fatty_acid_profiles.csv",
             element: "table-container",
             allow_download: true,
             csv_options: {
-                separator: "\t",
-                delimiter: '^'
+                separator: ',',
+                delimiter: '\t'
             },
             datatables_options: {
                 paging: false

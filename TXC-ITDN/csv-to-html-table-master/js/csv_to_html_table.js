@@ -37,7 +37,7 @@ CsvToHtmlTable = {
                 $table.append($tableHead);
                 var $tableBody = $("<tbody></tbody>");
 
-                for (var rowIdx = 1; rowIdx < csvData.length; rowIdx++) {
+                for (var rowIdx = 1; rowIdx < 5; rowIdx++) {
                     var $tableBodyRow = $("<tr></tr>");
                     for (var colIdx = 0; colIdx < csvData[rowIdx].length; colIdx++) {
                         var $tableBodyRowTd = $("<td></td>");
