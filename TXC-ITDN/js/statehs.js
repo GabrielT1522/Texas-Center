@@ -70,7 +70,7 @@ async function yearRequest(startYear, endYear) {
         const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
         for (const tradeType of tradeTypes) {
           const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
-          const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=YEAR,MONTH,STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}&MONTH=${formattedMonth}`;
+          const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}&MONTH=${formattedMonth}`;
           console.log(API_Call);
           try {
             const data = await fetchAndCombineData(API_Call);
@@ -102,10 +102,10 @@ async function yearRequest(startYear, endYear) {
 }
 
 function buildArrayData(API_DATA, tradeType, headerCounter) {
-  API_DATA[0].splice(6, 0, "trade_type");
+  API_DATA[0].splice(4, 0, "trade_type");
 
   for (let i = 1; i < API_DATA.length; i++) {
-      API_DATA[i].splice(6, 0, tradeType);
+      API_DATA[i].splice(4, 0, tradeType);
   }
 
   if (headerCounter > 1) {
@@ -115,9 +115,6 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
 
   return API_DATA;
 }
-
-var currentPage = 0;
-var totalPages = 1; // Initialize totalPages as 1
 
 var currentPage = 0;
 var totalPages = 1; // Initialize totalPages as 1
@@ -188,7 +185,12 @@ function makeTableHTML(myArray, rowsPerPage = 100) {
   }
 
   // Generate the initial table for page 0 (first page) immediately after initializing totalPages
-  generateTable(currentPage);
+  
+  function initialTable(){
+    displayTable(currentPage)
+    nextButton.disabled = false;
+  }
+  initialTable();
 
   document.getElementById("previousButton").addEventListener("click", function () {
     if (currentPage > 0) {
@@ -245,7 +247,6 @@ function arrayToCSV(array) {
     // Create to temporary link to initiate
     // download process
     var temp_link = document.createElement('a');
-
     file_name = "statehs_"+startYear+"-"+endYear+".csv"
 
     // Download csv file 
