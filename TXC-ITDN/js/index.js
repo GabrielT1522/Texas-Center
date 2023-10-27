@@ -85,25 +85,34 @@ async function yearRequest() {
         const commodity = getCommodityInput();
         const commodityType = getCommodityTypeInput();
         const valueType = getValueTypeInput();
-        const progressBar = document.getElementById("progress-bar");
+        const progressBar = document.getElementById("progress-bar"); 
+        if (!document.getElementById("year-checkbox").checked) {
+             [year, month] = date.split('-');
+            startMonth = month;
+            endMonth = month;
+        }else{
+            year = date;
+            startMonth = 1;
+            endMonth = 12;
+        }
         progressBar.value = 0;
         API_counter = 0;
 
-        if (document.getElementById("DISTRICT").value == "All"){
+        if (document.getElementById("DISTRICT").value == "All") {
             totalCalls = 48;
             startDistrict = 23;
             endDistrict = 26;
-        }else{
+        } else {
             startDistrict = document.getElementById("DISTRICT").value;
             endDistrict = document.getElementById("DISTRICT").value;
             totalCalls = 12;
         }
-        
+
         const API_DATA = [];
         for (let district = startDistrict; district <= endDistrict; district++) {
-            for (let month = 1; month <= 12; month++) {
+            for (let month = startMonth; month <= endMonth; month++) {
                 const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
-                const API_Call = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=${district}*&YEAR=${date}&MONTH=${formattedMonth}`;
+                const API_Call = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=${district}*&YEAR=${year}&MONTH=${formattedMonth}`;
                 console.log(API_Call);
                 try {
                     const data = await fetchAndCombineData(API_Call);
@@ -138,20 +147,21 @@ async function yearRequest() {
 //var API_DATA;
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) 
+    if (this.readyState == 4 && this.status == 200) {
         buildArrayData(JSON.parse(xhttp.responseText), 0);
+    }
 };
 
 function buildArrayData(API_DATA, headerCounter) {
-
+    const excludedCountryCodes = getExcludedCountryCodes();
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
     API_DATA[0].splice(1, 0, "dist_code", "port_code");
     API_DATA[0].splice(6, 0, "trade_type");
 
 
     // Iterate through the array and populate "import" or "export" based on your if statement
-    for (let i = 1; i < API_DATA.length; i++) {
-        const firstIndexValue = API_DATA[i][0]; // Assuming the first index contains the year
+    for (let i = 1; i < API_DATA.length - 1; i++) {
+        const firstIndexValue = API_DATA[i][8]; // Assuming the first index contains the year
 
         // Check if the first index value is "YEAR"
         if (firstIndexValue === "YEAR") {
@@ -160,8 +170,13 @@ function buildArrayData(API_DATA, headerCounter) {
             // If it's the second or subsequent occurrence, delete this row
             if (headerCounter > 1) {
                 API_DATA.splice(i, 1); // Remove the current row
-                //i--; // Adjust the loop counter since the array length has changed
+                i--; // Adjust the loop counter since the array length has changed
             }
+        }
+
+        if (excludedCountryCodes.includes(API_DATA[i][4])) { 
+            console.log(API_DATA[i][4]);
+            API_DATA.splice(i, 1); 
         }
 
         var trade_type;
@@ -174,7 +189,7 @@ function buildArrayData(API_DATA, headerCounter) {
         }
 
         // Split the 4-digit "port" field into "District" and "Port"
-        var port = API_DATA[i][8].toString(); // Assuming "port" is in the second column
+        var port = API_DATA[i][7].toString(); // Assuming "port" is in the second column
         var dist_code = port.slice(0, 2);
         var port_code = port.slice(2, 4);
 
@@ -376,7 +391,8 @@ function validateForm() {
         }
     }
 
-    xhttpRequest();
+    //xhttpRequest();
+    yearRequest();
     return true;
 }
 
@@ -416,7 +432,7 @@ function downloadCSVFile(csv_data) {
 
     let trade_type = getTradeTypeInput();
     let date = getDateInput();
-
+    let district = document.getElementById("DISTRICT").value;
     if (document.getElementById("year-checkbox").checked) {
         file_name = trade_type + "_" + date + ".csv"
     } else {
