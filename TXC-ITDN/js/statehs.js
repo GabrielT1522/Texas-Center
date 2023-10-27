@@ -5,36 +5,30 @@ function startTimeout() {
   timeout = setTimeout(timeoutMessage, 180000);
 }
 
-function timeoutMessage(){
+function timeoutMessage() {
   timeoutMessage = '<center><h2>You request has timed out.</h2><p>Please verify the fields.</p></center>';
-  if(document.querySelector("#download").checked === true){
-      document.getElementById("FLAG").innerHTML = timeoutMessage;
-  } else if (document.querySelector("#make-table").checked === true){
-      document.getElementById("TABLE").innerHTML = timeoutMessage;
+  if (document.querySelector("#download").checked === true) {
+    document.getElementById("FLAG").innerHTML = timeoutMessage;
+  } else if (document.querySelector("#make-table").checked === true) {
+    document.getElementById("TABLE").innerHTML = timeoutMessage;
   }
-}
-
-function displayError(error){
-  stopTimer();
-  document.getElementById("FLAG").innerHTML = '<p class="flag">ERROR: '+error+'.</p>';
-  console.error(error);
 }
 
 
 let startYear;
 let endYear;
-function submitStateHS(){
+function submitStateHS() {
   startYear = document.getElementById("start-year-input").value;
   endYear = document.getElementById("end-year-input").value;
-  document.getElementById("title-date").innerHTML = "From "+startYear+" to "+endYear;
+  document.getElementById("title-date").innerHTML = "From " + startYear + " to " + endYear;
   startTimeout();
   resetTimer();
   document.getElementById("TABLE").innerHTML = '';
   document.getElementById("FLAG").innerHTML = '';
-  if(document.querySelector("#download").checked === true){
-      document.getElementById("FLAG").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
-  } else if (document.querySelector("#make-table").checked === true){
-      document.getElementById("TABLE").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
+  if (document.querySelector("#download").checked === true) {
+    document.getElementById("FLAG").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
+  } else if (document.querySelector("#make-table").checked === true) {
+    document.getElementById("TABLE").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
   }
   showSnackbar();
   startTimer();
@@ -79,7 +73,7 @@ async function yearRequest(startYear, endYear) {
             // Handle and log errors for individual API calls, but continue with the next iteration.
             console.error(`Error for year ${year}, month ${month}, and tradeType ${tradeType}: ${error.message}`);
           }
-          
+
           API_counter++;
           document.getElementById("progress-bar").value = API_counter / totalCalls;
         }
@@ -105,12 +99,12 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
   API_DATA[0].splice(4, 0, "trade_type");
 
   for (let i = 1; i < API_DATA.length; i++) {
-      API_DATA[i].splice(4, 0, tradeType);
+    API_DATA[i].splice(4, 0, tradeType);
   }
 
   if (headerCounter > 1) {
-      // Delete the first row (header) if headerCounter is greater than 1
-      API_DATA.splice(0, 1);
+    // Delete the first row (header) if headerCounter is greater than 1
+    API_DATA.splice(0, 1);
   }
 
   return API_DATA;
@@ -185,8 +179,8 @@ function makeTableHTML(myArray, rowsPerPage = 100) {
   }
 
   // Generate the initial table for page 0 (first page) immediately after initializing totalPages
-  
-  function initialTable(){
+
+  function initialTable() {
     displayTable(currentPage)
     nextButton.disabled = false;
   }
@@ -216,8 +210,8 @@ function arrayToCSV(array) {
     return;
   }
 
-  var buf = array.map(function(row) {
-    row = row.map(function(str) {
+  var buf = array.map(function (row) {
+    row = row.map(function (str) {
       if (str == null) {
         str = "";
       } else {
@@ -236,35 +230,35 @@ function arrayToCSV(array) {
 
 
 
-    function downloadCSVFile(csv_data) {
+function downloadCSVFile(csv_data) {
 
-    // Create CSV file object and feed
-    // our csv_data into it
-    CSVFile = new Blob([csv_data], {
-        type: "text/csv"
-    });
+  // Create CSV file object and feed
+  // our csv_data into it
+  CSVFile = new Blob([csv_data], {
+    type: "text/csv"
+  });
 
-    // Create to temporary link to initiate
-    // download process
-    var temp_link = document.createElement('a');
-    file_name = "statehs_"+startYear+"-"+endYear+".csv"
+  // Create to temporary link to initiate
+  // download process
+  var temp_link = document.createElement('a');
+  file_name = "statehs_" + startYear + "-" + endYear + ".csv"
 
-    // Download csv file 
-    temp_link.download = file_name;
-    var url = window.URL.createObjectURL(CSVFile);
-    temp_link.href = url;
+  // Download csv file 
+  temp_link.download = file_name;
+  var url = window.URL.createObjectURL(CSVFile);
+  temp_link.href = url;
 
-    // This link should not be displayed
-    temp_link.style.display = "none";
-    document.body.appendChild(temp_link);
+  // This link should not be displayed
+  temp_link.style.display = "none";
+  document.body.appendChild(temp_link);
 
-    // Automatically click the link to
-    // trigger download
-    stopTimer();
-    temp_link.click();
-    document.body.removeChild(temp_link);
-    document.getElementById("FLAG").innerHTML = '<p class="flag">'+file_name+' has been saved to your downloads folder.</p>';
-    }
+  // Automatically click the link to
+  // trigger download
+  stopTimer();
+  temp_link.click();
+  document.body.removeChild(temp_link);
+  document.getElementById("FLAG").innerHTML = '<p class="flag">' + file_name + ' has been saved to your downloads folder.</p>';
+}
 
 // Timer
 
@@ -273,72 +267,72 @@ let hour = 0;
 let minute = 0;
 let second = 0;
 let count = 0;
- 
-function startTimer(){
-    timer = true;
-    stopWatch();
+
+function startTimer() {
+  timer = true;
+  stopWatch();
 }
 
-function stopTimer(){
-    timer = false;
+function stopTimer() {
+  timer = false;
 }
 
-function resetTimer(){
-    timer = false;
-    hour = 0;
-    minute = 0;
-    second = 0;
-    count = 0;
-    document.getElementById('min').innerHTML = "00";
-    document.getElementById('sec').innerHTML = "00";
-    document.getElementById('count').innerHTML = "00";
+function resetTimer() {
+  timer = false;
+  hour = 0;
+  minute = 0;
+  second = 0;
+  count = 0;
+  document.getElementById('min').innerHTML = "00";
+  document.getElementById('sec').innerHTML = "00";
+  document.getElementById('count').innerHTML = "00";
 }
- 
+
 function stopWatch() {
   if (timer) {
-      count++;
+    count++;
 
-      if (count == 100) {
-          second++;
-          count = 0;
-      }
+    if (count == 100) {
+      second++;
+      count = 0;
+    }
 
-      if (second == 60) {
-          minute++;
-          second = 0;
-      }
+    if (second == 60) {
+      minute++;
+      second = 0;
+    }
 
-      if (minute == 60) {
-          hour++;
-          minute = 0;
-          second = 0;
-      }
+    if (minute == 60) {
+      hour++;
+      minute = 0;
+      second = 0;
+    }
 
-      let hrString = hour;
-      let minString = minute;
-      let secString = second;
-      let countString = count;
+    let hrString = hour;
+    let minString = minute;
+    let secString = second;
+    let countString = count;
 
-      if (hour < 10) {
-          hrString = "0" + hrString;
-      }
+    if (hour < 10) {
+      hrString = "0" + hrString;
+    }
 
-      if (minute < 10) {
-          minString = "0" + minString;
-      }
+    if (minute < 10) {
+      minString = "0" + minString;
+    }
 
-      if (second < 10) {
-          secString = "0" + secString;
-      }
+    if (second < 10) {
+      secString = "0" + secString;
+    }
 
-      if (count < 10) {
-          countString = "0" + countString;
-      }
+    if (count < 10) {
+      countString = "0" + countString;
+    }
 
-      //document.getElementById('hr').innerHTML = hrString;
-      document.getElementById('min').innerHTML = minString;
-      document.getElementById('sec').innerHTML = secString;
-      document.getElementById('count').innerHTML = countString;
-      setTimeout(stopWatch, 10);
+    //document.getElementById('hr').innerHTML = hrString;
+    document.getElementById('min').innerHTML = minString;
+    document.getElementById('sec').innerHTML = secString;
+    document.getElementById('count').innerHTML = countString;
+    setTimeout(stopWatch, 10);
   }
 }

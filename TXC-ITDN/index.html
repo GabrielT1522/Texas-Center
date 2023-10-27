@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>TXC International Trade Data Navigator</title>
-    
-    <link rel="stylesheet" href="css/bootsrap-min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-rk.min.css">
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="http://texascenter.tamiu.edu/images/home/txcfav.ico">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  </head>
-  <body>
-    <main>
-      <!-- Texcen Main Navigation --> 
-		<nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
+  <title>TXC International Trade Data Navigator</title>
+
+  <link rel="stylesheet" href="css/bootsrap-min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-rk.min.css">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="http://texascenter.tamiu.edu/images/home/txcfav.ico">
+
+</head>
+
+<body>
+  <main>
+    <!-- Texcen Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
       <div class="container-fluid">
-          <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
-              <img src="assets/logoPrimary.svg" alt="Texas Center Logo" height="52"></a>      
-              <ul class="navbar-nav ">
-                <a class="dropdown-item p-3" href="index.html" role="button"data-bs-toggle="dropdown" aria-expanded="false">Home</a>
-                <a class="dropdown-item p-3" href="html/statehs.html" role="button"data-bs-toggle="dropdown" aria-expanded="false">State HS</a>
-              </ul>
+        <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
+          <img src="assets/logoPrimary.svg" alt="Texas Center Logo" height="52"></a>
+        <ul class="navbar-nav ">
+          <a class="dropdown-item p-3" href="index.html" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Home</a>
+          <a class="dropdown-item p-3" href="html/statehs.html" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">State HS</a>
+        </ul>
       </div>
-    </nav> 
+    </nav>
     <!-- end Navigation -->
-  
+
     <section class="layout">
       <div class="header">
-        <br/>
-        <h1><center>Texas Center International Trade Data Navigator</center></h1>
+        <br />
+        <h1>
+          <center>Texas Center International Trade Data Navigator</center>
+        </h1>
         <h2>Dataset Information</h2>
         <table>
           <tr>
@@ -48,83 +54,87 @@
             <td id="description"></td>
           </tr>
         </table>
-        <br/>
+        <br />
       </div>
       <h2 id="title-date">District ## Type in Date</h2>
-      <br/>
+      <br />
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
           <div>
             <label for="year-checkbox">Check to make a yearly request.</label>
-            <input type="checkbox" id="year-checkbox" name="year-input" onclick="yearCheckbox()"/>
-            <input type="number" id="year-input" min="2005" max="2022" step="1" disabled/>
+            <input type="checkbox" id="year-checkbox" name="year-input" onclick="yearCheckbox()" />
+            <input type="number" id="year-input" min="2005" max="2022" step="1" disabled />
           </div>
 
-          <div required >
-            <input type="radio" id="imports" name="port-type" value="imports"/>
+          <div required>
+            <input type="radio" id="imports" name="port-type" value="imports" />
             <label for="imports">Imports</label>
-            <input type="radio" id="exports" name="port-type" value="exports"/>
+            <input type="radio" id="exports" name="port-type" value="exports" />
             <label for="exports">Exports</label>
-            
+
           </div>
           <div>
             <label for="date">Please enter month and year: </label>
             <input id="date" type="month" name="date" min="2010-01" max="2023-07" required />
-            
+
             <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
-            <input type="checkbox" id="all-commodity" name="All Commodity" checked/>
-            <input type="text" id="commodityInput" maxlength="6"disabled/>
-            
+            <input type="checkbox" id="all-commodity" name="All Commodity" checked />
+            <input type="text" id="commodityInput" maxlength="6" disabled />
+
 
             <label for="district">Choose a District:</label>
             <select name="district" id="DISTRICT">
+              <option value="All">All</option>
               <option value="23">23</option>
               <option value="24">24</option>
               <option value="25">25</option>
               <option value="26">26</option>
-              <input type="checkbox" id="make-table" name="make-table" disabled/>
+              <input type="checkbox" id="make-table" name="make-table" disabled />
               <label for="make-table">Make Web Table</label>
               <input type="checkbox" id="download" name="download" checked />
               <label for="download">Download Data</label>
             </select>
             <span class="validity"></span>
           </div>
-          <br/>
+          <br />
           <div id="snackbar">Please be aware that yearly requests may take up to 10 minutes to process.</div>
           <input type="submit" value="Submit">
         </form>
 
         <h2>Search</h2>
-        <div name="search-by" >
+        <div name="search-by">
           <div id="left">
-          <input type="radio" id="port-search" name="search-by" onclick="searchBy(11)"/>
-          <label for="port-search">Search by Port Code</label>
-          <input type="radio" id="portname-search" name="search-by" onclick="searchBy(7)"/>
-          <label for="portname-search">Search by Port Name</label>
-          <input type="radio" id="name-search" name="search-by" onclick="searchBy(4)"/>
-          <label for="name-search">Search by Country Name</label>
-          <input type="radio" id="name-hs" name="search-by" onclick="searchBy(3)"/>
-          <label for="comm-search">Search by Commodity Code</label>
+            <input type="radio" id="port-search" name="search-by" onclick="searchBy(11)" />
+            <label for="port-search">Search by Port Code</label>
+            <input type="radio" id="portname-search" name="search-by" onclick="searchBy(7)" />
+            <label for="portname-search">Search by Port Name</label>
+            <input type="radio" id="name-search" name="search-by" onclick="searchBy(4)" />
+            <label for="name-search">Search by Country Name</label>
+            <input type="radio" id="name-hs" name="search-by" onclick="searchBy(3)" />
+            <label for="comm-search">Search by Commodity Code</label>
           </div>
           <div class="timer" id="right">
             <h3>Time Elapsed:</h3>
             <div id="timer">
-                <span class="digit" id="min"> 00</span>
-                <span class="txt">Min</span>
-                <span class="digit" id="sec"> 00</span>
-                <span class="txt">Sec</span>
-                <span class="digit" id="count"> 00</span>
+              <span class="digit" id="min"> 00</span>
+              <span class="txt">Min</span>
+              <span class="digit" id="sec"> 00</span>
+              <span class="txt">Sec</span>
+              <span class="digit" id="count"> 00</span>
             </div>
-        </div>
-          
+          </div>
+
         </div>
         <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Search...">
-        <div id="FLAG"></div>
+        <progress id="progress-bar" value="0" max="1"></progress>
+        <div id="FLAG">
+        </div>
         <div id="TABLE"></div>
       </div>
     </section>
   </main>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-  </body>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+</body>
+
 </html>
