@@ -56,32 +56,37 @@
         </table>
         <br />
       </div>
-      <h2 id="title-date">District ## Type in Date</h2>
+      <h2 id="title-date"></h2>
       <br />
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
-          <div>
-            <label for="year-checkbox">Check to make a yearly request.</label>
-            <input type="checkbox" id="year-checkbox" name="year-input" onclick="yearCheckbox()" />
-            <input type="number" id="year-input" min="2005" max="2022" step="1" disabled />
-          </div>
+
 
           <div required>
+            <h3>Trade Type:</h3>
             <input type="radio" id="imports" name="port-type" value="imports" />
             <label for="imports">Imports</label>
             <input type="radio" id="exports" name="port-type" value="exports" />
             <label for="exports">Exports</label>
-
           </div>
           <div>
+            <h3>Date:</h3>
+            <div>
+              <label for="year-checkbox">Check to make a yearly request.</label>
+              <input type="checkbox" id="year-checkbox" name="year-input" onclick="yearCheckbox()" />
+              <input type="number" id="year-input" min="2005" max="2022" step="1" disabled />
+            </div>
+
             <label for="date">Please enter month and year: </label>
             <input id="date" type="month" name="date" min="2010-01" max="2023-07" required />
-
+          </div>
+          <div>
+            <div>
+            <h3>Options:</h3>
             <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
             <input type="checkbox" id="all-commodity" name="All Commodity" checked />
             <input type="text" id="commodityInput" maxlength="6" disabled />
-
-
+          
             <label for="district">Choose a District:</label>
             <select name="district" id="DISTRICT">
               <option value="All">All</option>
@@ -89,11 +94,19 @@
               <option value="24">24</option>
               <option value="25">25</option>
               <option value="26">26</option>
-              <input type="checkbox" id="make-table" name="make-table" disabled />
-              <label for="make-table">Make Web Table</label>
-              <input type="checkbox" id="download" name="download" checked />
-              <label for="download">Download Data</label>
+
             </select>
+          
+            <input type="checkbox" id="make-table" name="make-table" disabled />
+            <label for="make-table">Make Web Table</label>
+            <input type="checkbox" id="download" name="download" checked />
+            <label for="download">Download Data</label>
+          </div>
+          <h3>Choose file delimiter:</h3>
+            <input type="radio" id="caret" name="delimiter" value="^" />
+            <label for="caret">Caret <strong>'^'</strong> (Better for database)</label>
+            <input type="radio" id="comma" name="delimiter" value="," checked/>
+            <label for="comma">Comma <strong>' , '</strong> (Better for excel)</label>
             <span class="validity"></span>
           </div>
           <br />

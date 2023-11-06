@@ -78,36 +78,40 @@ async function fetchAndCombineData(API_Call) {
     }
 }
 
-async function yearRequest() {
+async function API_Request() {
     try {
         const trade_type = getTradeTypeInput();
         const date = getDateInput();
         const commodity = getCommodityInput();
         const commodityType = getCommodityTypeInput();
         const valueType = getValueTypeInput();
-        const progressBar = document.getElementById("progress-bar"); 
-        if (!document.getElementById("year-checkbox").checked) {
-             [year, month] = date.split('-');
-            startMonth = month;
-            endMonth = month;
-        }else{
+        const progressBar = document.getElementById("progress-bar");
+        const distictValue = document.getElementById("DISTRICT").value;
+        let API_counter = 0;
+        let totalCalls = 0
+        progressBar.value = 0;
+        if (document.getElementById("year-checkbox").checked) {
             year = date;
             startMonth = 1;
             endMonth = 12;
+            totalCalls = 12;
+        } else {
+            [year, month] = date.split('-');
+            startMonth = month;
+            endMonth = month;
+            totalCalls = 1;
         }
-        progressBar.value = 0;
-        API_counter = 0;
 
-        if (document.getElementById("DISTRICT").value == "All") {
-            totalCalls = 48;
+        if (distictValue == "All") {
+            document.getElementById("title-date").innerHTML = `Districts 23, 24, 25, and 26 ${trade_type} in ${date}`;
             startDistrict = 23;
             endDistrict = 26;
+            totalCalls *= 4;
         } else {
-            startDistrict = document.getElementById("DISTRICT").value;
-            endDistrict = document.getElementById("DISTRICT").value;
-            totalCalls = 12;
+            document.getElementById("title-date").innerHTML = `District ${distictValue} ${trade_type} in ${date}`;
+            startDistrict = distictValue;
+            endDistrict = distictValue;
         }
-
         const API_DATA = [];
         for (let district = startDistrict; district <= endDistrict; district++) {
             for (let month = startMonth; month <= endMonth; month++) {
@@ -144,23 +148,34 @@ async function yearRequest() {
     }
 }
 
-//var API_DATA;
+/*var API_DATA;
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
         buildArrayData(JSON.parse(xhttp.responseText), 0);
     }
-};
+};*/
 
 function buildArrayData(API_DATA, headerCounter) {
-    const excludedCountryCodes = getExcludedCountryCodes();
+    const excludedValues = [
+        "0003", "0014", "0017", "0020", "0021", "0022", "0023", "0024", "0025", "0026",
+        "0027", "0028", "1XXX", "2XXX", "3XXX", "7XXX"
+    ];
+    
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
     API_DATA[0].splice(1, 0, "dist_code", "port_code");
     API_DATA[0].splice(6, 0, "trade_type");
 
+    // Iterate through the array in reverse to safely delete rows
+    for (let i = API_DATA.length - 1; i >= 1; i--) {
+        const valueAtIndex4 = API_DATA[i][4];
 
-    // Iterate through the array and populate "import" or "export" based on your if statement
-    for (let i = 1; i < API_DATA.length - 1; i++) {
+        // Check if the value at index 4 is in the excludedValues array
+        if (excludedValues.some(excludedValue => valueAtIndex4.includes(excludedValue))) {
+            API_DATA.splice(i, 1); // Remove the current row
+            continue;
+        }
+
         const firstIndexValue = API_DATA[i][8]; // Assuming the first index contains the year
 
         // Check if the first index value is "YEAR"
@@ -169,24 +184,12 @@ function buildArrayData(API_DATA, headerCounter) {
 
             // If it's the second or subsequent occurrence, delete this row
             if (headerCounter > 1) {
-                API_DATA.splice(i, 1); // Remove the current row
-                i--; // Adjust the loop counter since the array length has changed
+                API_DATA.splice(i, 1);
+                continue;
             }
         }
 
-        if (excludedCountryCodes.includes(API_DATA[i][4])) { 
-            console.log(API_DATA[i][4]);
-            API_DATA.splice(i, 1); 
-        }
-
-        var trade_type;
-
-        // Replace this with your if statement to determine trade_type
-        if (document.querySelector("#imports").checked) {
-            trade_type = "import";
-        } else {
-            trade_type = "export";
-        }
+        var trade_type = getTradeTypeInput();
 
         // Split the 4-digit "port" field into "District" and "Port"
         var port = API_DATA[i][7].toString(); // Assuming "port" is in the second column
@@ -196,9 +199,9 @@ function buildArrayData(API_DATA, headerCounter) {
         // Add the "District" and "Port" values to the sub-array at the appropriate positions
         API_DATA[i].splice(1, 0, dist_code, port_code);
         API_DATA[i].splice(6, 0, trade_type);
-
     }
 }
+
 
 function getDateInput() {
     if (document.getElementById("year-checkbox").checked) {
@@ -241,6 +244,7 @@ function getTradeTypeInput() {
     return document.querySelector('input[name="port-type"]:checked').value;
 }
 
+/*
 let district;
 function xhttpRequest() {
     startTimeout();
@@ -304,7 +308,7 @@ function xhttpRequest() {
         }
         document.getElementById("myInput").value = "";
     }
-}
+}*/
 
 function searchBy(value) {
     localStorage.setItem("searchBy", value)
@@ -372,7 +376,6 @@ function yearCheckbox() {
 
 function validateForm() {
     var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
-    // Check if the "validateCommodity" field is required
     var numericField = document.getElementById("commodityInput");
     var inputValue = numericField.value;
     var isCommodityRequired = !isCheckedAllCommodity;
@@ -383,7 +386,6 @@ function validateForm() {
     if (isCommodityRequired) {
         // If the checkbox is not checked, validate the input
         if (/^\d+$/.test(inputValue) && inputValue.length <= 6 && inputValue.length % 2 === 0) {
-            xhttpRequest();
             return true; // Allow form submission
         } else {
             alert("Invalid commodity input. Please enter a numeric value with an even number of characters (up to 6 digits).");
@@ -391,8 +393,13 @@ function validateForm() {
         }
     }
 
-    //xhttpRequest();
-    yearRequest();
+    resetTimer();
+    document.getElementById("TABLE").innerHTML = "";
+    document.getElementById("myInput").value = "";
+    document.getElementById("FLAG").innerHTML = ""
+    startTimer();
+    showSnackbar();
+    API_Request();
     return true;
 }
 
@@ -413,7 +420,7 @@ function arrayToCSV(array) {
             }
             return str;
         });
-        return row.join("^") + "\x0D\x0A";
+        return row.join(document.querySelector('input[name="delimiter"]:checked').value) + "\x0D\x0A";
     });
     downloadCSVFile(buf.join(""));
 }

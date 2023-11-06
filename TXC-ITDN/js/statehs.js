@@ -32,7 +32,7 @@ function submitStateHS() {
   }
   showSnackbar();
   startTimer();
-  yearRequest(startYear, endYear);
+  API_Request(startYear, endYear);
 }
 
 async function fetchAndCombineData(API_Call) {
@@ -50,7 +50,7 @@ async function fetchAndCombineData(API_Call) {
     throw error;
   }
 }
-async function yearRequest(startYear, endYear) {
+async function API_Request(startYear, endYear) {
   try {
     API_counter = 0;
     totalCalls = 0;
