@@ -42,31 +42,35 @@
         <h2>Dataset Information</h2>
         <table>
           <tr>
-            <th>Property</th>
-            <th>Value</th>
+              <th>Property</th>
+              <th>Value</th>
           </tr>
           <tr>
-            <td>Title</td>
-            <td id="title"></td>
+              <td>Imports API Title</td>
+              <td id="title">Time Series International Trade: Monthly U.S. Imports by Port and Harmonized System (HS) Code</td>
           </tr>
           <tr>
+            <td>Exports API Title</td>
+            <td id="title">Time Series International Trade: Monthly U.S. Exports by Port and Harmonized System (HS) Code</td>
+        </tr>
+        <tr>
             <td>Description</td>
-            <td id="description"></td>
-          </tr>
-        </table>
+            <td id="description">The Census data API provides access to the most comprehensive set of data on current month and cumulative year-to-date imports by port and Harmonized System (HS) code. The Port HS endpoint in the Census data API also provides value, shipping weight, and method of transportation totals at the port level for all U.S. trading partners. The Census data API will help users research new markets for their products, establish pricing structures for potential export markets, and conduct economic planning. If you have any questions regarding U.S. international trade data, please call us at 1(800)549-0595 option #4 or email us at eid.international.trade.data@census.gov.</td>
+        </tr>
+
+      </table>
+      
         <br />
       </div>
       <h2 id="title-date"></h2>
       <br />
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
-
-
-          <div required>
+          <div >
             <h3>Trade Type:</h3>
-            <input type="radio" id="imports" name="port-type" value="imports" />
+            <input type="radio" id="imports" name="port-type" value="imports" required/>
             <label for="imports">Imports</label>
-            <input type="radio" id="exports" name="port-type" value="exports" />
+            <input type="radio" id="exports" name="port-type" value="exports" required/>
             <label for="exports">Exports</label>
           </div>
           <div>
@@ -110,23 +114,23 @@
             <span class="validity"></span>
           </div>
           <br />
-          <div id="snackbar">Please be aware that yearly requests may take up to 10 minutes to process.</div>
           <input type="submit" value="Submit">
         </form>
 
         <h2>Search</h2>
         <div name="search-by">
           <div id="left">
-            <input type="radio" id="port-search" name="search-by" onclick="searchBy(11)" />
+            <input type="radio" id="port-search" name="search-by" onclick="searchBy(10)" />
             <label for="port-search">Search by Port Code</label>
-            <input type="radio" id="portname-search" name="search-by" onclick="searchBy(7)" />
+            <input type="radio" id="portname-search" name="search-by" onclick="searchBy(5)" />
             <label for="portname-search">Search by Port Name</label>
-            <input type="radio" id="name-search" name="search-by" onclick="searchBy(4)" />
+            <input type="radio" id="name-search" name="search-by" onclick="searchBy(3)" />
             <label for="name-search">Search by Country Name</label>
-            <input type="radio" id="name-hs" name="search-by" onclick="searchBy(3)" />
+            <input type="radio" id="name-hs" name="search-by" onclick="searchBy(0)" />
             <label for="comm-search">Search by Commodity Code</label>
           </div>
           <div class="timer" id="right">
+            <div id="snackbar"></div>
             <h3>Time Elapsed:</h3>
             <div id="timer">
               <span class="digit" id="min"> 00</span>

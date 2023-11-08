@@ -96,16 +96,26 @@ async function API_Request(startYear, endYear) {
 }
 
 function buildArrayData(API_DATA, tradeType, headerCounter) {
+  const excludedValues = getExcludedCountryCodes();
   API_DATA[0].splice(4, 0, "trade_type");
-
-  for (let i = 1; i < API_DATA.length; i++) {
-    API_DATA[i].splice(4, 0, tradeType);
-  }
-
   if (headerCounter > 1) {
     // Delete the first row (header) if headerCounter is greater than 1
     API_DATA.splice(0, 1);
   }
+
+  for (let i = API_DATA.length - 1; i >= 1; i--) {
+    API_DATA[i].splice(4, 0, tradeType);
+
+    const valueAtIndex3 = API_DATA[i][3];
+
+    // Check if the value at index 4 is in the excludedValues array
+    if (excludedValues.some(excludedValue => valueAtIndex3.includes(excludedValue))) {
+        API_DATA.splice(i, 1); // Remove the current row
+        continue;
+    }
+  }
+
+  
 
   return API_DATA;
 }

@@ -1,25 +1,17 @@
 const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
 
-function fetchJSONData(url) {
-
-    const jsonURL = url;
-    return fetch(jsonURL)
-        .then(response => response.json())
-        .catch(error => {
-            console.error("Error fetching JSON data:", error);
-        });
-
-}
-
 let timeout;
 
 function startTimeout() {
     if (document.getElementById("year-checkbox").checked) {
         timeout = setTimeout(timeoutMessage, 600000);
+        document.getElementById("snackbar").innerHTML = "Please be aware that this request may take up to 10 minutes to process."
     } else if (document.getElementById("all-commodity").checked) {
         timeout = setTimeout(timeoutMessage, 180000);
+        document.getElementById("snackbar").innerHTML = "Please be aware that this request may take up to 3 minutes to process."
     } else {
         timeout = setTimeout(timeoutMessage, 60000);
+        document.getElementById("snackbar").innerHTML = "Please be aware that this request may take up to 1 minute to process."
     }
 }
 
@@ -29,17 +21,6 @@ function timeoutMessage() {
         document.getElementById("FLAG").innerHTML = timeoutMessage;
     } else if (document.querySelector("#make-table").checked === true) {
         document.getElementById("TABLE").innerHTML = timeoutMessage;
-    }
-}
-
-async function populateTable(url) {
-    try {
-
-        const JSONdata = await fetchJSONData(url);
-        document.getElementById("title").textContent = JSONdata.dataset[0].title;
-        document.getElementById("description").textContent = JSONdata.dataset[0].description;
-    } catch (error) {
-        console.error("Error populating table:", error);
     }
 }
 
@@ -157,11 +138,8 @@ xhttp.onreadystatechange = function () {
 };*/
 
 function buildArrayData(API_DATA, headerCounter) {
-    const excludedValues = [
-        "0003", "0014", "0017", "0020", "0021", "0022", "0023", "0024", "0025", "0026",
-        "0027", "0028", "1XXX", "2XXX", "3XXX", "7XXX"
-    ];
-    
+    const excludedValues = getExcludedCountryCodes();
+
     // Add the "District", "Port", and "trade_type" headers as column names at the appropriate positions
     API_DATA[0].splice(1, 0, "dist_code", "port_code");
     API_DATA[0].splice(6, 0, "trade_type");
@@ -375,6 +353,7 @@ function yearCheckbox() {
 }
 
 function validateForm() {
+    let valid = true;
     var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
     var numericField = document.getElementById("commodityInput");
     var inputValue = numericField.value;
@@ -386,21 +365,24 @@ function validateForm() {
     if (isCommodityRequired) {
         // If the checkbox is not checked, validate the input
         if (/^\d+$/.test(inputValue) && inputValue.length <= 6 && inputValue.length % 2 === 0) {
-            return true; // Allow form submission
+            valid = true; // Allow form submission
         } else {
             alert("Invalid commodity input. Please enter a numeric value with an even number of characters (up to 6 digits).");
-            return false; // Prevent form submission
+            valid = false; // Prevent form submission
         }
     }
+    if (valid) {
+        resetTimer();
+        startTimeout();
+        startTimer();
+        document.getElementById("TABLE").innerHTML = "";
+        document.getElementById("myInput").value = "";
+        document.getElementById("FLAG").innerHTML = ""
+        showSnackbar();
+        API_Request();
+    }
 
-    resetTimer();
-    document.getElementById("TABLE").innerHTML = "";
-    document.getElementById("myInput").value = "";
-    document.getElementById("FLAG").innerHTML = ""
-    startTimer();
-    showSnackbar();
-    API_Request();
-    return true;
+    return valid; // Allow form submission
 }
 
 
@@ -446,7 +428,6 @@ function downloadCSVFile(csv_data) {
         file_name = trade_type + "_" + date + "_district_" + district + ".csv";
     }
 
-
     // Download csv file 
     temp_link.download = file_name;
     var url = window.URL.createObjectURL(CSVFile);
@@ -458,10 +439,10 @@ function downloadCSVFile(csv_data) {
 
     // Automatically click the link to
     // trigger download
-    stopTimer();
     temp_link.click();
     document.body.removeChild(temp_link);
     document.getElementById("FLAG").innerHTML = '<p class="flag">' + file_name + ' has been saved to your downloads folder.</p>';
+    stopTimer();
 }
 
 
