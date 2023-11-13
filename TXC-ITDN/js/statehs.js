@@ -110,12 +110,12 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
 
     // Check if the value at index 4 is in the excludedValues array
     if (excludedValues.some(excludedValue => valueAtIndex3.includes(excludedValue))) {
-        API_DATA.splice(i, 1); // Remove the current row
-        continue;
+      API_DATA.splice(i, 1); // Remove the current row
+      continue;
     }
   }
 
-  
+
 
   return API_DATA;
 }
@@ -211,6 +211,27 @@ function makeTableHTML(myArray, rowsPerPage = 100) {
   });
 }
 
+/*function makeTableHTML(myArray) {
+  var result = '<table id="myTable" border=1>';
+  let loopCount = 101;
+  if (myArray.length < 101) {
+    loopCount = myArray.length;
+  }
+  for (var i = 0; i < loopCount; i++) {
+
+    result += '<tr class="header">';
+    for (var j = 0; j < myArray[i].length; j++) {
+      result += "<td>" + myArray[i][j] + "</td>";
+    }
+    result += "</tr>";
+
+  }
+  result += "</table>";
+
+  stopTimer();
+  return result;
+}*/
+
 
 // Convert to csv file seperated by '^'
 function arrayToCSV(array) {
@@ -237,8 +258,6 @@ function arrayToCSV(array) {
 
   downloadCSVFile(buf.join(""));
 }
-
-
 
 function downloadCSVFile(csv_data) {
 
