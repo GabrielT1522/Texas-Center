@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>TXC International Trade Data Navigator</title>
-    
-    <link rel="stylesheet" href="../css/bootsrap-min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/style-rk.min.css">
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="http://texascenter.tamiu.edu/images/home/txcfav.ico">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  </head>
-  <body>
-    <main>
-      <!-- TXC Main Navigation --> 
-		<nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
+  <title>TXC International Trade Data Navigator</title>
+
+  <link rel="stylesheet" href="../css/bootsrap-min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style-rk.min.css">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="http://texascenter.tamiu.edu/images/home/txcfav.ico">
+
+</head>
+
+<body>
+  <main>
+    <!-- TXC Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm ">
       <div class="container-fluid">
-          <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
-              <img src="../assets/logoPrimary.svg" alt="Texas Center Logo" height="52"></a>      
-              <ul class="navbar-nav ">
-                <a class="dropdown-item p-3" href="../index.html" role="button"data-bs-toggle="dropdown" aria-expanded="false">Home</a>
-                <a class="dropdown-item p-3" href="statehs.html" role="button"data-bs-toggle="dropdown" aria-expanded="false">State HS</a>
-              </ul>
+        <a class="navbar-brand" href="http://texascenter.tamiu.edu/index.shtml" target="_blank">
+          <img src="../assets/logoPrimary.svg" alt="Texas Center Logo" height="52"></a>
+        <ul class="navbar-nav ">
+          <a class="dropdown-item p-3" href="../index.html" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Home</a>
+          <a class="dropdown-item p-3" href="statehs.html" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">State HS</a>
+        </ul>
       </div>
-    </nav> 
+    </nav>
     <!-- end Navigation -->
-  
+
     <section class="layout">
       <div class="header">
-        <br/>
-        <h1><center>Texas Center International Trade Data Navigator</center></h1>
+        <br />
+        <h1>
+          <center>Texas Center International Trade Data Navigator</center>
+        </h1>
         <h2>Dataset Information</h2>
         <table>
           <tr>
@@ -45,65 +51,76 @@
           </tr>
           <tr>
             <td>Description</td>
-            <td>The Census data API provides access to the most comprehensive set of data on current month and cumulative year-to-date imports by state and Harmonized System (HS) code. The State HS endpoint in the Census data API also provides value, shipping weight, and method of transportation totals at the state level for all U.S. trading partners. The Census data API will help users research new markets for their products, establish pricing structures for potential export markets, and conduct economic planning. If you have any questions regarding U.S. international trade data, please call us at 1(800)549-0595 option #4 or email us at eid.international.trade.data@census.gov.
+            <td>The Census data API provides access to the most comprehensive set of data on current month and
+              cumulative year-to-date imports by state and Harmonized System (HS) code. The State HS endpoint in the
+              Census data API also provides value, shipping weight, and method of transportation totals at the state
+              level for all U.S. trading partners. The Census data API will help users research new markets for their
+              products, establish pricing structures for potential export markets, and conduct economic planning. If you
+              have any questions regarding U.S. international trade data, please call us at 1(800)549-0595 option #4 or
+              email us at eid.international.trade.data@census.gov.
             </td>
           </tr>
         </table>
-        <br/>
+        <br />
       </div>
       <h2>State Hormonized System Imports and Exports in Year</h2>
       <h3 id="title-date">From YEAR to YEAR</h3>
-      <br/>
+      <br />
       <div class="body">
         <form id="date-form" action="#" onsubmit="submitStateHS();return false">
           <div>
             <label for="start-year-input">Please enter the start year:</label>
-            <input type="number" id="start-year-input" min="2005" max="2022" step="1" required/>
+            <input type="number" id="start-year-input" min="2005" max="2022" step="1" required />
             <label for="end-year-input">Please enter the end year:</label>
-            <input type="number" id="end-year-input" min="2005" max="2022" step="1" required/>
+            <input type="number" id="end-year-input" min="2005" max="2022" step="1" required />
           </div>
 
           <div>
-              <input type="checkbox" id="make-table" name="make-table" />
-              <label for="make-table">Make Web Table</label>
-              <input type="checkbox" id="download" name="download" checked />
-              <label for="download">Download Data</label>
+            <!--<input type="checkbox" id="make-table" name="make-table" />
+              <label for="make-table">Make Web Table</label>-->
+            <input type="checkbox" id="download" name="download" checked />
+            <label for="download">Download Data</label>
             </select>
             <span class="validity"></span>
           </div>
-          <br/>
+          <br />
           <input type="submit" value="Submit">
         </form>
-
-        <h2>Search</h2>
-        <div name="search-by" >
-          <div class="timer" id="right">
-            <div id="snackbar">Please be aware, this request may take between 1 and 5 minutes depending on the year range.</div>
-            <h3>Time Elapsed:</h3>
-            <div id="timer">
-                <span class="digit" id="min"> 00</span>
-                <span class="txt">Min</span>
-                <span class="digit" id="sec"> 00</span>
-                <span class="txt">Sec</span>
-                <span class="digit" id="count"> 00</span>
-            </div>
+        <div class="timer" id="right">
+          <div id="snackbar">Please be aware, this request may take between 1 and 5 minutes depending on the year range.
+          </div>
+          <h3>Time Elapsed:</h3>
+          <div id="timer">
+            <span class="digit" id="min"> 00</span>
+            <span class="txt">Min</span>
+            <span class="digit" id="sec"> 00</span>
+            <span class="txt">Sec</span>
+            <span class="digit" id="count"> 00</span>
+          </div>
         </div>
+
+        <div id="FLAG"></div>
+        <div id="TABLE"></div>
+        <!--
+          <h2>Search</h2>
+        <div name="search-by" >
+          
         </div>
         <input type="text" id="myInput" onkeyup="filterSearch()" placeholder="Search...">
-        <div id="FLAG"></div>
         <div id="tableContainer">
-          <div id="TABLE"></div>
+         
         </div>
         <div id="pagination">
           <button id="previousButton" >Previous</button>
           <span id="currentPage"> Page 1 of 1 </span>
           <button id="nextButton" >Next</button>
         </div>
-        
+        -->
       </div>
     </section>
   </main>
-    <script type="text/javascript" src="../js/statehs.js"></script>
-    <script type="text/javascript" src="../js/script.js"></script>
-  </body>
+  <script type="text/javascript" src="../js/statehs.js"></script>
+  <script type="text/javascript" src="../js/script.js"></script>
+</body>
+
 </html>
