@@ -385,10 +385,6 @@ function validateForm() {
     return valid; // Allow form submission
 }
 
-
-
-// Convert to csv file seperated by '^'
-
 function arrayToCSV(array) {
     var buf = array.map(function (row) {
         row = row.map(function (str) {

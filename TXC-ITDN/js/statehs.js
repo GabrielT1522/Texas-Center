@@ -82,9 +82,9 @@ async function API_Request(startYear, endYear) {
 
     clearTimeout(timeout);
 
-    if (document.querySelector("#make-table").checked === true) {
-      document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
-    }
+   // if (document.querySelector("#make-table").checked === true) {
+     // document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
+    //}
 
     if (document.querySelector("#download").checked === true) {
       arrayToCSV(API_DATA);
@@ -253,7 +253,7 @@ function arrayToCSV(array) {
       }
       return str;
     });
-    return row.join("^") + "\x0D\x0A"; // Use a comma as the delimiter
+    return row.join(document.querySelector('input[name="delimiter"]:checked').value) + "\x0D\x0A"; // Use a comma as the delimiter
   });
 
   downloadCSVFile(buf.join(""));
