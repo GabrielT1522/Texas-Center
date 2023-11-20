@@ -1,7 +1,11 @@
 function showSnackbar(){
     var x = document.getElementById("snackbar");
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+function hideSnackbar(){
+    var x = document.getElementById("snackbar");
+    x.className = ("hide")
 }
 
 function displayError(error){

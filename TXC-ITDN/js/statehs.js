@@ -7,32 +7,47 @@ function startTimeout() {
 
 function timeoutMessage() {
   timeoutMessage = '<center><h2>You request has timed out.</h2><p>Please verify the fields.</p></center>';
-  if (document.querySelector("#download").checked === true) {
-    document.getElementById("FLAG").innerHTML = timeoutMessage;
-  } else if (document.querySelector("#make-table").checked === true) {
-    document.getElementById("TABLE").innerHTML = timeoutMessage;
-  }
+  document.getElementById("FLAG").innerHTML = timeoutMessage;
 }
 
 
 let startYear;
 let endYear;
-function submitStateHS() {
+function validateForm() {
+  let valid = true;
+  var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
+  var numericField = document.getElementById("commodityInput");
+  var inputValue = numericField.value;
+  var isCommodityRequired = !isCheckedAllCommodity;
   startYear = document.getElementById("start-year-input").value;
   endYear = document.getElementById("end-year-input").value;
-  document.getElementById("title-date").innerHTML = "From " + startYear + " to " + endYear;
-  startTimeout();
-  resetTimer();
-  document.getElementById("TABLE").innerHTML = '';
-  document.getElementById("FLAG").innerHTML = '';
-  if (document.querySelector("#download").checked === true) {
-    document.getElementById("FLAG").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
-  } else if (document.querySelector("#make-table").checked === true) {
-    document.getElementById("TABLE").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
+
+
+  // Set the "required" attribute based on the checkbox
+  numericField.required = isCommodityRequired;
+
+  if (isCommodityRequired) {
+    // If the checkbox is not checked, validate the input
+    if (/^\d+$/.test(inputValue) && inputValue.length <= 6 && inputValue.length % 2 === 0) {
+      valid = true; // Allow form submission
+    } else {
+      alert("Invalid commodity input. Please enter a numeric value with an even number of characters (up to 6 digits).");
+      valid = false; // Prevent form submission
+    }
   }
-  showSnackbar();
-  startTimer();
-  API_Request(startYear, endYear);
+  if (valid) {
+    resetTimer();
+    startTimeout();
+    startTimer();
+    document.getElementById("title-date").innerHTML = "From " + startYear + " to " + endYear;
+    document.getElementById("FLAG").innerHTML = '';
+    document.getElementById("FLAG").innerHTML = '<progress id="progress-bar" value="0" max="1"></progress>';
+    showSnackbar();
+    API_Request(startYear, endYear);
+  }
+
+  return valid; // Allow form submission
+
 }
 
 async function fetchAndCombineData(API_Call) {
@@ -50,45 +65,70 @@ async function fetchAndCombineData(API_Call) {
     throw error;
   }
 }
+var states = $('#stateInput').val();
+
+
 async function API_Request(startYear, endYear) {
+
   try {
-    API_counter = 0;
+    var API_counter = 0;
+    var states =  $('#stateInput').val();
+    
+    console.log('States:', states); // Log the value here
     totalCalls = 0;
     totalCalls = 2 * (12 * (endYear - startYear + 1)); // 12 months per year
     console.log(totalCalls);
     const tradeTypes = ['imports', 'exports'];
     const API_DATA = [];
-
+    
+    
     for (let year = startYear; year <= endYear; year++) {
       for (let month = 1; month <= 12; month++) {
         const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
+
         for (const tradeType of tradeTypes) {
           const dataField = tradeType === 'imports' ? 'GEN_VAL_MO' : 'ALL_VAL_MO';
-          const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}&MONTH=${formattedMonth}`;
-          console.log(API_Call);
-          try {
-            const data = await fetchAndCombineData(API_Call);
-            API_DATA.push(...buildArrayData(data, tradeType, API_counter));
-          } catch (error) {
-            // Handle and log errors for individual API calls, but continue with the next iteration.
-            console.error(`Error for year ${year}, month ${month}, and tradeType ${tradeType}: ${error.message}`);
-          }
+          // Loop through each selected state if the states array is not empty
+          if (states && states.length > 0) {
+            for (const state of states) {
+              const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}&MONTH=${formattedMonth}&STATE=${state}`;
+              console.log(API_Call);
+              
+              try {
+                const data = await fetchAndCombineData(API_Call);
+                API_DATA.push(...buildArrayData(data, tradeType, API_counter));
+              } catch (error) {
+                // Handle and log errors for individual API calls, but continue with the next iteration.
+                console.error(`Error for year ${year}, month ${month}, state ${state}, and tradeType ${tradeType}: ${error.message}`);
+              }
 
-          API_counter++;
-          document.getElementById("progress-bar").value = API_counter / totalCalls;
+              API_counter++;
+              document.getElementById("progress-bar").value = API_counter / totalCalls;
+            }
+          } else {
+            // If the states array is empty, make the API call without the STATE parameter
+            
+            const API_Call = `https://api.census.gov/data/timeseries/intltrade/${tradeType}/statehs?get=STATE,CTY_NAME,${dataField},CTY_CODE&key=${API_KEY}&YEAR=${year}&MONTH=${formattedMonth}`;
+            console.log(API_Call);
+            
+            try {
+              const data = await fetchAndCombineData(API_Call);
+              API_DATA.push(...buildArrayData(data, tradeType, API_counter));
+            } catch (error) {
+              // Handle and log errors for individual API calls, but continue with the next iteration.
+              console.error(`Error for year ${year}, month ${month}, and tradeType ${tradeType}: ${error.message}`);
+            }
+
+            API_counter++;
+            document.getElementById("progress-bar").value = API_counter / totalCalls;
+          }
         }
       }
     }
 
     clearTimeout(timeout);
 
-   // if (document.querySelector("#make-table").checked === true) {
-     // document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
-    //}
-
-    if (document.querySelector("#download").checked === true) {
-      arrayToCSV(API_DATA);
-    }
+    arrayToCSV(API_DATA);
   } catch (error) {
     displayError(error);
     throw error;
@@ -98,9 +138,10 @@ async function API_Request(startYear, endYear) {
 function buildArrayData(API_DATA, tradeType, headerCounter) {
   const excludedValues = getExcludedCountryCodes();
   API_DATA[0].splice(4, 0, "trade_type");
-  if (headerCounter > 1) {
-    // Delete the first row (header) if headerCounter is greater than 1
-    API_DATA.splice(0, 1);
+
+  // Remove the header if headerCounter is not 0
+  if (headerCounter !== 0) {
+    API_DATA.shift();
   }
 
   for (let i = API_DATA.length - 1; i >= 1; i--) {
@@ -111,15 +152,24 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
     // Check if the value at index 4 is in the excludedValues array
     if (excludedValues.some(excludedValue => valueAtIndex3.includes(excludedValue))) {
       API_DATA.splice(i, 1); // Remove the current row
-      continue;
     }
   }
-
-
 
   return API_DATA;
 }
 
+$(document).ready(function() {
+  $('#stateInput').selectpicker();
+
+  $('#stateInput').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+      var clearAllOption = $('#clear-all');
+
+      if (clearAllOption.is(':selected')) {
+          // If "Clear All" is selected, deselect all other options
+          $('#stateInput').selectpicker('deselectAll');
+      }
+  });
+});
 var currentPage = 0;
 var totalPages = 1; // Initialize totalPages as 1
 
@@ -232,7 +282,19 @@ function makeTableHTML(myArray, rowsPerPage = 100) {
   return result;
 }*/
 
-
+document.getElementById('all-commodity').onchange = function () {
+  if (this.checked == true) {
+    document.getElementById("make-table").disabled = true;
+    document.getElementById("make-table").checked = false;
+    document.getElementById("commodityInput").disabled = true;
+    document.getElementById("commodityInput").focus();
+    document.getElementById("commodityInput").value = "";
+  }
+  else {
+    document.getElementById("make-table").disabled = false;
+    document.getElementById("commodityInput").disabled = false;
+  }
+};
 // Convert to csv file seperated by '^'
 function arrayToCSV(array) {
   // Ensure data is an array of objects
@@ -287,6 +349,7 @@ function downloadCSVFile(csv_data) {
   temp_link.click();
   document.body.removeChild(temp_link);
   document.getElementById("FLAG").innerHTML = '<p class="flag">' + file_name + ' has been saved to your downloads folder.</p>';
+  hideSnackbar();
 }
 
 // Timer
