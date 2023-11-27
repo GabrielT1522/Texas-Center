@@ -147,7 +147,7 @@ background-color: #f1f1f1;
 }
 
 #snackbar.hide {
-  visibility: visible;
+  visibility: hidden;
   -webkit-animation:  fadeout 0.5s 2.5s;
   animation: fadeout 0.5s 2.5s;
 }

@@ -1,12 +1,18 @@
-function showSnackbar(){
+function showSnackbar() {
     var x = document.getElementById("snackbar");
     x.className = "show";
 }
 
-function hideSnackbar(){
+function hideSnackbar() {
     var x = document.getElementById("snackbar");
-    x.className = ("hide")
+    x.className = "hide";
+  
+    // After hiding, reset the class to remove the 'hide' class, allowing the snackbar to be shown again
+    setTimeout(function() {
+        x.className = "";
+    }, 2500); // Adjust the timeout to match the duration of your fadeout animation
 }
+
 
 function displayError(error){
     stopTimer();
