@@ -24,22 +24,47 @@ function timeoutMessage() {
     }
 }
 
-function makeTableHTML(myArray) {
-    var result = '<table id="myTable" border=1>';
-    for (var i = 0; i < myArray.length; i++) {
-
-        result += '<tr class="header">';
-        for (var j = 0; j < myArray[i].length; j++) {
-            result += "<td>" + myArray[i][j] + "</td>";
-        }
-        result += "</tr>";
-
+function getDateInput() {
+    if (document.getElementById("year-checkbox").checked) {
+        return document.getElementById("year-input").value;
+    } else {
+        return document.getElementById("date").value;
     }
-    result += "</table>";
-
-    stopTimer();
-    return result;
 }
+
+function getCommodityInput() {
+    commodity = document.getElementById("commodityInput").value;
+    if (commodity === "") {
+        return "COMM_LVL=HS6";
+    } else {
+        if (document.querySelector("#imports").checked) {
+            return "I_COMMODITY=" + commodity;
+        } else if (document.querySelector("#exports").checked) {
+            return "E_COMMODITY=" + commodity;
+        }
+    }
+}
+
+function getCommodityTypeInput() {
+    if (document.querySelector("#imports").checked) {
+        return "I";
+    } else if (document.querySelector("#exports").checked) {
+        return "E";
+    }
+}
+
+function getValueTypeInput() {
+    if (document.querySelector("#imports").checked) {
+        return "GEN_VAL_MO";
+    } else if (document.querySelector("#exports").checked) {
+        return "ALL_VAL_MO";
+    }
+}
+
+function getTradeTypeInput() {
+    return document.querySelector('input[name="port-type"]:checked').value;
+}
+
 
 async function fetchAndCombineData(API_Call) {
     try {
@@ -115,7 +140,6 @@ async function API_Request() {
         }
 
         buildArrayData(API_DATA, API_counter);
-        clearTimeout(timeout);
         if (document.querySelector("#make-table").checked === true) {
             document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
         }
@@ -123,10 +147,28 @@ async function API_Request() {
         if (document.querySelector("#download").checked === true) {
             arrayToCSV(API_DATA);
         }
+        clearTimeout(timeout);
+        stopTimer();
+        hideSnackbar();
     } catch (error) {
         displayError(error);
         throw error;
     }
+}
+
+function makeTableHTML(myArray) {
+    var result = '<table id="myTable" border=1>';
+    for (var i = 0; i < myArray.length; i++) {
+
+        result += '<tr class="header">';
+        for (var j = 0; j < myArray[i].length; j++) {
+            result += "<td>" + myArray[i][j] + "</td>";
+        }
+        result += "</tr>";
+
+    }
+    result += "</table>";
+    return result;
 }
 
 /*var API_DATA;
@@ -178,48 +220,6 @@ function buildArrayData(API_DATA, headerCounter) {
         API_DATA[i].splice(1, 0, dist_code, port_code);
         API_DATA[i].splice(6, 0, trade_type);
     }
-}
-
-
-function getDateInput() {
-    if (document.getElementById("year-checkbox").checked) {
-        return document.getElementById("year-input").value;
-    } else {
-        return document.getElementById("date").value;
-    }
-}
-
-function getCommodityInput() {
-    commodity = document.getElementById("commodityInput").value;
-    if (commodity === "") {
-        return "COMM_LVL=HS6";
-    } else {
-        if (document.querySelector("#imports").checked) {
-            return "I_COMMODITY=" + commodity;
-        } else if (document.querySelector("#exports").checked) {
-            return "E_COMMODITY=" + commodity;
-        }
-    }
-}
-
-function getCommodityTypeInput() {
-    if (document.querySelector("#imports").checked) {
-        return "I";
-    } else if (document.querySelector("#exports").checked) {
-        return "E";
-    }
-}
-
-function getValueTypeInput() {
-    if (document.querySelector("#imports").checked) {
-        return "GEN_VAL_MO";
-    } else if (document.querySelector("#exports").checked) {
-        return "ALL_VAL_MO";
-    }
-}
-
-function getTradeTypeInput() {
-    return document.querySelector('input[name="port-type"]:checked').value;
 }
 
 /*
@@ -438,7 +438,6 @@ function downloadCSVFile(csv_data) {
     temp_link.click();
     document.body.removeChild(temp_link);
     document.getElementById("FLAG").innerHTML = '<p class="flag">' + file_name + ' has been saved to your downloads folder.</p>';
-    stopTimer();
 }
 
 

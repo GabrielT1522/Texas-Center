@@ -7,9 +7,12 @@
 
   <title>TXC International Trade Data Navigator</title>
 
-  <link rel="stylesheet" href="css/bootsrap-min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/style-rk.min.css">
+
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="http://texascenter.tamiu.edu/images/home/txcfav.ico">
@@ -42,35 +45,43 @@
         <h2>Dataset Information</h2>
         <table>
           <tr>
-              <th>Property</th>
-              <th>Value</th>
+            <th>Property</th>
+            <th>Value</th>
           </tr>
           <tr>
-              <td>Imports API Title</td>
-              <td id="title">Time Series International Trade: Monthly U.S. Imports by Port and Harmonized System (HS) Code</td>
+            <td>Imports API Title</td>
+            <td id="title">Time Series International Trade: Monthly U.S. Imports by Port and Harmonized System (HS) Code
+            </td>
           </tr>
           <tr>
             <td>Exports API Title</td>
-            <td id="title">Time Series International Trade: Monthly U.S. Exports by Port and Harmonized System (HS) Code</td>
-        </tr>
-        <tr>
+            <td id="title">Time Series International Trade: Monthly U.S. Exports by Port and Harmonized System (HS) Code
+            </td>
+          </tr>
+          <tr>
             <td>Description</td>
-            <td id="description">The Census data API provides access to the most comprehensive set of data on current month and cumulative year-to-date imports by port and Harmonized System (HS) code. The Port HS endpoint in the Census data API also provides value, shipping weight, and method of transportation totals at the port level for all U.S. trading partners. The Census data API will help users research new markets for their products, establish pricing structures for potential export markets, and conduct economic planning. If you have any questions regarding U.S. international trade data, please call us at 1(800)549-0595 option #4 or email us at eid.international.trade.data@census.gov.</td>
-        </tr>
+            <td id="description">The Census data API provides access to the most comprehensive set of data on current
+              month and cumulative year-to-date imports by port and Harmonized System (HS) code. The Port HS endpoint in
+              the Census data API also provides value, shipping weight, and method of transportation totals at the port
+              level for all U.S. trading partners. The Census data API will help users research new markets for their
+              products, establish pricing structures for potential export markets, and conduct economic planning. If you
+              have any questions regarding U.S. international trade data, please call us at 1(800)549-0595 option #4 or
+              email us at eid.international.trade.data@census.gov.</td>
+          </tr>
 
-      </table>
-      
+        </table>
+
         <br />
       </div>
       <h2 id="title-date"></h2>
       <br />
       <div class="body">
         <form id="date-form" action="#" onsubmit="validateForm();return false">
-          <div >
+          <div>
             <h3>Trade Type:</h3>
-            <input type="radio" id="imports" name="port-type" value="imports" required/>
+            <input type="radio" id="imports" name="port-type" value="imports" required />
             <label for="imports">Imports</label>
-            <input type="radio" id="exports" name="port-type" value="exports" required/>
+            <input type="radio" id="exports" name="port-type" value="exports" required />
             <label for="exports">Exports</label>
           </div>
           <div>
@@ -86,30 +97,34 @@
           </div>
           <div>
             <div>
-            <h3>Options:</h3>
-            <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
-            <input type="checkbox" id="all-commodity" name="All Commodity" checked />
-            <input type="text" id="commodityInput" maxlength="6" disabled />
-          
-            <label for="district">Choose a District:</label>
-            <select name="district" id="DISTRICT">
-              <option value="All">All</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
+              <h3>Options:</h3>
+              <label for="commodityInput">Enter Commodity Code (Check box for all):</label>
+              <input type="checkbox" id="all-commodity" name="All Commodity" checked />
+              <input type="text" id="commodityInput" maxlength="6" disabled />
+              <div>
+                <label for="district">Choose a District:</label>
+                <select name="district" id="DISTRICT">
+                  <option value="All">All</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                </select>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" id="make-table" class="form-check-input" name="make-table" disabled />
+                <label for="make-table" class="form-check-label">Make Web Table</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" id="download" class="form-check-input" name="download" checked />
+                <label for="download" class="form-check-label">Download as CSV</label>
+              </div>
+            </div>
 
-            </select>
-          
-            <input type="checkbox" id="make-table" name="make-table" disabled />
-            <label for="make-table">Make Web Table</label>
-            <input type="checkbox" id="download" name="download" checked />
-            <label for="download">Download as CSV</label>
-          </div>
-          <h3>Choose file delimiter:</h3>
+            <h3>Choose file delimiter:</h3>
             <input type="radio" id="caret" name="delimiter" value="^" />
             <label for="caret">Caret <strong>'^'</strong> (Better for database)</label>
-            <input type="radio" id="comma" name="delimiter" value="," checked/>
+            <input type="radio" id="comma" name="delimiter" value="," checked />
             <label for="comma">Comma <strong>' , '</strong> (Better for excel)</label>
             <span class="validity"></span>
           </div>
@@ -150,6 +165,9 @@
       </div>
     </section>
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
 </body>
