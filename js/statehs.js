@@ -73,9 +73,13 @@ async function API_Request(startYear, endYear) {
     var API_counter = 0;
     var states = $('#stateInput').val();
     commodity = getCommodityInput();
-    console.log('States:', states); // Log the value here
+
     totalCalls = 0;
-    totalCalls = 2 * (12 * (endYear - startYear + 1)); // 12 months per year
+    numOfStates = 1;
+    if (states && states.length > 0) {
+      numOfStates = states.length;
+    }
+    totalCalls = numOfStates * 2 * (12 * (endYear - startYear + 1)); // 12 months per year
     console.log(totalCalls);
     const tradeTypes = ['imports', 'exports'];
     const API_DATA = [];
