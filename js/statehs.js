@@ -70,12 +70,12 @@ async function fetchAndCombineData(API_Call) {
 async function API_Request(startYear, endYear) {
 
   try {
-    var API_counter = 0;
-    var states = $('#stateInput').val();
+    let API_counter = 0;
+    let totalCalls = 0;
+    let numOfStates = 1;
+    let states = $('#stateInput').val();
     commodity = getCommodityInput();
-
-    totalCalls = 0;
-    numOfStates = 1;
+    
     if (states && states.length > 0) {
       numOfStates = states.length;
     }
@@ -108,10 +108,13 @@ async function API_Request(startYear, endYear) {
                 const data = await fetchAndCombineData(API_Call);
                 API_DATA.push(...buildArrayData(data, tradeType, API_counter));
               } catch (error) {
+                displayError(error);
+                return;
                 // Handle and log errors for individual API calls, but continue with the next iteration.
                 console.error(`Error for year ${year}, month ${month}, state ${state}, and tradeType ${tradeType}: ${error.message}`);
               }
-
+// https://api.census.gov/data/timeseries/intltrade/imports/statehs?get=STATE,CTY_NAME,GEN_VAL_MO,CTY_CODE,I_COMMODITY&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&I_COMMODITY=10&YEAR=2020&MONTH=01&STATE=HI
+// https://api.census.gov/data/timeseries/intltrade/exports/statehs?get=STATE,CTY_NAME,ALL_VAL_MO,CTY_CODE,E_COMMODITY&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&E_COMMODITY=10&YEAR=2020&MONTH=01&STATE=HI
               API_counter++;
               document.getElementById("progress-bar").value = API_counter / totalCalls;
             }
