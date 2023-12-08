@@ -54,7 +54,11 @@ background-color: #f1f1f1;
 
 .flag{
   font-style: italic;
-  color: gray;
+  color: green;
+}
+.flag-error{
+  font-style: italic;
+  color: red;
 }
 
 .loader {

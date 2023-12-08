@@ -16,7 +16,7 @@ function hideSnackbar() {
 
 function displayError(error){
     stopTimer();
-    document.getElementById("FLAG").innerHTML = '<p class="flag">ERROR: '+error+'.</p>';
+    document.getElementById("FLAG").innerHTML = '<p class="flag-error">'+error+'.</p>';
     console.error(error);
   }
 

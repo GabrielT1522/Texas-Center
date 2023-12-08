@@ -68,23 +68,20 @@ async function fetchAndCombineData(API_Call) {
 }
 
 async function API_Request(startYear, endYear) {
+  let API_counter = 0;
+  let totalCalls = 0;
+  let numOfStates = 1;
+  let states = $('#stateInput').val();
+  commodity = getCommodityInput();
 
+  if (states && states.length > 0) {
+    numOfStates = states.length;
+  }
+  totalCalls = numOfStates * 2 * (12 * (endYear - startYear + 1)); // 12 months per year
+  console.log(totalCalls);
+  const tradeTypes = ['imports', 'exports'];
+  const API_DATA = [];
   try {
-    var API_counter = 0;
-    var states = $('#stateInput').val();
-    commodity = getCommodityInput();
-
-    totalCalls = 0;
-    numOfStates = 1;
-    if (states && states.length > 0) {
-      numOfStates = states.length;
-    }
-    totalCalls = numOfStates * 2 * (12 * (endYear - startYear + 1)); // 12 months per year
-    console.log(totalCalls);
-    const tradeTypes = ['imports', 'exports'];
-    const API_DATA = [];
-
-
     for (let year = startYear; year <= endYear; year++) {
       for (let month = 1; month <= 12; month++) {
         const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
@@ -109,9 +106,10 @@ async function API_Request(startYear, endYear) {
                 API_DATA.push(...buildArrayData(data, tradeType, API_counter));
               } catch (error) {
                 // Handle and log errors for individual API calls, but continue with the next iteration.
-                console.error(`Error for year ${year}, month ${month}, state ${state}, and tradeType ${tradeType}: ${error.message}`);
+                console.error(`Error for API CALL: ${API_Call}`);
+                displayError("Please make sure that the commodity code is valid");
+                throw new Error(`Please make sure that the commodity code is valid`);
               }
-
               API_counter++;
               document.getElementById("progress-bar").value = API_counter / totalCalls;
             }
@@ -125,8 +123,9 @@ async function API_Request(startYear, endYear) {
               const data = await fetchAndCombineData(API_Call);
               API_DATA.push(...buildArrayData(data, tradeType, API_counter));
             } catch (error) {
-              // Handle and log errors for individual API calls, but continue with the next iteration.
-              console.error(`Error for year ${year}, month ${month}, and tradeType ${tradeType}: ${error.message}`);
+              console.error(`Error for API CALL: ${API_Call}`);
+              displayError("Please make sure that the commodity code is valid");
+              throw new Error(`Please make sure that the commodity code is valid`);
             }
 
             API_counter++;
@@ -135,7 +134,7 @@ async function API_Request(startYear, endYear) {
         }
       }
     }
-    
+
     //if (document.querySelector("#make-table").checked === true) {
     //document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
     //}
