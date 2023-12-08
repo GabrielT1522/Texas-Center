@@ -65,7 +65,6 @@ function getTradeTypeInput() {
     return document.querySelector('input[name="port-type"]:checked').value;
 }
 
-
 async function fetchAndCombineData(API_Call) {
     try {
         const response = await fetch(API_Call);
@@ -77,7 +76,6 @@ async function fetchAndCombineData(API_Call) {
         const data = await response.json();
         return data;
     } catch (error) {
-        displayError("TEST");
         throw error;
     }
 }
@@ -129,8 +127,8 @@ async function API_Request() {
                 } catch (error) {
                     // Handle and log errors for individual API calls, but continue with the next iteration.
                     console.error(`Error for API CALL: ${API_Call}`);
-                    displayError("Please make sure that commodity code is valid.");
-                    throw new Error(`Please make sure that commodity code is valid.`);
+                    displayError("Please make sure that commodity code is valid");
+                    throw new Error(`Please make sure that commodity code is valid`);
                 }
 
                 API_counter++;

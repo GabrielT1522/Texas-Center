@@ -68,23 +68,20 @@ async function fetchAndCombineData(API_Call) {
 }
 
 async function API_Request(startYear, endYear) {
+  let API_counter = 0;
+  let totalCalls = 0;
+  let numOfStates = 1;
+  let states = $('#stateInput').val();
+  commodity = getCommodityInput();
 
+  if (states && states.length > 0) {
+    numOfStates = states.length;
+  }
+  totalCalls = numOfStates * 2 * (12 * (endYear - startYear + 1)); // 12 months per year
+  console.log(totalCalls);
+  const tradeTypes = ['imports', 'exports'];
+  const API_DATA = [];
   try {
-    let API_counter = 0;
-    let totalCalls = 0;
-    let numOfStates = 1;
-    let states = $('#stateInput').val();
-    commodity = getCommodityInput();
-    
-    if (states && states.length > 0) {
-      numOfStates = states.length;
-    }
-    totalCalls = numOfStates * 2 * (12 * (endYear - startYear + 1)); // 12 months per year
-    console.log(totalCalls);
-    const tradeTypes = ['imports', 'exports'];
-    const API_DATA = [];
-
-
     for (let year = startYear; year <= endYear; year++) {
       for (let month = 1; month <= 12; month++) {
         const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
@@ -108,13 +105,11 @@ async function API_Request(startYear, endYear) {
                 const data = await fetchAndCombineData(API_Call);
                 API_DATA.push(...buildArrayData(data, tradeType, API_counter));
               } catch (error) {
-                displayError(error);
-                return;
                 // Handle and log errors for individual API calls, but continue with the next iteration.
-                console.error(`Error for year ${year}, month ${month}, state ${state}, and tradeType ${tradeType}: ${error.message}`);
+                console.error(`Error for API CALL: ${API_Call}`);
+                displayError("Please make sure that the commodity code is valid");
+                throw new Error(`Please make sure that the commodity code is valid`);
               }
-// https://api.census.gov/data/timeseries/intltrade/imports/statehs?get=STATE,CTY_NAME,GEN_VAL_MO,CTY_CODE,I_COMMODITY&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&I_COMMODITY=10&YEAR=2020&MONTH=01&STATE=HI
-// https://api.census.gov/data/timeseries/intltrade/exports/statehs?get=STATE,CTY_NAME,ALL_VAL_MO,CTY_CODE,E_COMMODITY&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&E_COMMODITY=10&YEAR=2020&MONTH=01&STATE=HI
               API_counter++;
               document.getElementById("progress-bar").value = API_counter / totalCalls;
             }
@@ -128,8 +123,9 @@ async function API_Request(startYear, endYear) {
               const data = await fetchAndCombineData(API_Call);
               API_DATA.push(...buildArrayData(data, tradeType, API_counter));
             } catch (error) {
-              // Handle and log errors for individual API calls, but continue with the next iteration.
-              console.error(`Error for year ${year}, month ${month}, and tradeType ${tradeType}: ${error.message}`);
+              console.error(`Error for API CALL: ${API_Call}`);
+              displayError("Please make sure that the commodity code is valid");
+              throw new Error(`Please make sure that the commodity code is valid`);
             }
 
             API_counter++;
@@ -138,7 +134,7 @@ async function API_Request(startYear, endYear) {
         }
       }
     }
-    
+
     //if (document.querySelector("#make-table").checked === true) {
     //document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
     //}
