@@ -127,8 +127,8 @@ async function API_Request() {
                 } catch (error) {
                     // Handle and log errors for individual API calls, but continue with the next iteration.
                     console.error(`Error for API CALL: ${API_Call}`);
-                    displayError("Please make sure that commodity code is valid");
-                    throw new Error(`Please make sure that commodity code is valid`);
+                    displayError("Please make sure that commodity code is valid. There may not be any data in this request");
+                    throw new Error(`Please make sure that commodity code is valid. There may not be any data in this request`);
                 }
 
                 API_counter++;
