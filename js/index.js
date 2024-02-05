@@ -16,7 +16,7 @@ function startTimeout() {
 }
 
 function timeoutMessage() {
-    timeoutMessage = '<center><h2>You request has timed out.</h2><p>Please verify the fields.</p></center>';
+    timeoutMessage = '<center><h2>Your request has timed out.</h2><p>Please verify the fields.</p></center>';
     if (document.querySelector("#download").checked === true) {
         document.getElementById("FLAG").innerHTML = timeoutMessage;
     } else if (document.querySelector("#make-table").checked === true) {
@@ -168,14 +168,6 @@ function makeTableHTML(myArray) {
     return result;
 }
 
-/*var API_DATA;
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-        buildArrayData(JSON.parse(xhttp.responseText), 0);
-    }
-};*/
-
 function buildArrayData(API_DATA, headerCounter) {
     const excludedValues = getExcludedCountryCodes();
 
@@ -218,72 +210,6 @@ function buildArrayData(API_DATA, headerCounter) {
         API_DATA[i].splice(6, 0, trade_type);
     }
 }
-
-/*
-let district;
-function xhttpRequest() {
-    startTimeout();
-    calendarField = document.getElementById("date").value;
-    yearField = document.getElementById("year-input").value;
-    let valid = false;
-    let API_Call = "";
-    district = document.getElementById("DISTRICT").value;
-    commodity = document.getElementById("commodityInput").value;
-
-    if (commodity === "") {
-        commodity = "COMM_LVL=HS6";
-    } else {
-        if (document.querySelector("#imports").checked) {
-            commodity = "I_COMMODITY=" + commodity;
-        } else if (document.querySelector("#exports").checked) {
-            commodity = "E_COMMODITY=" + commodity;
-        }
-    }
-
-
-
-    if (document.querySelector("#imports").checked && document.querySelector("#exports").checked) {
-        alert("Please select only one trade type.")
-    } else if (document.querySelector("#imports").checked) {
-        if (document.getElementById("year-checkbox").checked) {
-            API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=YEAR,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&" + commodity + "&PORT=" + district + "*&YEAR=" + yearField;
-            document.getElementById("title-date").innerHTML = "District " + district + " Imports in " + yearField;
-        } else {
-            API_Call = "https://api.census.gov/data/timeseries/intltrade/imports/porths?get=MONTH,I_COMMODITY,CTY_NAME,GEN_VAL_MO,PORT_NAME,CTY_CODE,I_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&" + commodity + "&PORT=" + district + "*&time=" + calendarField;
-            document.getElementById("title-date").innerHTML = "District " + district + " Imports in " + calendarField;
-        }
-        valid = true;
-        populateTable("https://api.census.gov/data/timeseries/intltrade/imports/porths");
-
-    } else if (document.querySelector("#exports").checked) {
-        if (document.getElementById("year-checkbox").checked) {
-            API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=YEAR,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&" + commodity + "&PORT=" + district + "*&YEAR=" + yearField;
-            document.getElementById("title-date").innerHTML = "District " + district + " Exports in " + yearField;
-        } else {
-            API_Call = "https://api.census.gov/data/timeseries/intltrade/exports/porths?get=MONTH,E_COMMODITY,CTY_NAME,ALL_VAL_MO,PORT_NAME,CTY_CODE,E_COMMODITY_SDESC&key=e4708f39876f8f6fb9140bbf0210aecfab34f0c3&" + commodity + "&PORT=" + district + "*&time=" + calendarField;
-            document.getElementById("title-date").innerHTML = "District " + district + " Exports in " + calendarField;
-        }
-        valid = true;
-        populateTable("https://api.census.gov/data/timeseries/intltrade/exports/porths");
-    } else {
-        alert("Please select a trade type.")
-    }
-
-    if (valid) {
-        resetTimer();
-        document.getElementById("TABLE").innerHTML = '';
-
-        startTimer();
-        if (document.getElementById("year-checkbox").checked) {
-            showSnackbar();
-            yearRequest();
-        } else {
-            xhttp.open("GET", API_Call, true);
-            xhttp.send();
-        }
-        document.getElementById("myInput").value = "";
-    }
-}*/
 
 function searchBy(value) {
     localStorage.setItem("searchBy", value)
