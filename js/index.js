@@ -88,45 +88,51 @@ async function fetchAndCombineData(API_Call) {
 // Build the API Request depending on the parameters
 async function API_Request() {
     try {
+        // Initialize variables based on parameters
         const trade_type = getTradeTypeInput();
         const date = getDateInput();
         const commodity = getCommodityInput();
         const commodityType = getCommodityTypeInput();
         const valueType = getValueTypeInput();
         const progressBar = document.getElementById("progress-bar");
-        const distictValue = document.getElementById("DISTRICT").value;
+        const districtValue = document.getElementById("DISTRICT").value;
         let API_counter = 0;
         let totalCalls = 0
         progressBar.value = 0;
+
+        // If the year request checkbox is checked, initialize months to 12
         if (document.getElementById("year-checkbox").checked) {
             year = date;
             startMonth = 1;
             endMonth = 12;
             totalCalls = 12;
-        } else {
+        } else { // else split the date to month and year
             [year, month] = date.split('-');
             startMonth = month;
             endMonth = month;
             totalCalls = 1;
         }
 
-        if (distictValue == "All") {
+        // If all district values are selected, districts 23, 24, 25, and 26 will be in the API call
+        if (districtValue == "All") {
             document.getElementById("title-date").innerHTML = `Districts 23, 24, 25, and 26 ${trade_type} in ${date}`;
             startDistrict = 23;
             endDistrict = 26;
             totalCalls *= 4;
-        } else {
-            document.getElementById("title-date").innerHTML = `District ${distictValue} ${trade_type} in ${date}`;
-            startDistrict = distictValue;
-            endDistrict = distictValue;
+        } else { // Only the selected district will be in the API call
+            document.getElementById("title-date").innerHTML = `District ${districtValue} ${trade_type} in ${date}`;
+            startDistrict = districtValue;
+            endDistrict = districtValue;
         }
         const API_DATA = [];
-        for (let district = startDistrict; district <= endDistrict; district++) {
-            for (let month = startMonth; month <= endMonth; month++) {
+        for (let district = startDistrict; district <= endDistrict; district++) { // Iterate through the district(s)
+            for (let month = startMonth; month <= endMonth; month++) { // Iterate through the month(s)
                 const formattedMonth = String(month).padStart(2, '0'); // Ensure two digits for month
+                // Initialize the appropriate API call
                 const API_Call = `https://api.census.gov/data/timeseries/intltrade/${trade_type}/porths?get=${commodityType}_COMMODITY,CTY_NAME,${valueType},PORT_NAME,CTY_CODE,${commodityType}_COMMODITY_SDESC&key=${API_KEY}&${commodity}&PORT=${district}*&YEAR=${year}&MONTH=${formattedMonth}`;
                 console.log(API_Call);
                 try {
+                    // Combine the API data arrays to one array
                     const data = await fetchAndCombineData(API_Call);
                     API_DATA.push(...data);
                 } catch (error) {
