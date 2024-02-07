@@ -1,7 +1,11 @@
+// This index.js file adds the functionality specific to the index.html file
+
+// API Key can be requested through here: https://api.census.gov/data/key_signup.html
 const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
 
 let timeout;
 
+// Start a timeout if the request takes too long depending on the type
 function startTimeout() {
     if (document.getElementById("year-checkbox").checked) {
         timeout = setTimeout(timeoutMessage, 600000);
@@ -15,6 +19,7 @@ function startTimeout() {
     }
 }
 
+// set the timeout message in the appropriate location
 function timeoutMessage() {
     timeoutMessage = '<center><h2>Your request has timed out.</h2><p>Please verify the fields.</p></center>';
     if (document.querySelector("#download").checked === true) {
@@ -80,6 +85,7 @@ async function fetchAndCombineData(API_Call) {
     }
 }
 
+// Build the API Request depending on the parameters
 async function API_Request() {
     try {
         const trade_type = getTradeTypeInput();
@@ -123,7 +129,6 @@ async function API_Request() {
                 try {
                     const data = await fetchAndCombineData(API_Call);
                     API_DATA.push(...data);
-                    //API_DATA.push(...buildArrayData(data, API_counter));
                 } catch (error) {
                     // Handle and log errors for individual API calls, but continue with the next iteration.
                     console.error(`Error for API CALL: ${API_Call}`);
@@ -136,6 +141,7 @@ async function API_Request() {
             }
         }
 
+        // Build the data array from the API
         buildArrayData(API_DATA, API_counter);
         if (document.querySelector("#make-table").checked === true) {
             document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
@@ -153,6 +159,7 @@ async function API_Request() {
     }
 }
 
+// Convert a 2x2 array to an html table
 function makeTableHTML(myArray) {
     var result = '<table id="myTable" border=1>';
     for (var i = 0; i < myArray.length; i++) {
@@ -168,6 +175,7 @@ function makeTableHTML(myArray) {
     return result;
 }
 
+// Build the data array from the API
 function buildArrayData(API_DATA, headerCounter) {
     const excludedValues = getExcludedCountryCodes();
 
@@ -216,6 +224,7 @@ function searchBy(value) {
     document.getElementById("myInput").value = "";
 }
 
+// Filter the search depending on the selected variable
 function filterSearch() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("myInput");
@@ -237,6 +246,7 @@ function filterSearch() {
     }
 }
 
+// Toggle if all commodities are requested, a table will not be formed due to large data
 document.getElementById('all-commodity').onchange = function () {
     if (this.checked == true) {
         document.getElementById("make-table").disabled = true;
@@ -251,6 +261,7 @@ document.getElementById('all-commodity').onchange = function () {
     }
 };
 
+// Check if a yearly request ot monthly request is needed
 function yearCheckbox() {
     var isCheckedYearInput = document.getElementById("year-checkbox").checked;
     var calenderField = document.getElementById("date");
@@ -275,6 +286,7 @@ function yearCheckbox() {
     }
 }
 
+// Validate the form based on requested parameters
 function validateForm() {
     let valid = true;
     var isCheckedAllCommodity = document.getElementById("all-commodity").checked;
@@ -308,6 +320,7 @@ function validateForm() {
     return valid; // Allow form submission
 }
 
+// Convert an array to CSV
 function arrayToCSV(array) {
     var buf = array.map(function (row) {
         row = row.map(function (str) {
@@ -326,6 +339,7 @@ function arrayToCSV(array) {
     downloadCSVFile(buf.join(""));
 }
 
+// Download the CSV file
 function downloadCSVFile(csv_data) {
 
     // Create CSV file object and feed

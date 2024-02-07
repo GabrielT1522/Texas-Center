@@ -1,3 +1,5 @@
+// This script.js file adds the functionality that all javascript files share
+
 function showSnackbar() {
     var x = document.getElementById("snackbar");
     x.className = "show";
@@ -6,22 +8,20 @@ function showSnackbar() {
 function hideSnackbar() {
     var x = document.getElementById("snackbar");
     x.className = "hide";
-  
+
     // After hiding, reset the class to remove the 'hide' class, allowing the snackbar to be shown again
-    setTimeout(function() {
+    setTimeout(function () {
         x.className = "";
     }, 2500); // Adjust the timeout to match the duration of your fadeout animation
 }
 
-
-function displayError(error){
+function displayError(error) {
     stopTimer();
-    document.getElementById("FLAG").innerHTML = '<p class="flag-error">'+error+'.</p>';
+    document.getElementById("FLAG").innerHTML = '<p class="flag-error">' + error + '.</p>';
     console.error(error);
-  }
+}
 
-  function fetchJSONData(url) {
-
+function fetchJSONData(url) {
     const jsonURL = url;
     return fetch(jsonURL)
         .then(response => response.json())
@@ -31,6 +31,7 @@ function displayError(error){
 
 }
 
+// Populate the table information 
 async function populateTable(url) {
     try {
         const JSONdata = await fetchJSONData(url);
@@ -49,6 +50,7 @@ async function populateTable(url) {
     }
 }
 
-function getExcludedCountryCodes(){
+// return an array of the country codes that need to be excluded from the API request
+function getExcludedCountryCodes() {
     return ["0003", "0014", "0017", "0020", "0021", "0022", "0023", "0024", "0025", "0026", "0027", "0028", "1XXX", "2XXX", "3XXX", "4XXX", "5XXX", "6XXX", "7XXX", "-"];
 }

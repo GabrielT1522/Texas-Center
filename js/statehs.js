@@ -1,3 +1,6 @@
+// This state.js file adds the functionality specific to the state.html file
+
+// API Key can be requested through here: https://api.census.gov/data/key_signup.html
 const API_KEY = "e4708f39876f8f6fb9140bbf0210aecfab34f0c3";
 
 let timeout;
@@ -24,10 +27,7 @@ function validateForm() {
 
 
   // Set the "required" attribute based on the checkbox
-  //numericField.required = isCommodityRequired;
 
-  //if (isCommodityRequired) {
-  // If the checkbox is not checked, validate the input
   if ((inputValue === "" || (/^\d+$/.test(inputValue) && inputValue.length <= 6 && inputValue.length % 2 === 0))) {
     valid = true; // Allow form submission
   } else {
@@ -35,7 +35,7 @@ function validateForm() {
     valid = false; // Prevent form submission
   }
 
-  //}
+
   if (valid) {
     resetTimer();
     startTimeout();
@@ -67,7 +67,9 @@ async function fetchAndCombineData(API_Call) {
   }
 }
 
+// Make multiple API Requested based on a year range
 async function API_Request(startYear, endYear) {
+  // Initialize count values
   let API_counter = 0;
   let totalCalls = 0;
   let numOfStates = 1;
@@ -78,9 +80,10 @@ async function API_Request(startYear, endYear) {
     numOfStates = states.length;
   }
   totalCalls = numOfStates * 2 * (12 * (endYear - startYear + 1)); // 12 months per year
-  console.log(totalCalls);
+
+  console.log(totalCalls); // Print to console to verify the total amount of API calls to make
   const tradeTypes = ['imports', 'exports'];
-  const API_DATA = [];
+  const API_DATA = []; // Initialize where the API Data will be stored
   try {
     for (let year = startYear; year <= endYear; year++) {
       for (let month = 1; month <= 12; month++) {
@@ -135,9 +138,6 @@ async function API_Request(startYear, endYear) {
       }
     }
 
-    //if (document.querySelector("#make-table").checked === true) {
-    //document.getElementById("TABLE").innerHTML = makeTableHTML(API_DATA);
-    //}
 
     if (document.querySelector("#download").checked === true) {
       arrayToCSV(API_DATA);
@@ -159,6 +159,7 @@ function getCommodityInput(commodityType) {
   }
 }
 
+// Build and clean the data from the API requests
 function buildArrayData(API_DATA, tradeType, headerCounter) {
 
   const excludedValues = getExcludedCountryCodes();
@@ -167,9 +168,6 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
 
   for (let i = API_DATA.length - 1; i >= 1; i--) {
     API_DATA[i].splice(4, 0, tradeType);
-
-
-
 
     // Check if the value at index 4 is in the excludedValues array
     const valueAtIndex3 = API_DATA[i][3];
@@ -184,6 +182,7 @@ function buildArrayData(API_DATA, tradeType, headerCounter) {
   return API_DATA;
 }
 
+// Behavior for the STATE dropdown 
 $(document).ready(function () {
   $('#stateInput').selectpicker();
 
@@ -197,6 +196,7 @@ $(document).ready(function () {
   });
 });
 
+// Convert a 2x2 array to HTML
 function makeTableHTML(myArray) {
   var loop = 101;
   if (myArray.length < loop) {
@@ -218,7 +218,7 @@ function makeTableHTML(myArray) {
   return result;
 }
 
-// Convert to csv file seperated by '^'
+// Convert to csv file with the selected delimiter
 function arrayToCSV(array) {
   // Ensure data is an array of objects
   if (!Array.isArray(array) || array.length === 0) {
@@ -244,17 +244,18 @@ function arrayToCSV(array) {
   downloadCSVFile(buf.join(""));
 }
 
+// Download the CSV file 
 function downloadCSVFile(csv_data) {
-
   // Create CSV file object and feed
   // our csv_data into it
   CSVFile = new Blob([csv_data], {
     type: "text/csv"
   });
 
-  // Create to temporary link to initiate
-  // download process
+  // Create to temporary link to initiate the download process
   var temp_link = document.createElement('a');
+
+  // Initialize the name of the file
   file_name = "statehs_" + startYear + "-" + endYear + ".csv"
 
   // Download csv file 
